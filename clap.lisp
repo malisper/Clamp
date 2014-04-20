@@ -9,7 +9,7 @@
   "A predicate for testing whether a list has only one element"
   (and (isa xs 'cons) (no (cdr xs))))
 
-(mac lf (&rest rest)
+(mac lf (&body rest)
   "Cond but doesn't require parens for each clause"
   (cond ((no rest) nil)
         ((single rest) (car rest))
@@ -89,3 +89,48 @@
   (lf (> a b)
       '()
       (cons a (range (1+ a) b))))
+
+(def mappend (f xs)
+  "Joins the results of mapping f over xs"
+  (apply #'join (mapf f xs)))
+
+(mac w/uniq (names &body body)
+  "binds each element in names (or names if it is just a symbol), with
+   a unique symbol"
+  (lf (isa names 'cons)
+      `(with ,(mappend (fn (n) `(,n (uniq (symbol-name ',n))))
+		       names)
+	 ,@body)
+      `(lets ,names (uniq (symbol-name ',names)) ,@body))) ; want to add better way to convert from symbol
+
+(mac lflet (var expr &body branches)
+  "Same as lf but if a predicate is true, it is bound to var"
+  (lf branches
+      (w/uniq gv
+	`(lets ,gv ,expr
+	   (lf ,gv
+	       (lets ,var ,gv
+		 ,(car branches))
+	       ,(lf (cdr branches)
+		    `(lflet ,var ,@(cdr branches))))))
+      expr))
+
+(mac whenlet (var expr &body body)
+  "analog of lflet but for when"
+  `(lflet ,var ,expr (progn ,@body))) ; change name of progn
+
+(mac alf (expr &body branches)
+   "lflet but uses 'it' for var"
+  `(lflet it ,expr ,@branches))
+
+(mac awhen (expr &body body)
+   "analog of alf but for when"
+  `(lets it ,expr (lf it (progn ,@body)))) ; change name of progn
+
+(mac aand (&rest args)
+  (lf (no args)
+        t
+      (no (cdr args))
+        (car args)
+      'else
+        `(lets it ,(car args) (and it (aand ,@(cdr args))))))
