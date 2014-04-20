@@ -1,4 +1,4 @@
-(load "defalias.lisp")
+(load "./defalias.lisp")
 
 (defalias fn lambda)
 (defalias def defun)
@@ -21,3 +21,4 @@
 (defalias rand random)
 (defalias trunc truncate)
 (defalias join append)
+(defalias cut subseq)
