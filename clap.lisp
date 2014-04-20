@@ -53,7 +53,7 @@
      #',name))
 
 (mac afn (parms &body body)
-  "Creates a recursive function whcih can refer to itself through 'self'"
+  "Creates a recursive function which can refer to itself through 'self'"
   `(labels ((self ,parms ,@body))
      #'self))
 
