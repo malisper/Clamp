@@ -7,7 +7,7 @@
 
 (def single (xs)
   "A predicate for testing whether a list has only one element"
-  (and (isa xs 'cons) (no (cdr xs))))
+  (and (consp x) (no (cdr xs))))
 
 (def pair (xs &optional (f #'list))
   "Applies a function f to every two elements in xs"
@@ -53,7 +53,7 @@
 (def testify (x)
   "If passed a function, returns it. Otherwise returns a function which
    tests equality for the object passed"
-  (lf (isa x 'function) x (fn (y) (iso y x))))
+  (lf (functionp x) x (fn (y) (iso y x))))
 
 (mac rec (withses &body body)
   "Same as loop in Anarki. Look for use cases"
@@ -90,7 +90,7 @@
 (mac w/uniq (names &body body)
   "binds each element in names (or names if it is just a symbol), with
    a unique symbol"
-  (lf (isa names 'cons)
+  (lf (consp names)
       `(with ,(mappend (fn (n) `(,n (uniq (symbol-name ',n))))
 		       names)
 	 ,@body)
