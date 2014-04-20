@@ -20,3 +20,4 @@
 (defalias table make-hash-table)
 (defalias rand random)
 (defalias trunc truncate)
+(defalias join append)
