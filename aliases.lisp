@@ -10,6 +10,7 @@
 (defalias is eql)
 (defalias iso equalp)
 (defalias no not)
+(defalias len length)
 (defalias mapf mapcar)
 (defalias isa typep)
 (defalias uniq gensym)
@@ -17,3 +18,5 @@
 (defalias odd oddp)
 (defalias dedup remove-duplicates)
 (defalias table make-hash-table)
+(defalias rand random)
+(defalias trunc truncate)
