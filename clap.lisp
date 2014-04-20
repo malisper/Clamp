@@ -3,29 +3,22 @@
 ;;;; write the rest of the functions from arc
 ;;;; figure out why code won't compile
 
-(load "aliases.lisp")
+(load "./aliases.lisp")
 
 (def single (xs)
   "A predicate for testing whether a list has only one element"
   (and (isa xs 'cons) (no (cdr xs))))
 
-(mac lf (&body rest)
-  "Cond but doesn't require parens for each clause"
-  (cond ((no rest) nil)
-        ((single rest) (car rest))
-	('else `(if ,(car rest)
-		    ,(cadr rest)
-		    (lf ,@(cddr rest))))))
-
 (def pair (xs &optional (f #'list))
   "Applies a function f to every two elements in xs"
-  (lf (no xs)
-        nil
-      (no (cdr xs))
-        (list (list (car xs)))
-      'else
-        (cons (funcall f (car xs) (cadr xs))
-	      (pair (cddr xs) f))))
+  (cond ((no xs) '())
+	((single xs) (list (list (car xs))))
+	('else (cons (funcall f (car xs) (cadr xs))
+		     (pair (cddr xs) f)))))
+
+(mac lf (&body rest)
+  "Cond but doesn't require parens for each clause"
+  `(cond ,@(pair rest)))
 
 (mac with (parms &body body)
   "Let but doesn't require parens for each binding"
