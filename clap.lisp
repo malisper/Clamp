@@ -132,7 +132,7 @@
 
 (def memo (f)
   "Returns a memoized version of the function f"
-  (lets cache (table :test #'equalp)
+  (lets cache (table :test #'iso)
     (fn (&rest args)
       (or (gethash args cache)
 	  (setf (gethash args cache)
