@@ -7,7 +7,7 @@
 
 (def single (xs)
   "A predicate for testing whether a list has only one element"
-  (and (consp x) (no (cdr xs))))
+  (and (consp xs) (no (cdr xs))))
 
 (def pair (xs &optional (f #'list))
   "Applies a function f to every two elements in xs"
@@ -122,10 +122,23 @@
 
 (mac aand (&rest args)
   "Evaluates each argument one by one. Binds the result of the previous
-   expression to 'it'"
+   expression to 'it'. Otherwise the same as and"
   (lf (no args)
         t
       (no (cdr args))
         (car args)
       'else
         `(lets it ,(car args) (and it (aand ,@(cdr args))))))
+
+(def memo (f)
+  "Returns a memoized version of the function f"
+  (lets cache (table :test #'equalp)
+    (fn (&rest args)
+      (or (gethash args cache)
+	  (setf (gethash args cache)
+		(apply f args))))))
+
+(mac defmemo (name args &body body)
+  "Defines a memoized function"
+  `(setf (symbol-function ',name)
+	 (memo (fn ,args ,@body))))
