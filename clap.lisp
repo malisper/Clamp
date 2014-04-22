@@ -121,7 +121,7 @@
   `(lets it ,expr (lf it (progn ,@body)))) ; change name of progn
 
 (mac aand (&rest args)
-  "Evaluates each argument one by one. Binds the result of the previos
+  "Evaluates each argument one by one. Binds the result of the previous
    expression to 'it'"
   (lf (no args)
         t
