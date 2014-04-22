@@ -88,7 +88,7 @@
   (apply #'join (mapf f xs)))
 
 (mac w/uniq (names &body body)
-  "binds each element in names (or names if it is just a symbol), with
+  "Binds each element in names (or names if it is just a symbol), with
    a unique symbol"
   (lf (consp names)
       `(with ,(mappend (fn (n) `(,n (uniq (symbol-name ',n))))
@@ -109,7 +109,7 @@
       expr))
 
 (mac whenlet (var expr &body body)
-  "analog of lflet but for when"
+  "Analog of lflet but for when"
   `(lflet ,var ,expr (progn ,@body))) ; change name of progn
 
 (mac alf (expr &body branches)
@@ -117,10 +117,12 @@
   `(lflet it ,expr ,@branches))
 
 (mac awhen (expr &body body)
-   "analog of alf but for when"
+   "Analog of alf but for when"
   `(lets it ,expr (lf it (progn ,@body)))) ; change name of progn
 
 (mac aand (&rest args)
+  "Evaluates each argument one by one. Binds the result of the previos
+   expression to 'it'"
   (lf (no args)
         t
       (no (cdr args))
