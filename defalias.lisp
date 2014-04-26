@@ -26,5 +26,5 @@
 (defun make-fn (new old)
   "Generates the code for making new and old the same function"
   `(setf (documentation ',new 'function) (documentation ',old 'function)
-	 (symbol-function ',new) #',old))
+	 (symbol-function ',new) (symbol-function ',old)))
 
