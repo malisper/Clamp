@@ -15,8 +15,8 @@
 (defun make-macro (new old)
   "Generates the code for making new and old the same macro"
   (let ((rest (gensym "rest")))
-    `(progn (setf (documentation ',old 'function) (documentation ',new 'function))
-	    (defmacro ,new (&rest ,rest)
+    `(progn (setf (documentation ',new 'function) (documentation ',old 'function))
+	    (defmacro ,new (&rest ,rest) ; need this for weird edge cases such as fn -> lambda
 	      (cons ',old ,rest)))))
 
 (defun fnp (x)
