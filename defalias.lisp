@@ -16,7 +16,7 @@
   "Generates the code for making new and old the same macro"
   (let ((rest (gensym "rest")))
     `(progn (setf (documentation ',new 'function) (documentation ',old 'function))
-	    (defmacro ,new (&rest ,rest) ; need this for weird edge cases such as fn -> lambda
+	    (defmacro ,new (&rest ,rest) ; need this for weird edge cases such as lambda
 	      (cons ',old ,rest)))))
 
 (defun fnp (x)
