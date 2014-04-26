@@ -3,7 +3,7 @@
 ;;;; write the rest of the functions from arc
 ;;;; figure out why code won't compile
 
-(load "./aliases.lisp")
+(load "aliases.lisp")
 
 (def single (xs)
   "A predicate for testing whether a list has only one element"
@@ -24,15 +24,15 @@
   "Let but doesn't require parens for each binding"
   `(let ,(pair parms) ,@body))
 
-(mac lets (var val &body body)
+(mac let1 (var val &body body)
   "Let but with only one variable (no parens)"
   `(let ((,var ,val)) ,@body))
 
 (mac ret (var val &body body)
-  "Lets but the result of the expression is the final value of the variable"
-  `(lets ,var ,val ,@body ,var))
+  "Let1 but the result of the expression is the final value of the variable"
+  `(let1 ,var ,val ,@body ,var))
 
-(mac flets (name args fbody &body body)
+(mac flet1 (name args fbody &body body)
   "Flet but with only one binding (no parens)"
   `(flet ((,name ,args ,fbody)) ,@body))
 
@@ -57,14 +57,14 @@
 
 (mac rec (withses &body body)
   "Same as loop in Anarki. Look for use cases"
-  (lets w (pair withses)
+  (let1 w (pair withses)
     `(funcall (rfn recur ,(mapf #'car w) ,@body) ,@(mapf #'cadr w))))
 
 (def del (test xs)
   "Deletes all of the elements that pass test in the list xs. If test
    is a function all objects passing the test are removed. If test is
    anything else, all objects iso with it are removed"
-  (lets f (testify test)
+  (let1 f (testify test)
     (rec (xs xs)
       (lf (no xs)
 	    '()
@@ -94,15 +94,15 @@
       `(with ,(mappend (fn (n) `(,n (uniq (symbol-name ',n))))
 		       names)
 	 ,@body)
-      `(lets ,names (uniq (symbol-name ',names)) ,@body))) ; want to add better way to convert from symbol
+      `(let1 ,names (uniq (symbol-name ',names)) ,@body))) ; want to add better way to convert from symbol
 
 (mac lflet (var expr &body branches)
   "Same as lf but if a predicate is true, it is bound to var"
   (lf branches
       (w/uniq gv
-	`(lets ,gv ,expr
+	`(let1 ,gv ,expr
 	   (lf ,gv
-	       (lets ,var ,gv
+	       (let1 ,var ,gv
 		 ,(car branches))
 	       ,(lf (cdr branches)
 		    `(lflet ,var ,@(cdr branches))))))
@@ -118,7 +118,7 @@
 
 (mac awhen (expr &body body)
    "Analog of alf but for when"
-  `(lets it ,expr (lf it (progn ,@body)))) ; change name of progn
+  `(let1 it ,expr (lf it (progn ,@body)))) ; change name of progn
 
 (mac aand (&rest args)
   "Evaluates each argument one by one. Binds the result of the previous
@@ -128,11 +128,11 @@
       (no (cdr args))
         (car args)
       'else
-        `(lets it ,(car args) (and it (aand ,@(cdr args))))))
+        `(let1 it ,(car args) (and it (aand ,@(cdr args))))))
 
 (def memo (f)
   "Returns a memoized version of the function f"
-  (lets cache (table :test #'iso)
+  (let1 cache (table :test #'iso)
     (fn (&rest args)
       (or (gethash args cache)
 	  (setf (gethash args cache)
