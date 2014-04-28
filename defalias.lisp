@@ -8,9 +8,10 @@
 	  (error "Don't know what to do for object ~A of type ~A" old (type-of old)))))
 
 (defun macrop (x)
-  "A predicate for testing whether x is a macro"
+  "A predicate for testing whether x should be replaced with a macro"
   (and (symbolp x)
-       (macro-function x)))
+       (or (special-operator-p x)
+	   (macro-function x))))
 
 (defun make-macro (new old)
   "Generates the code for making new and old the same macro"
