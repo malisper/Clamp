@@ -1,4 +1,4 @@
-(load "./defalias.lisp")
+(load "defalias.lisp")
 
 ;;; special forms
 (defalias fn lambda) ; doesn't allow for literal in function position ie ((fn ...) ...)
