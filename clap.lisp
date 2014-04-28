@@ -142,3 +142,13 @@
   "Defines a memoized function"
   `(setf (symbol-function ',name)
 	 (memo (fn ,args ,@body))))
+
+(mac ado (&body body)
+  "Evaluates each expression with it bound to the result of
+   the previous one. Returns the value of the last expression"
+  (lf (null body)
+        nil
+      (single body)
+        (car body)
+      `(let1 it ,(car body)
+        (ado ,@(cdr body)))))
