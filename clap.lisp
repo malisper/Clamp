@@ -1,6 +1,9 @@
 ;;;; TODO
 ;;;; Add tests
 ;;;; write the rest of the functions from arc
+;;;; rewrite arc functions to include keywords since arc doesn't have them
+;;;; rewrite mac so it allows autouniq
+;;;; add reader macro for bracket notation for lambda
 ;;;; figure out why code won't compile
 
 (load "aliases.lisp")
@@ -153,3 +156,11 @@
         (car body)
       `(let1 it ,(car body)
         (ado ,@(cdr body)))))
+
+(mac accum (accfn &body body)
+  "The result is all of the arguments passed into accfn"
+  (w/uniq (gacc garg)
+    `(let1 ,gacc '()
+       (flet1 ,accfn (,garg) (push ,garg ,gacc) ; uniq for garg seemingly not required but not taking any risks
+	 ,@body)
+       (nreverse ,gacc))))
