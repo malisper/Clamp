@@ -26,7 +26,7 @@
 (mac with (parms &body body)
   "Destructuring-bind (let) but doesn't require parens for each binding"
   (let* ((pparms (pair parms))
-	 (pats (mapf #'car pparms))
+	 (pats (mapf #'car  pparms))
 	 (vals (mapf #'cadr pparms)))
     `(destructuring-bind ,pats (list ,@vals) ,@body)))
 
