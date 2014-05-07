@@ -72,7 +72,8 @@
 (def del (test xs)
   "Deletes all of the elements that pass test in the list xs. If test
    is a function all objects passing the test are removed. If test is
-   anything else, all objects iso with it are removed"
+   anything else, all objects iso with it are removed
+   NOTE: note the same as delete, as del is not a destructive function"
   (let1 f (testify test)
     (rec (xs xs)
       (lf (no xs)
