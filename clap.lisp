@@ -4,7 +4,7 @@
 ;;;; rewrite arc functions to include keywords since arc doesn't have them
 ;;;; rewrite mac so it allows autouniq
 ;;;; add reader macro for bracket notation for lambda
-;;;; figure out why code won't compile
+;;;; figure out why code won't compile in sbcl
 
 (load "aliases.lisp")
 
@@ -24,12 +24,15 @@
   `(cond ,@(pair rest)))
 
 (mac with (parms &body body)
-  "Let but doesn't require parens for each binding"
-  `(let ,(pair parms) ,@body))
+  "Destructuring-bind (let) but doesn't require parens for each binding"
+  (let* ((pparms (pair parms))
+	 (pats (mapf #'car pparms))
+	 (vals (mapf #'cadr pparms)))
+    `(destructuring-bind ,pats (list ,@vals) ,@body)))
 
 (mac let1 (var val &body body)
-  "Let but with only one variable (no parens)"
-  `(let ((,var ,val)) ,@body))
+  "With but with only one variable (no parens)"
+  `(with (,var ,val) ,@body))
 
 (mac ret (var val &body body)
   "Let1 but the result of the expression is the final value of the variable"
@@ -40,8 +43,11 @@
   `(flet ((,name ,args ,fbody)) ,@body))
 
 (mac withs (parms &body body)
-  "Same as let* but doesn't require parens around each binding"
-  `(let* ,(pair parms) ,@body))
+  "With analog for let* but doesn't require parens around each binding"
+  (lf (no parms)
+      `(progn ,@body)
+      `(let1 ,(car parms) ,(cadr parms)
+	 (withs ,(cddr parms) ,@body))))
 
 (mac rfn (name parms &body body)
   "Creates a recursive function which can refer to itself through name"
@@ -164,3 +170,19 @@
        (flet1 ,accfn (,garg) (push ,garg ,gacc) ; uniq for garg seemingly not required but not taking any risks
 	 ,@body)
        (nreverse ,gacc))))
+
+(def curry (f &rest args1)
+  "Returns a function with its left most arguments passed in and waiting for the rest"
+  (fn (&rest args2) (apply f (nconc args1 args2))))
+
+(def rcurry (f &rest args1)
+  "Returns a function with its right most arguments passed in and waiting for the rest"
+  (fn (&rest args2) (apply f (nconc args2 args1))))
+
+(mac check (x test &optional alt)
+  "If x passes the test, otherwise evaluate alt"
+  (w/uniq gx
+    `(let1 ,gx ,x
+       (if (funcall ,test ,gx)
+	   ,gx
+	   ,alt))))
