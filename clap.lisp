@@ -187,3 +187,7 @@
        (if (funcall ,test ,gx)
 	   ,gx
 	   ,alt))))
+
+(def multiple (x y)
+  "A predicate for testing if x is a multiple of y"
+  (zerop (rem x y)))
