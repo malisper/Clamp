@@ -3,10 +3,16 @@
 ;;;; write the rest of the functions from arc
 ;;;; rewrite arc functions to include keywords since arc doesn't have them
 ;;;; rewrite mac so it allows autouniq
-;;;; add reader macro for bracket notation for lambda
 ;;;; figure out why code won't compile in sbcl
 
 (load "aliases.lisp")
+
+;;; reader macro for literal fn notation with brackets
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (set-macro-character #\] (get-macro-character #\)))
+  (set-macro-character #\[
+    (fn (stream char)
+	`(fn (_) (,@(read-delimited-list #\] stream t))))))
 
 (def single (xs)
   "A predicate for testing whether a list has only one element"
@@ -62,7 +68,7 @@
 (def testify (x)
   "If passed a function, returns it. Otherwise returns a function which
    tests equality for the object passed"
-  (lf (functionp x) x (fn (y) (iso y x))))
+  (lf (functionp x) x [iso x _]))
 
 (mac rec (withses &body body)
   "Same as loop in Anarki. Look for use cases"
