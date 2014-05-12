@@ -190,4 +190,4 @@
 
 (def multiple (x y)
   "A predicate for testing if x is a multiple of y"
-  (zerop (rem x y)))
+  (zerop (mod x y)))
