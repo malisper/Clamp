@@ -144,8 +144,8 @@
   "Returns a memoized version of the function f"
   (let1 cache (table :test #'iso)
     (fn (&rest args)
-      (multiple-value-bind (value in) (gethash args cache) ; change mvb
-	(if in
+      (mvb (value in) (gethash args cache)
+	(lf in
 	    value
 	    (setf (gethash args cache) (apply f args)))))))
 
@@ -184,7 +184,7 @@
   "If x passes the test, otherwise evaluate alt"
   (w/uniq gx
     `(let1 ,gx ,x
-       (if (funcall ,test ,gx)
+       (lf (funcall ,test ,gx)
 	   ,gx
 	   ,alt))))
 
