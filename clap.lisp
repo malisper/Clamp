@@ -176,7 +176,7 @@
     `(let1 ,gacc '()
        (flet1 ,accfn (,garg) (push ,garg ,gacc) ; uniq for garg seemingly not required but not taking any risks
 	 ,@body)
-       (nreverse ,gacc))))
+       (nrev ,gacc))))
 
 (def curry (f &rest args1)
   "Returns a function with its left most arguments passed in and waiting for the rest"
