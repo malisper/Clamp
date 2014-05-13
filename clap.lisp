@@ -197,3 +197,16 @@
 (def multiple (x y)
   "A predicate for testing if x is a multiple of y"
   (zerop (mod x y)))
+
+;;; iteration macros to avoid using loop directly
+(mac up (var a b &body body)
+  `(loop for ,var from ,a to ,b do ,@body))
+
+(mac down (var a b &body body)
+  `(loop for ,var from ,a downto ,b do ,@body))
+
+(mac while (test &body body)
+  `(loop while ,test do ,@body))
+
+(mac until (test &body body)
+  `(loop until ,test do ,@body))
