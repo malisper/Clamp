@@ -180,11 +180,11 @@
 
 (def curry (f &rest args1)
   "Returns a function with its left most arguments passed in and waiting for the rest"
-  (fn (&rest args2) (apply f (nconc args1 args2))))
+  (fn (&rest args2) (apply f (append args1 args2))))
 
 (def rcurry (f &rest args1)
   "Returns a function with its right most arguments passed in and waiting for the rest"
-  (fn (&rest args2) (apply f (nconc args2 args1))))
+  (fn (&rest args2) (apply f (append args2 args1))))
 
 (mac check (x test &optional alt)
   "If x passes the test, otherwise evaluate alt"
