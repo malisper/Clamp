@@ -1,9 +1,10 @@
 ;;;; TODO
-;;;; Add tests
+;;;; Add tests using some framework such as ASDF
 ;;;; write the rest of the functions from arc
 ;;;; rewrite arc functions to include keywords since arc doesn't have them
 ;;;; rewrite mac so it allows autouniq
-;;;; figure out why code won't compile in sbcl
+;;;; figure out why code won't compile in sbcl (probably need to use eval-when)
+;;;; start using some path system such as ASDF
 
 (load "aliases.lisp")
 
