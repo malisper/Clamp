@@ -5,6 +5,7 @@
 ;;;; rewrite mac so it allows autouniq
 ;;;; figure out why code won't compile in sbcl (probably need to use eval-when)
 ;;;; start using some path system such as ASDF
+;;;; break apart functions into groups and put them in seperate files (ie iteration, higher-order-functions, etc)
 
 (load "aliases.lisp")
 
