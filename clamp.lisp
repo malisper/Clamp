@@ -204,8 +204,9 @@
   (zerop (mod x y)))
 
 ;;; iteration macros to avoid using loop directly
-(mac repeat (times &body body)
-  `(loop repeat ,times do (progn ,@body)))
+(mac repeat (n &body body)
+  "Excutes the body n times"
+  `(loop repeat ,n do (progn ,@body)))
 
 (mac up (var a b &body body)
   "Evaluates body iterating from a up to b inclusive"
