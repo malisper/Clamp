@@ -14,6 +14,7 @@
   (set-macro-character #\] (get-macro-character #\)))
   (set-macro-character #\[
     (fn (stream char)
+        (declare (ignore char))
 	`(fn (_) (,@(read-delimited-list #\] stream t))))))
 
 (def single (xs)
@@ -121,6 +122,7 @@
 	`(let1 ,gv ,expr
 	   (lf ,gv
 	       (let1 ,var ,gv
+		 (declare (ignorable ,var))
 		 ,(car branches))
 	       ,(lf (cdr branches)
 		    `(lflet ,var ,@(cdr branches))))))
@@ -136,7 +138,7 @@
 
 (mac awhen (expr &body body)
    "Analog of alf but for when"
-  `(let1 it ,expr (lf it (progn ,@body)))) ; change name of progn
+  `(whenlet it ,expr ,@body))
 
 (mac aand (&rest args)
   "Evaluates each argument one by one. Binds the result of the previous
@@ -170,6 +172,7 @@
       (single body)
         (car body)
       `(let1 it ,(car body)
+	(declare (ignorable it))
         (ado ,@(cdr body)))))
 
 (mac accum (accfn &body body)
@@ -201,6 +204,9 @@
   (zerop (mod x y)))
 
 ;;; iteration macros to avoid using loop directly
+(mac repeat (times &body body)
+  `(loop repeat ,times do (progn ,@body)))
+
 (mac up (var a b &body body)
   "Evaluates body iterating from a up to b inclusive"
   `(loop for ,var from ,a to ,b do (progn ,@body)))
@@ -227,12 +233,18 @@
 (def keys (tab)
   "Evaluates to all of the keys in the hash table tab"
   (ret result '()
-    (maphash (fn (k v) (push k result)) tab)))
+    (maphash (fn (k v)
+		 (declare (ignore v))
+		 (push k result))
+	     tab)))
 
 (def vals (tab)
   "Evaluatates to all of the values in the table tab"
   (ret result '()
-    (maphash (fn (k v) (push v result)) tab)))
+    (maphash (fn (k v)
+		 (declare (ignore k))
+		 (push v result))
+	     tab)))
 
 (def listtab (xs)
   "Evaluates to a table which is equivalent to the alist xs"
