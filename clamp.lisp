@@ -262,3 +262,13 @@
   "Makes a table for all of the passed in keys and values"
   `(listtab (list ,@(mapf [let1 (k v) _ `(list ',k ,v)]
 			  (pair args)))))
+
+
+;;; printing functins
+(def pr (&rest args)
+  (mapf #'princ args)
+  (car args))
+
+(def prn (&rest args)
+  (prog1 (apply #'pr args)
+         (terpri)))
