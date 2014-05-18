@@ -27,4 +27,3 @@
 (defalias rev reverse)
 (defalias nrev nreverse)
 (defalias mvb multiple-value-bind)
-(defalias pr princ)
