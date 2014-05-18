@@ -221,3 +221,31 @@
  "Iterates across each element in seq. Currently works
   on both lists and arrays (maybe add hashtables in the future)"
  `(loop for ,var being the elements of ,seq do (progn ,@body)))
+
+
+;;; several table operations
+(def keys (tab)
+  "Evaluates to all of the keys in the hash table tab"
+  (ret result '()
+    (maphash (fn (k v) (push k result)) tab)))
+
+(def vals (tab)
+  "Evaluatates to all of the values in the table tab"
+  (ret result '()
+    (maphash (fn (k v) (push v result)) tab)))
+
+(def listtab (xs)
+  "Evaluates to a table which is equivalent to the alist xs"
+  (ret result (table)
+    (each (k v) xs
+      (setf (gethash k result) v))))
+
+(def tablist (tab)
+  "Evaluates to an alist which is equivalent to the table xs"
+  (ret result '()
+    (maphash (fn (k v) (push (list k v) result)) tab)))
+
+(mac obj (&rest args)
+  "Makes a table for all of the passed in keys and values"
+  `(listtab (list ,@(mapf [let1 (k v) _ `(list ',k ,v)]
+			  (pair args)))))
