@@ -3,7 +3,7 @@
 ;;;; write the rest of the functions from arc
 ;;;; rewrite arc functions to include keywords since arc doesn't have them
 ;;;; rewrite mac so it allows autouniq
-;;;; figure out why code won't compile in sbcl (probably need to use eval-when)
+;;;; figure out why code won't compile in sbcl (probably need to use eval-when becuase the load call is only compiled and not executed)
 ;;;; start using some path system such as ASDF
 ;;;; break apart functions into groups and put them in seperate files (ie iteration, higher-order-functions, etc)
 
