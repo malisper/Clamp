@@ -1,5 +1,5 @@
 ;;;; TODO
-;;;; Add tests using some framework such as ASDF
+;;;; Add tests using some framework such as CLUnit
 ;;;; write the rest of the functions from arc
 ;;;; rewrite arc functions to include keywords since arc doesn't have them
 ;;;; rewrite mac so it allows autouniq
