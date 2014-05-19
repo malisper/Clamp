@@ -6,4 +6,5 @@
   :author "malisper"
   :components ((:file "defalias")
 	       (:file "aliases")
+	       (:file "base")
 	       (:file "clamp")))
