@@ -5,28 +5,6 @@
 ;;;; rewrite mac so it allows autouniq
 ;;;; break apart functions into groups and put them in seperate files
 ;;;;   (ie iteration, higher-order-functions, etc)
-;;;;   maybe move all of the eval-when functions to a seperate file
-
-;;; reader macro for literal fn notation with brackets
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (set-macro-character #\] (get-macro-character #\)))
-  (set-macro-character #\[
-    (fn (stream char)
-        (declare (ignore char))
-	`(fn (_) (,@(read-delimited-list #\] stream t))))))
-
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (def single (xs)
-    "A predicate for testing whether a list has only one element"
-    (and (consp xs) (no (cdr xs)))))
-
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (def pair (xs &optional (f #'list))
-    "Applies a function f to every two elements in xs"
-    (cond ((no xs) '())
-	  ((single xs) (list (list (car xs))))
-	  ('else (cons (funcall f (car xs) (cadr xs))
-		       (pair (cddr xs) f))))))
 
 (mac lf (&body rest)
   "Cond but doesn't require parens for each clause"
@@ -101,11 +79,6 @@
   (lf (> a b)
       '()
       (cons a (range (1+ a) b))))
-
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (def mappend (f xs)
-    "Joins the results of mapping f over xs"
-    (apply #'join (mapf f xs))))
 
 (mac w/uniq (names &body body)
   "Binds each element in names (or names if it is just a symbol), with
