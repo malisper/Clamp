@@ -1,6 +1,7 @@
 ;;;; TODO
 ;;;; Add tests using some framework such as CLUnit
 ;;;; write the rest of the functions from arc
+;;;; add functions from On Lisp
 ;;;; rewrite arc functions to include keywords since arc doesn't have them
 ;;;; rewrite mac so it allows autouniq
 ;;;; break apart functions into groups and put them in seperate files
@@ -250,3 +251,27 @@
    readable format with an additional newline"
   (prog1 (apply #'pr args)
          (terpri)))
+
+(def firstn (n xs)
+  "Evaluates to the first n elements of the list xs"
+  (lf (no n)           xs
+      (and (> n 0) xs) (cons (car xs) (firstn (1- n) (cdr xs)))
+      'else            nil))
+
+(def compare (comparer scorer)
+  "Returns a function which compares its arguments score on scorer
+   with comparer. Generally should use the :key argument to other
+   functions instead"
+  (fn (x y) (funcall comparer (funcall scorer x) (funcall scorer y))))
+
+(def best (f seq)
+  "Finds the first element of seq if it was sorted using f"
+  (lf (no seq)
+      nil
+      (ret wins (car seq)
+	(each elt (cdr seq)
+	  (lf (funcall f elt wins) (setf wins elt))))))
+
+(def bestn (n f seq)
+  "Finds the first n elements of seq if it was sorted using f"
+  (firstn n (sort seq f)))
