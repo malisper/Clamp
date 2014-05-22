@@ -6,6 +6,7 @@
 ;;;; rewrite mac so it allows autouniq
 ;;;; break apart functions into groups and put them in seperate files
 ;;;;   (ie iteration, higher-order-functions, etc)
+;;;; add type declarations to speed up code
 ;;;; figure out how to not have defmemo give a warning
 
 (mac lf (&body rest)
@@ -322,3 +323,14 @@
 	  (or (funcall fn x) (funcall chain x))))))
 
 
+;;; predicates for testing length
+;;; may optimize these but they need testing
+;;; to see if it would make any difference
+
+(def len< (xs n)
+  "A predicate for testing if the length of xs is less than n"
+  (< (len xs) n))
+
+(def len> (xs n)
+  "A predicate for testing if the length of xs is greater than n"
+  (> (len xs) n))
