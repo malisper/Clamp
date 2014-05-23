@@ -9,6 +9,15 @@
 ;;;; add type declarations to speed up code
 ;;;; figure out how to not have defmemo give a warning
 
+(defmacro mac (name args &body body)
+  "The same as defmacro except allows auto-uniq ie any symbol that ends with
+   '@' will be replaced by a uniq symbol"
+  (let1 uniqs (table)
+    `(defmacro ,name ,args
+       ,@(alter #'auto
+		[or (gethash _ uniqs) (setf (gethash _ uniqs) (uniq (symbol-name _)))]
+		body))))
+
 (mac lf (&body rest)
   "Cond but doesn't require parens for each clause"
   `(cond ,@(pair rest)))
