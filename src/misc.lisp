@@ -28,3 +28,11 @@
 (def multiple (x y)
   "A predicate for testing if x is a multiple of y"
   (zerop (mod x y)))
+
+(defmacro check (x test &optional alt)
+  "If x passes the test, otherwise evaluate alt"
+  (w/uniq gx
+    `(let1 ,gx ,x
+       (lf (funcall ,test ,gx)
+	   ,gx
+	   ,alt))))
