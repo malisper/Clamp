@@ -24,6 +24,5 @@
 
 (def auto (x)
   "Checks if some expression should be auto-uniqd"
-  (and x (symbolp x) (ado (symbol-name x)
-			  (eql #\@ (elt it (1- (len it)))))))
+  (and x (symbolp x) (eql #\@ (elt (symbol-name x) (1- (len (symbol-name x)))))))
 
