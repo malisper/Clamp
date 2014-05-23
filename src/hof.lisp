@@ -35,7 +35,7 @@
 (def alter (old new seq)
   "Substitues everything passes the testified version of old
    with new (which can be a function)"
-  (with (test (testify old) next (if (typep new 'function)
+  (with (test (testify old) next (if (functionp new)
 				     new
 				     (const new)))
     (rec (tree seq)
@@ -45,6 +45,3 @@
 	       tree)
 	   (cons (recur (car tree))
 		 (recur (cdr tree)))))))
-
-
-
