@@ -39,3 +39,9 @@
 	       tree)
 	   (cons (recur (car tree))
 		 (recur (cdr tree)))))))
+
+(def auto (x)
+  "Checks if some expression should be auto-uniqd"
+  (and x (symbolp x) (ado (symbol-name x)
+			  (eql #\@ (elt it (1- (len it)))))))
+
