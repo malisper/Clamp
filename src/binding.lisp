@@ -21,7 +21,7 @@
 
 (mac withs (parms &body body)
   "With analog for let* but doesn't require parens around each binding"
-  (lf (no parms)
+  (if (no parms)
       `(progn ,@body)
       `(let1 ,(car parms) ,(cadr parms)
 	 (withs ,(cddr parms) ,@body))))
