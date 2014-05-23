@@ -326,7 +326,6 @@
 ;;; predicates for testing length
 ;;; may optimize these but they need testing
 ;;; to see if it would make any difference
-
 (def len< (xs n)
   "A predicate for testing if the length of xs is less than n"
   (< (len xs) n))
@@ -334,3 +333,8 @@
 (def len> (xs n)
   "A predicate for testing if the length of xs is greater than n"
   (> (len xs) n))
+
+
+(def alref (al key)
+  "Evaluates to the value of key in the alist al"
+  (cadr (assoc key al)))
