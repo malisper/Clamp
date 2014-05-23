@@ -18,3 +18,7 @@
 (def fnd (test xs &rest args)
   "Analog for del and keep but for find"
   (apply #'find-if (testify test) xs args))
+
+(def pos (test xs &rest args)
+  "Analog for del and keep but for position"
+  (apply #'position-if (testify test) xs args))
