@@ -27,3 +27,8 @@
 (def pos (test xs &rest args)
   "Analog for del and keep but for position"
   (apply #'position-if (testify test) xs args))
+
+(def mappend (f xs)
+  "Joins the results of mapping f over xs"
+  (apply #'join (mapf f xs)))
+
