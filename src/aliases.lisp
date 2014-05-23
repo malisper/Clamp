@@ -1,7 +1,6 @@
 ;;; special forms
 (defalias fn lambda) ; doesn't allow for literal in function position ie ((fn ...) ...)
 (defalias def defun)
-(defalias mac defmacro)
 ; (defalias ++ incf) ; cannot use because ++ is already defined
 (defalias -- decf)
 
