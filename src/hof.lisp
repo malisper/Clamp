@@ -1,5 +1,10 @@
 ;;;; several higher order functions
 
+(def testify (x)
+  "If passed a function, returns it. Otherwise returns a function which
+   tests equality for the object passed"
+  (if (functionp x) x [iso x _]))
+
 (def del (test xs &rest args)
   "Deletes all of the elements that pass test in the list xs. If test
    is a function all objects passing the test are removed. If test is
