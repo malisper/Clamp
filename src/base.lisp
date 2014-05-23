@@ -21,3 +21,21 @@
 (def mappend (f xs)
     "Joins the results of mapping f over xs"
     (apply #'join (mapf f xs)))
+
+(def const (x)
+  "Evaluates to a function which always evaluates to x"
+  (fn (&rest args) (declare (ignore args)) x))
+
+(def alter (old new seq)
+  "Substitues everything passes the testified version of old
+   with new (which can be a function)"
+  (with (test (testify old) next (if (typep new 'function)
+				     new
+				     (const new)))
+    (rec (tree seq)
+       (lf (atom tree)
+	   (lf (funcall test tree)
+	       (funcall next tree)
+	       tree)
+	   (cons (recur (car tree))
+		 (recur (cdr tree)))))))
