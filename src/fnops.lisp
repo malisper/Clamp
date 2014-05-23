@@ -39,3 +39,11 @@
       (let1 chain (apply #'orf fns)
 	(fn (x)
 	  (or (funcall fn x) (funcall chain x))))))
+
+(def curry (f &rest args1)
+  "Returns a function with its left most arguments passed in and waiting for the rest"
+  (fn (&rest args2) (apply f (append args1 args2))))
+
+(def rcurry (f &rest args1)
+  "Returns a function with its right most arguments passed in and waiting for the rest"
+  (fn (&rest args2) (apply f (append args2 args1))))
