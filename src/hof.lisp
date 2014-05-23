@@ -32,3 +32,19 @@
   "Joins the results of mapping f over xs"
   (apply #'join (mapf f xs)))
 
+(def alter (old new seq)
+  "Substitues everything passes the testified version of old
+   with new (which can be a function)"
+  (with (test (testify old) next (if (typep new 'function)
+				     new
+				     (const new)))
+    (rec (tree seq)
+       (if (atom tree)
+	   (if (funcall test tree)
+	       (funcall next tree)
+	       tree)
+	   (cons (recur (car tree))
+		 (recur (cdr tree)))))))
+
+
+
