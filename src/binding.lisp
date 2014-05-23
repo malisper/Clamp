@@ -1,4 +1,4 @@
-;;; these are macros which create new bindings
+;;;; these are macros which create new bindings
 
 (mac with (parms &body body)
   "Destructuring-bind (let) but doesn't require parens for each binding"
