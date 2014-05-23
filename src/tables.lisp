@@ -31,3 +31,7 @@
   "Makes a table for all of the passed in keys and values"
   `(listtab (list ,@(mapf [let1 (k v) _ `(list ',k ,v)]
 			  (pair args)))))
+
+(def alref (al key)
+  "Evaluates to the value of key in the alist al"
+  (cadr (assoc key al)))
