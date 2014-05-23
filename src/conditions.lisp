@@ -4,14 +4,6 @@
   "Cond but doesn't require parens for each clause"
   `(cond ,@(pair rest)))
 
-(defmacro check (x test &optional alt)
-  "If x passes the test, otherwise evaluate alt"
-  (w/uniq gx
-    `(let1 ,gx ,x
-       (lf (funcall ,test ,gx)
-	   ,gx
-	   ,alt))))
-
 (defmacro lflet (var expr &body branches)
   "Same as lf but if a predicate is true, it is bound to var"
   (lf branches
