@@ -34,3 +34,13 @@
      (lf (funcall ,test x@)
 	 x@
 	 ,alt)))
+
+(define-modify-macro zap (f &rest args)
+  "Calls f on the variable with the addition arguments
+   and sets the variable to that result"
+  (lambda (var f &rest args) (apply f var args))) ; need to use lambda because of lambda in functional position
+
+(define-modify-macro or= (new)
+  "If the var is nil, it assigns the new value to it.
+   Otherwise does nothing. This always evaluates new"
+  (lambda (var new) (lf var var new)))
