@@ -1,11 +1,5 @@
 ;;;; utilities which do not belong in any other file
 
-(def range (a b)
-  "Generates the range of numbers from a to b"
-  (lf (> a b)
-      '()
-      (cons a (range (1+ a) b))))
-
 (mac ado (&body body)
   "Evaluates each expression with it bound to the result of
    the previous one. Returns the value of the last expression"
