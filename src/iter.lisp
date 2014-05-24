@@ -1,4 +1,4 @@
-;;;; these are defmacroros which allow for different kinds of iteration
+;;;; these are macros which allow for different kinds of iteration
 
 (defmacro rec (withses &body body)
   "Same as loop in Anarki. Look for use cases"
