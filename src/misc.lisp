@@ -38,3 +38,10 @@
   "If the var is nil, it assigns the new value to it.
    Otherwise does nothing. This always evaluates new"
   (lambda (var new) (lf var var new)))
+
+(mac in (x &rest choices)
+  "Checks if the result of evaluating x is the result of
+   one of the other arguments. Only evaluates arguments
+   as necessary"
+  `(let1 val@ ,x
+     (or ,@(mapf (fn (c) `(is val@ ,c)) choices))))
