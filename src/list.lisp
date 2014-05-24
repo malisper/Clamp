@@ -1,5 +1,11 @@
 ;;;; these are functions for working with lists
 
+(def range (a b)
+  "Generates the range of numbers from a to b"
+  (lf (> a b)
+      '()
+      (cons a (range (1+ a) b))))
+
 (def firstn (n xs)
   "Evaluates to the first n elements of the list xs"
   (lf (no n)           xs
