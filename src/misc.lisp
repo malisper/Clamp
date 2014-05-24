@@ -30,14 +30,14 @@
 	 ,alt)))
 
 (define-modify-macro zap (f &rest args)
+  (lambda (var f &rest args) (apply f var args)) ; need to use lambda because of fn in functional position
   "Calls f on the variable with the addition arguments
-   and sets the variable to that result"
-  (lambda (var f &rest args) (apply f var args))) ; need to use lambda because of lambda in functional position
+   and sets the variable to that result") 
 
 (define-modify-macro or= (new)
+  (lambda (var new) (lf var var new))
   "If the var is nil, it assigns the new value to it.
-   Otherwise does nothing. This always evaluates new"
-  (lambda (var new) (lf var var new)))
+   Otherwise does nothing. This always evaluates new")
 
 (mac in (x &rest choices)
   "Checks if the result of evaluating x is the result of
