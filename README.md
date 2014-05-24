@@ -11,10 +11,10 @@ Defalias is a macro which allows one to easily give new names to procedures or m
 
 For some reason it won't compile all at once on sbcl. This can be side stepped by loading clamp first then compiling it.
 
-TODO
-Add tests using some framework such as CLUnit
-write the rest of the functions from arc
-move some more code around and clean it up
-add functions from On Lisp
-add type declarations to speed up code
-figure out how to not have defmemo give a warning
+TODO:
+Add tests using some framework such as CLUnit.
+Write the rest of the functions from arc.
+Move some more code around and clean up.
+Add functions from On Lisp.
+Add type declarations to speed up code.
+Figure out why defmemo gives a warning.
