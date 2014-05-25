@@ -28,9 +28,9 @@
   "Analog for del and keep but for position"
   (apply #'position-if (testify test) xs args))
 
-(def mappend (f xs)
+(def mappend (f &rest xss)
   "Joins the results of mapping f over xs"
-  (apply #'join (mapf f xs)))
+  (apply #'join (apply #'mapf f xss)))
 
 (def alter (old new seq)
   "Substitues everything passes the testified version of old
