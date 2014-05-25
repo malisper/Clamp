@@ -29,7 +29,7 @@
 	 x@
 	 ,alt)))
 
-(defmacro zap (op place &rest args)
+(mac zap (op place &rest args)
   "Assigns the value of applying op to the rest of the args
    to the second arg"
   (mvb (vars forms var set access)
