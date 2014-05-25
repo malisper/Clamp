@@ -32,7 +32,8 @@
 (define-modify-macro zap (f &rest args)
   (lambda (var f &rest args) (apply f var args)) ; need to use lambda because of fn in functional position
   "Calls f on the variable with the addition arguments
-   and sets the variable to that result") 
+   and sets the variable to that result.
+   NOTE: the variable comes first as opposed to arc's zap") 
 
 (define-modify-macro or= (new)
   (lambda (var new) (lf var var new))
