@@ -29,11 +29,13 @@
 	 x@
 	 ,alt)))
 
-(define-modify-macro zap (f &rest args)
-  (lambda (var f &rest args) (apply f var args)) ; need to use lambda because of fn in functional position
-  "Calls f on the variable with the addition arguments
-   and sets the variable to that result.
-   NOTE: the variable comes first as opposed to arc's zap") 
+(defmacro zap (op place &rest args)
+  "Assigns the value of applying op to the rest of the args
+   to the second arg"
+  (mvb (vars forms var set access)
+       (get-setf-expansion place)
+    `(withs (,@(mappend #'list vars forms) ,(car var) (funcall ,op ,access ,@args))
+       ,set)))
 
 (define-modify-macro or= (new)
   (lambda (var new) (lf var var new))
