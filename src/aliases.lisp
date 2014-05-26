@@ -3,6 +3,8 @@
 (defalias def defun)
 ; (defalias ++ incf) ; cannot use because ++ is already defined
 (defalias -- decf)
+(defalias mvb multiple-value-bind)
+(defalias mvl multiple-value-list)
 
 ;;; functions
 (defalias is eql)
@@ -23,4 +25,4 @@
 (defalias cut subseq)
 (defalias rev reverse)
 (defalias nrev nreverse)
-(defalias mvb multiple-value-bind)
+
