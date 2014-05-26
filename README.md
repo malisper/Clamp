@@ -9,8 +9,6 @@ A lot of code is taken from both the original arc and anarki.
 
 Defalias is a macro which allows one to easily give new names to procedures or macros already in common lisp.
 
-For some reason it won't compile all at once on sbcl. This can be side stepped by loading clamp first then compiling it.
-
 TODO:
 Add tests using some framework such as CLUnit.
 Write the rest of the functions from arc.
