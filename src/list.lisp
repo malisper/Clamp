@@ -13,6 +13,7 @@
       'else            nil))
 
 (def last1 (xs)
+  "Evaluates to the last element of xs. Not the last cons pair"
   (car (last xs)))
 
 ;;; predicates for testing length
