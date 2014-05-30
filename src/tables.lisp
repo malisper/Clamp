@@ -9,7 +9,7 @@
 	     tab)))
 
 (def vals (tab)
-  "Evaluatates to all of the values in the table tab"
+  "Evaluates to all of the values in the table tab"
   (ret result '()
     (maphash (fn (k v)
 		 (declare (ignore k))
