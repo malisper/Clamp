@@ -11,6 +11,8 @@ Defalias is a macro which allows one to easily give new names to procedures or m
 
 TODO:
 Add tests using some framework such as CLUnit.
+Move clamp to its own package,
+  shadow if, let, etc to be able to them.
 Write the rest of the functions from arc.
 Move some more code around and clean up.
 Add functions from On Lisp.
