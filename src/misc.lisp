@@ -14,7 +14,7 @@
 (mac accum (accfn &body body)
   "The result is all of the arguments passed into accfn"
   `(let1 gacc@ '()
-     (flet1 ,accfn (garg) (push garg gacc@) ; uniq for garg seemingly not required but not taking any risks
+     (flet1 ,accfn (garg) (push garg gacc@)
        ,@body)
      (nrev gacc@)))
 
