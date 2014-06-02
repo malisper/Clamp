@@ -16,9 +16,10 @@
 		 (push v result))
 	     tab)))
 
-(def listtab (xs)
-  "Evaluates to a table which is equivalent to the alist xs"
-  (ret result (table)
+(def listtab (xs &rest args)
+  "Evaluates to a table which is equivalent to the alist xs.
+   Takes the same keyword arguments as table"
+  (ret result (apply #'table args)
     (each (k v) xs
       (setf (gethash k result) v))))
 
@@ -30,7 +31,8 @@
 (mac obj (&rest args)
   "Makes a table for all of the passed in keys and values"
   `(listtab (list ,@(mapf [let1 (k v) _ `(list ',k ,v)]
-			  (pair args)))))
+			  (pair args)))
+	    :test #'iso))
 
 (def alref (al key)
   "Evaluates to the value of key in the alist al"
