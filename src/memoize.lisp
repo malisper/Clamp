@@ -4,10 +4,10 @@
   "Returns a memoized version of the function f"
   (let1 cache (table :test #'iso)
     (fn (&rest args)
-      (mvb (value in) (gethash args cache)
-	(lf in
-	    value
-	    (setf (gethash args cache) (apply f args)))))))
+      (alf2 (gethash args cache)
+	    it
+	    (setf (gethash args cache)
+		  (apply f args))))))
 
 (mac defmemo (name args &body body)
   "Defines a memoized function"
