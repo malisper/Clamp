@@ -6,7 +6,7 @@
   :author "malisper"
   :components ((:module "src"
 		:components ((:file "defalias")
-			     (:file "aliases")
+			     (:file "aliases" :depends-on ("defalias"))
 			     (:file "base" :depends-on ("aliases"))
 			     (:file "binding" :depends-on ("base"))
 			     (:file "print" :depends-on ("aliases"))
