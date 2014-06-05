@@ -1,10 +1,6 @@
 ;;;; these are different kinds of conditionals
 
-(defmacro lf (&body rest)
-  "Cond but doesn't require parens for each clause"
-  `(cond ,@(pair rest)))
-
-(defmacro lflet (var expr &body branches)
+(mac lflet (var expr &body branches)
   "Same as lf but if a predicate is true, it is bound to var"
   (lf branches
       (w/uniq gv
@@ -17,19 +13,19 @@
 		    `(lflet ,var ,@(cdr branches))))))
       expr))
 
-(defmacro whenlet (var expr &body body)
+(mac whenlet (var expr &body body)
   "Analog of lflet but for when"
   `(lflet ,var ,expr (progn ,@body)))
 
-(defmacro alf (expr &body branches)
+(mac alf (expr &body branches)
    "lflet but uses 'it' for var"
   `(lflet it ,expr ,@branches))
 
-(defmacro awhen (expr &body body)
+(mac awhen (expr &body body)
    "Analog of alf but for when"
   `(whenlet it ,expr ,@body))
 
-(defmacro aand (&rest args)
+(mac aand (&rest args)
   "Evaluates each argument one by one. Binds the result of the previous
    expression to 'it'. Otherwise the same as and"
   (lf (no args)
@@ -38,3 +34,17 @@
         (car args)
       'else
         `(let1 it ,(car args) (and it (aand ,@(cdr args))))))
+
+(mac alf2 (&rest clauses)
+  "alf but for working with functions that have multiple return values
+   ie gethash. See On Lisp for examples"
+  (lf (null clauses)
+        nil
+      (single clauses)
+        (car clauses)
+      'else
+        (let1 (t1 c1 . rest) clauses
+	  `(mvb (@val @win) ,t1
+	     (lf (or @val @win)
+		 (let1 it @val ,c1)
+		 (alf2 ,@rest))))))
