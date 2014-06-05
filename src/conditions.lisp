@@ -44,7 +44,7 @@
         (car clauses)
       'else
         (let1 (t1 c1 . rest) clauses
-	  `(mvb (@val @win) ,t1
-	     (lf (or @val @win)
-		 (let1 it @val ,c1)
+	  `(mvb (val@ win@) ,t1
+	     (lf (or val@ win@)
+		 (let1 it val@ ,c1)
 		 (alf2 ,@rest))))))
