@@ -48,3 +48,13 @@
    as necessary"
   `(let1 val@ ,x
      (or ,@(mapf (fn (c) `(is val@ ,c)) choices))))
+
+(mac cart (f xs ys)
+  "Applies the function f to a subset of the cartesian product of xs and 
+   ys. The element from xs is bound to 'it' which can be used to change what
+   ys is"
+  `(mapcan (fn (it) ; we can use mapcan because mapf creates new conses
+	       (mapf (fn (@y)
+			 (funcall ,f it @y))
+		     ,ys))
+	   ,xs))
