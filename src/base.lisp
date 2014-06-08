@@ -1,5 +1,7 @@
 ;;;; these are some basic functions which need to be loaded first
 
+(in-package "CLAMP")
+
 ;;; reader macro for literal fn notation with brackets
 (set-macro-character #\] (get-macro-character #\)))
 (set-macro-character #\[
@@ -26,7 +28,7 @@
   "Checks if some expression should be auto-uniqd"
   (and x (symbolp x) (eql #\@ (elt (symbol-name x) (1- (len (symbol-name x)))))))
 
-(defmacro lf (&body rest)
+(defmacro if (&rest clauses)
   "Cond but doesn't require parens for each clause"
-  `(cond ,@(pair rest)))
+  `(cond ,@(pair clauses)))
 
