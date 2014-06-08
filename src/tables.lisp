@@ -1,5 +1,7 @@
 ;;;; these are utilities for working with (hash) tables
 
+(in-package "CLAMP")
+
 (def keys (tab)
   "Evaluates to all of the keys in the hash table tab"
   (ret result '()
@@ -30,8 +32,8 @@
 
 (mac obj (&rest args)
   "Makes a table for all of the passed in keys and values"
-  `(listtab (list ,@(mapf [let1 (k v) _ `(list ',k ,v)]
-			  (pair args)))
+  `(listtab (list ,@(map [let (k v) _ `(list ',k ,v)]
+			 (pair args)))
 	    :test #'iso))
 
 (def alref (al key)
