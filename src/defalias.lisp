@@ -1,3 +1,7 @@
+;;;; definitions for defalias which allows redefinition of macros/fns
+
+(in-package "CLAMP")
+
 (defun macrop (x)
   "A predicate for testing whether x should be replaced with a macro"
   (and (symbolp x)
@@ -6,7 +10,7 @@
 
 (defun make-macro (new old)
   "Generates the code for making new and old the same macro"
-  (let ((rest (gensym "REST")))
+  (cl:let ((rest (gensym "REST")))
     `(progn (setf (documentation ',new 'function) (documentation ',old 'function))
 	    (defmacro ,new (&rest ,rest)
 	      `(,',old ,@,rest)))))
