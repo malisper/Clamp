@@ -4,6 +4,7 @@
   (:shadow "DO" "MAP" "IF" "REM" "="
 	   "LET" "FIND" "COUNT" "SUBST" "SORT")
   (:export
+   ;;; defalias
    "DEFALIAS"
    ;;; aliases
    "FN" "DEF" "--" "MVB" "MVL" "DO" "DO1" "DO2" "="
