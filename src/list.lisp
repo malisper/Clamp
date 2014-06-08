@@ -1,14 +1,16 @@
 ;;;; these are functions for working with lists
 
+(in-package "CLAMP")
+
 (def range (a b)
   "Generates the range of numbers from a to b"
-  (lf (> a b)
+  (if (> a b)
       '()
       (cons a (range (1+ a) b))))
 
 (def firstn (n xs)
   "Evaluates to the first n elements of the list xs"
-  (lf (no n)           xs
+  (if (no n)           xs
       (and (> n 0) xs) (cons (car xs) (firstn (1- n) (cdr xs)))
       'else            nil))
 
