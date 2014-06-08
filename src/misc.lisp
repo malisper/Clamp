@@ -1,19 +1,21 @@
 ;;;; utilities which do not belong in any other file
 
+(in-package "CLAMP")
+
 (mac ado (&body body)
   "Evaluates each expression with it bound to the result of
    the previous one. Returns the value of the last expression"
-  (lf (null body)
+  (if (null body)
         nil
       (single body)
         (car body)
-      `(let1 it ,(car body)
+      `(let it ,(car body)
 	(declare (ignorable it))
         (ado ,@(cdr body)))))
 
 (mac accum (accfn &body body)
   "The result is all of the arguments passed into accfn"
-  `(let1 gacc@ '()
+  `(let gacc@ '()
      (flet1 ,accfn (garg) (push garg gacc@)
        ,@body)
      (nrev gacc@)))
@@ -24,8 +26,8 @@
 
 (mac check (x test &optional alt)
   "If x passes the test, otherwise evaluate alt"
-  `(let1 x@ ,x
-     (lf (funcall ,test x@)
+  `(let x@ ,x
+     (if (funcall ,test x@)
 	 x@
 	 ,alt)))
 
@@ -38,7 +40,7 @@
        ,set)))
 
 (define-modify-macro or= (new)
-  (lambda (var new) (lf var var new))
+  (lambda (var new) (if var var new))
   "If the var is nil, it assigns the new value to it.
    Otherwise does nothing. This always evaluates new")
 
@@ -46,15 +48,15 @@
   "Checks if the result of evaluating x is the result of
    one of the other arguments. Only evaluates arguments
    as necessary"
-  `(let1 val@ ,x
-     (or ,@(mapf (fn (c) `(is val@ ,c)) choices))))
+  `(let val@ ,x
+     (or ,@(map (fn (c) `(is val@ ,c)) choices))))
 
 (mac cart (f xs ys)
   "Applies the function f to a subset of the cartesian product of xs and 
    ys. The element from xs is bound to 'it' which can be used to change what
    ys is"
-  `(mapcan (fn (it) ; we can use mapcan because mapf creates new conses
-	       (mapf (fn (@y)
-			 (funcall ,f it @y))
-		     ,ys))
+  `(mapcan (fn (it) ; we can use mapcan because map creates new conses
+	       (map (fn (@y)
+			(funcall ,f it @y))
+		    ,ys))
 	   ,xs))
