@@ -1,8 +1,10 @@
 ;;;; these are utilities for working with fns
 
+(in-package "CLAMP")
+
 (def compose (&rest fns)
   "Composes the arguments which are functions"
-  (lf fns
+  (if fns
       (with (fn1 (last1 fns)
 	     fns (butlast fns))
 	(fn (&rest args)
@@ -11,34 +13,34 @@
 		  :initial-value (apply fn1 args))))
       #'identity))
 
-(def flf (&rest funs)
+(def fif (&rest funs)
   "Returns a function which applies each 'test' in sequence
    and if it passes the test calls the next function"
   (case (len funs)
     (0 #'identity)
     (1 (car funs))
     (t (withs ((test fun . rest) funs
-	       restfun (apply #'flf rest))
-	 (fn (&rest a) (lf (apply test a) (apply fun a)
+	       restfun (apply #'fif rest))
+	 (fn (&rest a) (if (apply test a) (apply fun a)
 			   (apply restfun a)))))))
 
-(def andf (fn &rest fns)
+(def andf (f &rest fns)
   "Returns a predicate function which returns true when all of the
    functions passed in as arguments would return true"
-  (lf (null fns)
-      fn
-      (let1 chain (apply #'andf fns)
+  (if (null fns)
+      f
+      (let chain (apply #'andf fns)
 	(fn (x)
-	  (and (funcall fn x) (funcall chain x))))))
+	  (and (funcall f x) (funcall chain x))))))
 
-(def orf (fn &rest fns)
+(def orf (f &rest fns)
   "Returns a predicate function which returns true when any of the
    functions passed in as arguments would return true"
-  (lf (null fns)
-      fn
-      (let1 chain (apply #'orf fns)
+  (if (null fns)
+      f
+      (let chain (apply #'orf fns)
 	(fn (x)
-	  (or (funcall fn x) (funcall chain x))))))
+	  (or (funcall f x) (funcall chain x))))))
 
 (def curry (f &rest args1)
   "Returns a function with its left most arguments passed in and waiting for the rest"
