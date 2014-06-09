@@ -17,12 +17,12 @@
   "Returns a function which applies each 'test' in sequence
    and if it passes the test calls the next function"
   (case (len funs)
-    (0 #'identity)
-    (1 (car funs))
-    (t (withs ((test fun . rest) funs
-	       restfun (apply #'fif rest))
-	 (fn (&rest a) (if (apply test a) (apply fun a)
-			   (apply restfun a)))))))
+    0 #'identity
+    1 (car funs)
+    t (withs ((test fun . rest) funs
+	      restfun (apply #'fif rest))
+	(fn (&rest a) (if (apply test a) (apply fun a)
+			  (apply restfun a))))))
 
 (def andf (f &rest fns)
   "Returns a predicate function which returns true when all of the
