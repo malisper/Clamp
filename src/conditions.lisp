@@ -53,3 +53,9 @@
 
 (mac case (keyform &rest clauses)
   `(cl:case ,keyform ,@(pair clauses)))
+
+(mac ccase (keyform &rest clauses)
+  `(cl:ccase ,keyform ,@(pair clauses)))
+
+(mac ecase (keyform &rest clauses)
+  `(cl:ecase ,keyform ,@(pair clauses)))
