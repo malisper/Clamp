@@ -20,6 +20,10 @@
   "Finds the first n elements of seq if it was sorted using f"
   (firstn n (sort seq f)))
 
-(def sort (comparer sequence &optional (key #'identity))
-  "Non-destructively sorts the sequence using comparer"
+(def nsort (comparer sequence &optional (key #'identity))
+  "Destructively sorts the sequence using comparer"
   (cl:sort sequence comparer :key key))
+
+(def sort (comparer sequence &optional (key #'identity))
+  "Non-destructively sorts sequence using comparer"
+  (nsort comparer (copy-seq sequence) key))
