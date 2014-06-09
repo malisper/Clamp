@@ -1,7 +1,7 @@
 (defpackage "CLAMP"
   (:nicknames "CLAMP")
   (:use "COMMON-LISP")
-  (:shadow "DO" "MAP" "IF" "REM" "="
+  (:shadow "DO" "MAP" "IF" "CASE" "=" "REM"
 	   "LET" "FIND" "COUNT" "SUBST" "SORT")
   (:export
    ;;; defalias
@@ -26,7 +26,7 @@
    "MAPPEND" "SUBST"
 
    ;;; conditions
-   "IFLET" "WHENLET" "AIF" "IT" "AWHEN" "AAND" "AIF2"
+   "IFLET" "WHENLET" "AIF" "IT" "AWHEN" "AAND" "AIF2" "CASE"
 
    ;;; list
    "RANGE" "FIRSTN" "LAST1" "LEN<" "LEN>"
@@ -53,5 +53,4 @@
    "MEMO" "DEFMEMO"
 
    ;;; tables
-   "KEYS" "VALS" "LISTTAB" "TABLIST" "OBJ" "ALREF"
-   ))
+   "KEYS" "VALS" "LISTTAB" "TABLIST" "OBJ" "ALREF"))
