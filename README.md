@@ -9,7 +9,10 @@ A lot of code is taken from both the original arc and anarki.
 
 Defalias is a macro which allows one to easily give new names to procedures or macros already in common lisp.
 
+Several normal common lisp procedures where redefined. To see which ones, go to package.lisp under src and look at the symbols which are shadowed.
+
 TODO:
+Make sure undefined behavior is not invoked when shadowing symbols from common-lisp.
 Add tests using some framework such as CLUnit.
 Move clamp to its own package,
   shadow if, let, etc to be able to them.
