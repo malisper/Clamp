@@ -16,7 +16,7 @@
 (def pair (xs &optional (f #'list))
     "Applies a function f to every two elements in xs"
     (cond ((no xs) '())
-	  ((single xs) (list (list (car xs))))
+	  ((single xs) (list (funcall f (car xs))))
 	  ('else (cons (funcall f (car xs) (cadr xs))
 		       (pair (cddr xs) f)))))
 
@@ -30,5 +30,8 @@
 
 (defmacro if (&rest clauses)
   "Cond but doesn't require parens for each clause"
-  `(cond ,@(pair clauses)))
+  ;; the if is needed to prevent warnings from occuring
+  (cl:if (even (len clauses))
+	 `(cond ,@(pair clauses))
+	 `(cond ,@(pair (butlast clauses)) ,(cons t (last clauses))))) 
 
