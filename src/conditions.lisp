@@ -50,3 +50,6 @@
 	     (if (or val@ win@)
 		 (let it val@ ,c1)
 		 (aif2 ,@rest))))))
+
+(mac case (keyform &rest clauses)
+  `(cl:case ,keyform ,@(pair clauses)))
