@@ -2,10 +2,11 @@
 
 (defsystem "clamp"
   :description "arc functions and macros"
-  :version "0.1"
+  :version "0.2"
   :author "malisper"
   :components ((:module "src"
-		:components ((:file "defalias")
+		:components ((:file "package")
+			     (:file "defalias" :depends-on ("package"))
 			     (:file "aliases" :depends-on ("defalias"))
 			     (:file "base" :depends-on ("aliases"))
 			     (:file "binding" :depends-on ("base"))
