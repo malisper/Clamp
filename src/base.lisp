@@ -20,10 +20,6 @@
 	  ('else (cons (funcall f (car xs) (cadr xs))
 		       (pair (cddr xs) f)))))
 
-(def const (x)
-  "Evaluates to a function which always evaluates to x"
-  (fn (&rest args) (declare (ignore args)) x))
-
 (def auto (x)
   "Checks if some expression should be auto-uniqd"
   (and x (symbolp x) (eql #\@ (elt (symbol-name x) (1- (len (symbol-name x)))))))
