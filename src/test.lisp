@@ -1,5 +1,6 @@
 ;;;; several tests for clamp
-;;;; they are intended to be run while in the CLAMP package
+
+(in-package "CLAMP")
 
 (clunit:defsuite clamp ())
 
