@@ -39,10 +39,13 @@
     `(withs (,@(mappend #'list vars forms) ,(car var) (funcall ,op ,access ,@args))
        ,set)))
 
-(define-modify-macro or= (new)
-  (lambda (var new) (if var var new))
+(mac or= (place new)
   "If the var is nil, it assigns the new value to it.
-   Otherwise does nothing. This always evaluates new")
+   Otherwise does nothing"
+  (mvb (vars forms var set access)
+       (get-setf-expansion place)
+    `(withs (,@(mappend #'list vars forms) ,(car var) (or ,access ,new))
+       ,set)))
 
 (mac in (x &rest choices)
   "Checks if the result of evaluating x is the result of
