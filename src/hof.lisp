@@ -39,13 +39,13 @@
   "Evaluates to a function which always evaluates to x"
   (fn (&rest args) (declare (ignore args)) x))
 
-(def subst (old new seq)
-  "Substitues everything passes the testified version of old
-   with new (which can be a function)"
+(def subst (old new tree)
+  "Substitues everything that passes the testified version of old
+   with new (which can be a function which is called on the old elt)"
   (with (test (testify old) next (if (functionp new)
 				     new
 				     (const new)))
-    (rec (tree seq)
+    (rec (tree tree)
        (if (atom tree)
 	   (if (funcall test tree)
 	       (funcall next tree)
