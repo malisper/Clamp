@@ -41,7 +41,8 @@
 
 (def subst (old new tree)
   "Substitues everything that passes the testified version of old
-   with new (which can be a function which is called on the old elt)"
+   with new (which can be a function which is called on the old elt).
+   WARNING: traverses treewise so any nils will be tested"
   (with (test (testify old) next (if (functionp new)
 				     new
 				     (const new)))
