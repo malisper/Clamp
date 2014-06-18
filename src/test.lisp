@@ -2,10 +2,7 @@
 ;;;; TODO: figure out how to avoid duplication with packages
 
 (defpackage "CLAMP-TESTS"
-  (:shadowing-import-from "CLAMP"
-    "DO" "MAP" "IF" "CASE" "=" "CCASE" "ECASE"
-    "REM" "LET" "FIND" "COUNT" "SUBST" "SORT")
-  (:use "CLAMP" "COMMON-LISP" "CLUNIT")
+  (:use "CLAMP" "CLUNIT")
   (:export "CLAMP"))
 
 (in-package :clamp-tests)
