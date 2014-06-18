@@ -33,3 +33,4 @@
 (defalias cut subseq)
 (defalias rev reverse)
 (defalias nrev nreverse)
+(defalias const constantly)
