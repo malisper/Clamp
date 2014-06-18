@@ -76,7 +76,7 @@
   (clunit:assert-equal (keep 7 '()) '())
   (clunit:assert-equal (keep #'even '()) '())
   (clunit:assert-equal (keep #'even '(1 2 8 2 3 4)) '(2 8 2 4))
-  (clunit:assert-equal (keep #'even (5 7 3)) '())
+  (clunit:assert-equal (keep #'even '(5 7 3)) '())
   (clunit:assert-equal (keep #'even '(2 12 72 6)) '(2 12 72 6)))
 
 (clunit:deftest mem (hof)
@@ -110,11 +110,6 @@
 (clunit:deftest mappend (hof)
   (clunit:assert-equal (mappend #'identity '()) '())
   (clunit:assert-equal (mappend #'list '(1 2 3) '(4 5 6)) '(1 4 2 5 3 6)))
-
-(clunit:deftest const (hof)
-  (clunit:assert-eql (funcall (const 2)) 2)
-  (clunit:assert-eql (funcall (const 5) 7) 5)
-  (clunit:assert-eql (funcall (const 6) 3 2 1) 6))
 
 (clunit:deftest subst (hof)
   (clunit:assert-equal (subst 3 5 '()) '())
