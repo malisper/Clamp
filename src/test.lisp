@@ -1,5 +1,5 @@
 ;;;; several tests for clamp
-;;;; TODO: better names, figure out how to avoid duplication with packages
+;;;; TODO: figure out how to avoid duplication with packages
 
 (defpackage "CLAMP-TESTS"
   (:shadowing-import-from "CLAMP"
