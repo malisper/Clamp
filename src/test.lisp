@@ -5,7 +5,7 @@
   (:use "CLAMP" "CLUNIT")
   (:export "CLAMP"))
 
-(in-package :clamp-tests)
+(in-package "CLAMP-TESTS")
 
 (defsuite clamp ())
 
