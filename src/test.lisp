@@ -39,7 +39,7 @@
   (assert-eql (with (a 1 b 2 c 3) (+ a b c)) 6)
   (assert-eql (with ((x y) (list 1 2) z 3) (+ x y z)) 6)
   (assert-equal (with (a 1 b 2) (with (a b b a) (list a b)))
-      '(2 1)))
+                '(2 1)))
 
 (deftest let (binding)
   (assert-expands (with (a b) c) (let a b c))
@@ -47,8 +47,8 @@
   (assert-eql (let (x . y) (cons 1 2) (+ x y)) 3))
 
 (deftest ret (binding)
-  (assert-eql (ret x 5 (incf x 10)) 15)
-  (assert-equal (ret x '() (push 'b x) (push 'a x)) '(a b)))
+  (assert-eql (ret x 5 (incf x 10) nil) 15)
+  (assert-equal (ret x '() (push 'b x) (push 'a x) nil) '(a b)))
 
 (deftest flet1 (binding)
   (assert-expands (flet ((a (x y z) b))) (flet1 a (x y z) b)))
