@@ -10,10 +10,10 @@
    "FN" "DEF" "--" "MVB" "MVL" "DO" "DO1" "DO2" "="
    "IS" "ISO" "NO" "LEN" "MAP" "ISA" "UNIQ" "EVEN" "ODD"
    "REDUP" "DEDUP" "TABLE" "RAND" "TRUNC" "JOIN" "CUT"
-   "REV" "NREV"
+   "REV" "NREV" "CONST" "IDFN"
    
    ;;; base
-   "SINGLE" "PAIR" "CONST" "IF"
+   "SINGLE" "PAIR" "IF"
 
    ;;; binding
    "WITH" "LET" "RET" "FLET1" "WITHS"
