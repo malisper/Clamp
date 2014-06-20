@@ -34,3 +34,4 @@
 (defalias rev reverse)
 (defalias nrev nreverse)
 (defalias const constantly)
+(defalias idfn identity)
