@@ -20,9 +20,9 @@ and handle the conflicting symbol names, one only needs to import Clamp.
 So far a lot of the basic utilities from Arc have been implemented. The [...]
 syntax for literal functions has been implemented as a reader macro. Many of
 the original Common Lisp (if, let, case, etc) symbols have been shadowed and
-replaced. package.lisp contains the details for which symbols have been shadowed.
-To see what has been implemented so far look at package.lisp and see what symbols
-are exported.
+replaced. package.lisp contains the details for which symbols have been
+shadowed. To see what has been implemented so far look at package.lisp and see
+what symbols are exported.
 
 A lot of code is taken from both the original arc and anarki.
 
