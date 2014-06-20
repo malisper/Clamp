@@ -29,6 +29,10 @@
   (assert-equal (pair '(1 2 3 4) #'+) '(3 7))
   (assert-equal (pair '(1 2 3) #'+) '(3 3)))
 
+(deftest auto (base)
+  (assert-true  (clamp::auto 'abc@))
+  (assert-false (clamp::auto 'abc)))
+
 (deftest if (base)
   (assert-expands (cond (a b) (c d)) (if a b c d))
   (assert-expands (cond (a b) (t c)) (if a b c)))
