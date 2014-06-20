@@ -23,7 +23,7 @@
    Takes the same keyword arguments as table"
   (ret result (apply #'table args)
     (each (k v) xs
-      (setf (gethash k result) v))))
+      (= (gethash k result) v))))
 
 (def tablist (tab)
   "Evaluates to an alist which is equivalent to the table xs"
