@@ -56,7 +56,7 @@
    ;;; tables
    "KEYS" "VALS" "LISTTAB" "TABLIST" "OBJ" "ALREF"
 
-   ;;; functions from the common lisp package
+   ;;; symbols from the common lisp package
    ;;; this way only clamp needs to be used
    ;;; also avoids name-collision issues
    "&ALLOW-OTHER-KEYS" "&AUX" "&BODY" "&ENVIRONMENT" "&KEY" "&OPTIONAL" "&REST"
