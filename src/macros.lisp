@@ -8,7 +8,7 @@
   (let uniqs (table)
     `(defmacro ,name ,args
        ,@(subst #'auto
-		[or (gethash _ uniqs) (setf (gethash _ uniqs) (uniq (symbol-name _)))]
+		[or (gethash _ uniqs) (= (gethash _ uniqs) (uniq (symbol-name _)))]
 		body))))
 
 (defmacro w/uniq (names &body body)
