@@ -14,7 +14,7 @@
       nil
       (ret wins (car seq)
 	(each elt (cdr seq)
-	  (if (funcall f elt wins) (setf wins elt))))))
+	  (if (funcall f elt wins) (= wins elt))))))
 
 (def bestn (n f seq)
   "Finds the first n elements of seq if it was sorted using f"
