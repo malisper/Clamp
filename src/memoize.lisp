@@ -8,8 +8,8 @@
     (fn (&rest args)
       (aif2 (gethash args cache)
 	    it
-	    (setf (gethash args cache)
-		  (apply f args))))))
+	    (= (gethash args cache)
+	       (apply f args))))))
 
 (mac defmemo (name args &body body)
   "Defines a memoized function"
