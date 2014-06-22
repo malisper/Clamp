@@ -2,13 +2,14 @@
   (:nicknames "CLAMP")
   (:use "COMMON-LISP")
   (:shadow "DO" "MAP" "IF" "CASE" "=" "CCASE" "ECASE"
-	   "REM" "LET" "FIND" "COUNT" "SUBST" "SORT")
+	   "REM" "LET" "FIND" "COUNT" "SUBST" "SORT"
+	   "++")
   (:export
    ;;; defalias
    "DEFALIAS"
    ;;; aliases
-   "FN" "DEF" "--" "MVB" "MVL" "DO" "DO1" "DO2" "="
-   "IS" "ISO" "NO" "LEN" "MAP" "ISA" "UNIQ" "EVEN" "ODD"
+   "FN" "DEF" "MAC" "++" "--" "MVB" "MVL" "DO" "DO1" "DO2"
+   "=" "IS" "ISO" "NO" "LEN" "MAP" "ISA" "UNIQ" "EVEN" "ODD"
    "REDUP" "DEDUP" "TABLE" "RAND" "TRUNC" "JOIN" "CUT"
    "REV" "NREV" "CONST" "IDFN"
    
@@ -33,7 +34,7 @@
    "RANGE" "FIRSTN" "LAST1" "LEN<" "LEN>"
 
    ;;; macros
-   "MAC" "W/UNIQ"
+   "W/UNIQ"
 
    ;;; iter
    "REC" "RECUR" "REPEAT" "UP" "DOWN" "WHILE" "UNTIL" "EACH"
@@ -71,7 +72,7 @@
    "*PRINT-RADIX*" "*PRINT-READABLY*" "*PRINT-RIGHT-MARGIN*" "*QUERY-IO*"
    "*RANDOM-STATE*" "*READ-BASE*" "*READ-DEFAULT-FLOAT-FORMAT*" "*READ-EVAL*"
    "*READ-SUPPRESS*" "*READTABLE*" "*STANDARD-INPUT*" "*STANDARD-OUTPUT*"
-   "*TERMINAL-IO*" "*TRACE-OUTPUT*" "+" "++" "+++" "-" "/" "//" "///" "/=" "1+"
+   "*TERMINAL-IO*" "*TRACE-OUTPUT*" "+" #|"++"|# "+++" "-" "/" "//" "///" "/=" "1+"
    "1-" "<" "<=" "=" ">" ">=" "ABORT" "ABS" "ACONS" "ACOS" "ACOSH" "ADD-METHOD"
    "ADJOIN" "ADJUST-ARRAY" "ADJUSTABLE-ARRAY-P" "ALLOCATE-INSTANCE"
    "ALPHA-CHAR-P" "ALPHANUMERICP" "AND" "APPEND" "APPLY" "APROPOS" "APROPOS-LIST"
