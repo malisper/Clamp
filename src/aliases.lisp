@@ -5,7 +5,8 @@
 ;;; special forms
 (defalias fn lambda) ; doesn't allow for literal in function position ie ((fn ...) ...)
 (defalias def defun)
-; (defalias ++ incf) ; cannot use because ++ is already defined
+(defalias mac defmacro)
+(defalias ++ incf)
 (defalias -- decf)
 (defalias mvb multiple-value-bind)
 (defalias mvl multiple-value-list)
