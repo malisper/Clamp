@@ -1,4 +1,4 @@
-(defsystem "clamp_tests"
+(defsystem "clamp-tests"
   :description "tests for clamp"
   :depends-on ("clunit" "clamp")
   :components ((:module "src"
