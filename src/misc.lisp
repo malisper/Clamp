@@ -27,11 +27,11 @@
 
 (mac check (x test &optional alt)
   "If x passes the test, otherwise evaluate alt"
-  (w/uniq (val))
+  (w/uniq val
     `(let ,val ,x
        (if (funcall ,test ,val)
 	   ,val
-	   ,alt)))
+	   ,alt))))
 
 (mac zap (op place &rest args)
   "Assigns the value of applying op to the rest of the args
