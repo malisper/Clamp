@@ -24,7 +24,7 @@
   "Checks if some expression should be auto-uniqd"
   (and x (symbolp x) (eql #\@ (elt (symbol-name x) (1- (len (symbol-name x)))))))
 
-(defmacro if (&rest clauses)
+(mac if (&rest clauses)
   "Cond but doesn't require parens for each clause"
   ;; the if is needed to prevent warnings from occuring
   (cl:if (even (len clauses))
