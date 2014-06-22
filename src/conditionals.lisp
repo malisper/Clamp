@@ -40,16 +40,17 @@
 (mac aif2 (&rest clauses)
   "alf but for working with functions that have multiple return values
    ie gethash. See On Lisp for examples"
-  (if (null clauses)
-        nil
-      (single clauses)
-        (car clauses)
-      'else
+  (w/uniq (val win)
+    (if (null clauses)
+          nil
+	(single clauses)
+          (car clauses)
+	'else
         (let (t1 c1 . rest) clauses
-	  `(mvb (val@ win@) ,t1
-	     (if (or val@ win@)
-		 (let it val@ ,c1)
-		 (aif2 ,@rest))))))
+	  `(mvb (,val ,win) ,t1
+	     (if (or ,val ,win)
+		 (let it ,val ,c1)
+		 (aif2 ,@rest)))))))
 
 (mac case (keyform &rest clauses)
   `(cl:case ,keyform ,@(pair clauses)))
