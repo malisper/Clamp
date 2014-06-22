@@ -15,10 +15,11 @@
 
 (mac accum (accfn &body body)
   "The result is all of the arguments passed into accfn"
-  `(let gacc@ '()
-     (flet1 ,accfn (garg) (push garg gacc@)
-       ,@body)
-     (nrev gacc@)))
+  (w/uniq gacc
+    `(let ,gacc '()
+       (flet1 ,accfn (arg) (push arg ,gacc)
+	 ,@body)
+       (nrev ,gacc))))
 
 (def multiple (x y)
   "A predicate for testing if x is a multiple of y"
@@ -26,10 +27,11 @@
 
 (mac check (x test &optional alt)
   "If x passes the test, otherwise evaluate alt"
-  `(let x@ ,x
-     (if (funcall ,test x@)
-	 x@
-	 ,alt)))
+  (w/uniq (val))
+    `(let ,val ,x
+       (if (funcall ,test ,val)
+	   ,val
+	   ,alt)))
 
 (mac zap (op place &rest args)
   "Assigns the value of applying op to the rest of the args
@@ -51,15 +53,17 @@
   "Checks if the result of evaluating x is the result of
    one of the other arguments. Only evaluates arguments
    as necessary"
-  `(let val@ ,x
-     (or ,@(map (fn (c) `(is val@ ,c)) choices))))
+  (w/uniq val
+    `(let ,val ,x
+       (or ,@(map (fn (c) `(is ,val ,c)) choices)))))
 
 (mac cart (f xs ys)
   "Applies the function f to a subset of the cartesian product of xs and 
    ys. The element from xs is bound to 'it' which can be used to change what
    ys is"
-  `(mapcan (fn (it) ; we can use mapcan because map creates new conses
-	       (map (fn (@y)
-			(funcall ,f it @y))
-		    ,ys))
-	   ,xs))
+  (w/uniq y
+    `(mapcan (fn (it) ; we can use mapcan because map creates new conses
+		 (map (fn (,y)
+			  (funcall ,f it ,y))
+		      ,ys))
+	     ,xs)))
