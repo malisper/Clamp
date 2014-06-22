@@ -21,8 +21,9 @@
     1 (car funs)
     t (withs ((test fun . rest) funs
 	      restfun (apply #'fif rest))
-	(fn (&rest a) (if (apply test a) (apply fun a)
-			  (apply restfun a))))))
+	(fn (&rest args) (if (apply test args)
+			     (apply fun args)
+			     (apply restfun args))))))
 
 (def andf (f &rest fns)
   "Returns a predicate function which returns true when all of the
