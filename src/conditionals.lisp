@@ -3,7 +3,7 @@
 (in-package "CLAMP")
 
 (mac iflet (var expr &body branches)
-  "Same as lf but if a predicate is true, it is bound to var"
+  "Same as if but if a predicate is true, it is bound to var"
   (if branches
       (w/uniq gv
 	`(let ,gv ,expr
@@ -16,15 +16,15 @@
       expr))
 
 (mac whenlet (var expr &body body)
-  "Analog of lflet but for when"
+  "Analog of iflet but for when"
   `(iflet ,var ,expr (do ,@body)))
 
 (mac aif (expr &body branches)
-   "lflet but uses 'it' for var"
+   "iflet but uses 'it' for var"
   `(iflet it ,expr ,@branches))
 
 (mac awhen (expr &body body)
-   "Analog of alf but for when"
+   "Analog of aif but for when"
   `(whenlet it ,expr ,@body))
 
 (mac aand (&rest args)
