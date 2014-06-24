@@ -12,6 +12,7 @@
 (defsuite base (clamp))
 (defsuite binding (clamp))
 (defsuite hof (clamp))
+(defsuite conditionals (clamp))
 
 ;;; base
 
@@ -123,3 +124,57 @@
   (assert-equal (subst 2 #'1- '((3 . 2) (2 . 7))) '((3 . 1) (1 . 7)))
   (assert-equal (subst #'even #'1+ '((4 . 3) 2 . 5))
                 '((5 . 3) 3 . 5)))
+
+;;; conditionals
+
+(deftest iflet (conditionals)
+  (assert-eql (iflet x 5 (+ x 10)) 15)
+  (assert-eql (iflet x (find #'even '(1 6 3 7)) (* x 2)) 12)
+  (assert-eql (iflet x (find #'even '(1 3 7)) (+ 1 1) (+ 5 5)) 10)
+  (assert-equal (iflet (x . y) (cons 5 10) (list x y)) '(5 10))
+  (assert-equal (iflet (x . y) nil 10 (list 5 10) (cons x y))
+                '(5 10))
+  (assert-false (iflet nil nil nil nil)))
+
+(deftest whenlet (conditionals)
+  (assert-false (whenlet x nil 5))
+  (assert-eql (whenlet (x . y) (cons 5 10) (+ x y)) 15)
+  (assert-eql (whenlet x (+ 5 10) (+ 15 20) (+ 30 40)) 70))
+
+(deftest aif (conditionals)
+  (assert-false (aif nil t))
+  (assert-eql (aif nil t 5) 5)
+  (assert-eql (aif 5 it) 5)
+  (assert-eql (aif 10 (+ it 5)) 15)
+  (assert-eql (aif nil (+ it 5) 10 (+ it 20)) 30)
+  (assert-eql (aif nil (+ it 5) nil (+ it 20) 15) 15))
+
+(deftest awhen (conditionals)
+  (assert-false (awhen nil t))
+  (assert-eql (awhen (find #'even '(7 5 4 3)) (+ it 20)) 24)
+  (assert-false (awhen (find #'even '(7 5 3)) (+ it 20)))
+  (assert-eql (awhen (find #'even '(7 5 4 3)) (+ 5 10) (+ 15 20)) 35))
+
+(deftest aand (conditionals)
+  (assert-false (aand nil))
+  (assert-false (aand t nil))
+  (assert-false (aand t nil t))
+  (let tab (obj a (obj a 1 b 2) b (obj a 1 b 2))
+    (assert-eql (aand (gethash 'a tab) (gethash 'b it)) 2)
+    (assert-false (aand (gethash 'c tab) (gethash 'b it)))))
+
+(deftest aif2 (conditionals)
+  (assert-false (aif2 nil (+ 5 5)))
+  (assert-eql (aif2 (find #'even '(15 2 7 8)) (+ it 5)) 7)
+  (let tab (obj a nil b 5)
+    (assert-eql (aif2 (gethash 'b tab) (+ it 10)) 15)
+    (assert-true (aif2 (gethash 'a tab) (not it)))
+    (assert-false (aif2 (gethash 'c tab) (not it)))))
+
+(deftest case (conditionals)
+  (assert-false (case 'c a 1 b 2))
+  (assert-eql (case 'a a 1 b 2) 1)
+  (assert-eql (case 'b (a b) 1 c 2) 1)
+  (assert-eql (case 'c a 1 b 2 t 3) 3)
+  (assert-false (case 'c a 1 b 2 (t) 3))
+  (assert-eql (case t a 1 b 2 (t) 3 t 4) 3))
