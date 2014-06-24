@@ -9,7 +9,7 @@
 	`(let ,gv ,expr
 	   (if ,gv
 	       (let ,var ,gv
-		 (declare (ignorable ,var))
+		 (declare (ignorable ,@(flat var)))
 		 ,(car branches))
 	       ,(if (cdr branches)
 		    `(iflet ,var ,@(cdr branches))))))
@@ -38,7 +38,7 @@
         `(let it ,(car args) (and it (aand ,@(cdr args))))))
 
 (mac aif2 (&rest clauses)
-  "alf but for working with functions that have multiple return values
+  "aif but for working with functions that have multiple return values
    ie gethash. See On Lisp for examples"
   (w/uniq (val win)
     (if (null clauses)
