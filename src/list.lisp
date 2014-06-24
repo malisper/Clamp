@@ -18,6 +18,13 @@
   "Evaluates to the last element of xs. Not the last cons pair"
   (car (last xs)))
 
+(def flat (tree)
+  "A list of all of the atoms in a tree"
+  (if (atom tree)
+      (list tree)
+      (append (flat (car tree))
+	      (flat (cdr tree)))))
+
 ;;; predicates for testing length
 ;;; may optimize these but they need testing
 ;;; to see if it would make any difference
