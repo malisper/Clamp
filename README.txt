@@ -32,4 +32,3 @@ Write the rest of the functions from arc.
 Add functions from On Lisp.
 Move some more code around and clean up.
 Add type declarations to speed up code.
-Figure out how to fix problem with defmemo
