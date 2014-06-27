@@ -31,13 +31,13 @@
    "CCASE" "ECASE"
 
    ;;; list
-   "RANGE" "FIRSTN" "LAST1" "LEN<" "LEN>"
+   "RANGE" "FIRSTN" "LAST1" "FLAT" "LEN<" "LEN>"
 
    ;;; macros
    "W/UNIQ"
 
    ;;; iter
-   "REC" "RECUR" "REPEAT" "UP" "DOWN" "WHILE" "UNTIL" "EACH"
+   "REC" "RECUR" "REPEAT" "UP" "DOWN" "WHILE" "UNTIL" "EACH" "ON" "INDEX"
 
    ;;; fns
    "RFN" "AFN"
