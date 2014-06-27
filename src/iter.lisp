@@ -31,3 +31,9 @@
  "Iterates across each element in seq. Currently works
   on both lists and arrays (maybe add hashtables in the future)"
  `(loop for ,var being the elements of ,seq do (do ,@body)))
+
+(mac on (var seq &body body)
+  "Same as each except simultaneously binds 'index' to the index of the element"
+  `(loop for ,var being the elements of ,seq
+	 for index from 0
+	 do (do ,@body)))
