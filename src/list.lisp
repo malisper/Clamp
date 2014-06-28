@@ -36,3 +36,8 @@
 (def len> (xs n)
   "A predicate for testing if the length of xs is greater than n"
   (> (len xs) n))
+
+(mac n-of (n exp)
+  "Evaluates exp n times and collects the result into a list"
+  ;; loop generates faster code than what I would write by hand
+  `(loop repeat ,n collect ,exp))
