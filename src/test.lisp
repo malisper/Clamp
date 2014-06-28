@@ -159,6 +159,11 @@
   (assert-false (len> (range 1 10) 15))
   (assert-false (len> (range 1 10) 10)))
 
+(deftest n-of (list)
+  (assert-equal '(1 1 1) (n-of 3 1))
+  (let x 0
+    (assert-equal (range 1 5) (n-of 5 (incf x)))))
+
 ;;; conditionals
 
 (deftest iflet (conditionals)
