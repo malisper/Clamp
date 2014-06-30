@@ -36,3 +36,6 @@
 (defalias nrev nreverse)
 (defalias const constantly)
 (defalias idfn identity)
+(defalias outstring make-string-output-stream)
+(defalias inside get-output-stream-string)
+(defalias instring make-string-input-stream)
