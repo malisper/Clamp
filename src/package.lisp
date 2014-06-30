@@ -11,7 +11,7 @@
    "FN" "DEF" "MAC" "++" "--" "MVB" "MVL" "DO" "DO1" "DO2"
    "=" "IS" "ISO" "NO" "LEN" "MAP" "ISA" "UNIQ" "EVEN" "ODD"
    "REDUP" "DEDUP" "TABLE" "RAND" "TRUNC" "JOIN" "CUT"
-   "REV" "NREV" "CONST" "IDFN"
+   "REV" "NREV" "CONST" "IDFN" "OUTSTRING" "INSIDE" "INSTRING"
    
    ;;; base
    "SINGLE" "PAIR" "IF"
@@ -20,7 +20,7 @@
    "WITH" "LET" "RET" "FLET1" "WITHS"
 
    ;;; print
-   "PR" "PRN"
+   "PR" "PRN" "W/OUTSTRING" "TOSTRING" "W/INSTRING" "FROMSTRING"
 
    ;;; hof
    "TESTIFY" "REM" "KEEP" "MEM" "FIND" "COUNT" "POS"
