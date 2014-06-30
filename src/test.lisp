@@ -238,3 +238,25 @@
 		  (prn "Hello" " World " (+ 3 2))))
   (with-output-to-string (*standard-output*)
     (assert-eql 5 (prn (+ 1 4) (+ 3 7)))))
+
+(deftest w/outstring (print)
+  (assert-equal "Hello World 3" (w/outstring stream
+				  (princ "Hello " stream)
+				  (princ "World " stream)
+				  (princ (+ 1 2) stream)))
+  (assert-equal "" (w/outstring stream)))
+
+(deftest tostring (print)
+  (assert-equal "Hello World 3" (tostring (pr "Hello " "World " (+ 1 2))))
+  (assert-equal "" (tostring))
+  (assert-equal (format nil "~%") (tostring (prn))))
+
+(deftest w/instring (print)
+  (assert-eq 'hello (w/instring stream "Hello World" (read stream)))
+  (assert-equal "Hello World" (w/instring stream "Hello World" (read-line stream)))
+  (assert-equal 123 (w/instring stream "123" (parse-integer (read-line stream)))))
+
+(deftest fromstring (print)
+  (assert-eq 'hello (fromstring "Hello World" (read)))
+  (assert-equal "Hello World" (fromstring "Hello World" (read-line)))
+  (assert-equal 123 (fromstring "123" (parse-integer (read-line)))))
