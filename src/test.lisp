@@ -14,6 +14,7 @@
 (defsuite hof (clamp))
 (defsuite list (clamp))
 (defsuite conditionals (clamp))
+(defsuite print (clamp))
 
 ;;; base
 
@@ -217,3 +218,23 @@
   (assert-eql 3 (case 'c a 1 b 2 t 3))
   (assert-false (case 'c a 1 b 2 (t) 3))
   (assert-eql 3 (case t a 1 b 2 (t) 3 t 4)))
+
+
+(deftest pr (print)
+  (assert-equal "hello world 5"
+                ;; need to use *standard-output* because pr
+                ;; currently does not allow output to another stream 
+                (with-output-to-string (*standard-output*)
+		  (pr "hello" " world " (+ 2 3))))
+  (with-output-to-string (*standard-output*)
+    (assert-eql 3 (pr (+ 1 2) (+ 4 5)))))
+
+(deftest prn (print)
+  (assert-equal (format nil "~%")
+                (with-output-to-string (*standard-output*)
+		  (prn)))
+  (assert-equal (format nil "Hello World 5~%")
+                (with-output-to-string (*standard-output*)
+		  (prn "Hello" " World " (+ 3 2))))
+  (with-output-to-string (*standard-output*)
+    (assert-eql 5 (prn (+ 1 4) (+ 3 7)))))
