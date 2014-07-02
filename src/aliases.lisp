@@ -14,6 +14,8 @@
 (defalias do1 prog1)
 (defalias do2 prog2)
 (defalias = setf)
+(defalias errsafe ignore-errors)
+(defalias after unwind-protect)
 
 ;;; functions
 (defalias is eql)
