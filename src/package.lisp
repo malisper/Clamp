@@ -12,6 +12,7 @@
    "=" "IS" "ISO" "NO" "LEN" "MAP" "ISA" "UNIQ" "EVEN" "ODD"
    "REDUP" "DEDUP" "TABLE" "RAND" "TRUNC" "JOIN" "CUT"
    "REV" "NREV" "CONST" "IDFN" "OUTSTRING" "INSIDE" "INSTRING"
+   "ERRSAFE" "W/FILE"
    
    ;;; base
    "SINGLE" "PAIR" "IF"
@@ -56,6 +57,9 @@
 
    ;;; tables
    "KEYS" "VALS" "LISTTAB" "TABLIST" "OBJ" "ALREF"
+
+   ;;; io
+   "W/INFILE" "W/OUTFILE" "W/APPENDFILE"
 
    ;;; symbols from the common lisp package
    ;;; this way only clamp needs to be used
