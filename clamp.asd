@@ -21,4 +21,5 @@
 			     (:file "fnops" :depends-on ("conditionals" "binding"))
 			     (:file "sort" :depends-on ("base"))
 			     (:file "memoize" :depends-on ("binding" "conditionals" "macros"))
-			     (:file "tables" :depends-on ("binding" "iter" "macros"))))))
+			     (:file "tables" :depends-on ("binding" "iter" "macros"))
+			     (:file "io" :depends-on ("aliases"))))))
