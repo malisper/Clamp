@@ -16,6 +16,7 @@
 (defalias = setf)
 (defalias errsafe ignore-errors)
 (defalias after unwind-protect)
+(defalias w/file with-open-file)
 
 ;;; functions
 (defalias is eql)
