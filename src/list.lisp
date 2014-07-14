@@ -12,7 +12,7 @@
   "Evaluates to the first n elements of the list xs"
   (if (no n)           xs
       (and (> n 0) xs) (cons (car xs) (firstn (1- n) (cdr xs)))
-      'else            nil))
+      'else            '()))
 
 (def last1 (xs)
   "Evaluates to the last element of xs. Not the last cons pair"
