@@ -141,6 +141,13 @@
   (assert-equal (range 1 5) (firstn nil (range 1 5)))
   (assert-equal (range 1 5) (firstn 10 (range 1 5))))
 
+(deftest tuples (list)
+  (assert-equal '() (tuples '()))
+  (assert-equal '() (tuples '() 3))
+  (assert-equal '((1 2) (3 4)) (tuples '(1 2 3 4)))
+  (assert-equal '((1 2) (3 4) (5)) (tuples (range 1 5)))
+  (assert-equal '((1 2 3) (4 5)) (tuples (range 1 5) 3)))
+
 (deftest last1 (list)
   (assert-eq 10 (last1 (range 1 10)))
   (assert-eq nil (last1 '())))
@@ -259,4 +266,4 @@
 (deftest fromstring (print)
   (assert-eq 'hello (fromstring "Hello World" (read)))
   (assert-equal "Hello World" (fromstring "Hello World" (read-line)))
-  (assert-equal 123 (fromstring "123" (parse-integer (read-line)))))
+  (assert-eql 123 (fromstring "123" (parse-integer (read-line)))))
