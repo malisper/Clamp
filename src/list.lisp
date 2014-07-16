@@ -14,14 +14,12 @@
       (and (> n 0) xs) (cons (car xs) (firstn (1- n) (cdr xs)))
       'else            '()))
 
-
-;;; maybe tuples should be combined with pair through keyword args
-(def tuples (xs &optional (n 2))
-  "Groups xs into tuples of size n"
+(def group (xs &key (by 2) (with #'list))
+  "Groups every 'by' elements using the procedure 'with'"
   (if (no xs)
       '()
-      (cons (firstn n xs)
-	    (tuples (nthcdr n xs) n))))
+      (cons (apply with (firstn by xs))
+	    (group (nthcdr by xs) :by by :with with))))
 
 (def last1 (xs)
   "Evaluates to the last element of xs. Not the last cons pair"
