@@ -5,7 +5,7 @@
 (def compare (comparer scorer)
   "Returns a function which compares its arguments score on scorer
    with comparer. Generally should use the :key argument to other
-   functions instead"
+   procedures instead"
   (fn (x y) (funcall comparer (funcall scorer x) (funcall scorer y))))
 
 (def best (f xs)
@@ -16,9 +16,9 @@
 	(each elt (cdr xs)
 	  (if (funcall f elt wins) (= wins elt))))))
 
-(def bestn (n f seq)
-  "Finds the first n elements of seq if it was sorted using f"
-  (firstn n (sort seq f)))
+(def bestn (n f xs)
+  "Finds the first n elements of the list xs if it was sorted using f"
+  (firstn n (sort xs f)))
 
 (def nsort (comparer sequence &optional (key #'identity))
   "Destructively sorts the sequence using comparer"
