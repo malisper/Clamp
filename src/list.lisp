@@ -2,11 +2,10 @@
 
 (in-package "CLAMP")
 
-(def range (a b)
+(def range (a b &optional (by 1))
   "Generates the range of numbers from a to b"
-  (if (> a b)
-      '()
-      (cons a (range (1+ a) b))))
+  ;; loop generates efficent code
+  (loop for i from a to b by by collect i))
 
 (def firstn (n xs)
   "Evaluates to the first n elements of the list xs"
