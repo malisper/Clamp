@@ -53,10 +53,10 @@
 		 (aif2 ,@rest)))))))
 
 (mac case (keyform &rest clauses)
-  `(cl:case ,keyform ,@(pair clauses)))
+  `(cl:case ,keyform ,@(group clauses)))
 
 (mac ccase (keyform &rest clauses)
-  `(cl:ccase ,keyform ,@(pair clauses)))
+  `(cl:ccase ,keyform ,@(group clauses)))
 
 (mac ecase (keyform &rest clauses)
-  `(cl:ecase ,keyform ,@(pair clauses)))
+  `(cl:ecase ,keyform ,@(group clauses)))
