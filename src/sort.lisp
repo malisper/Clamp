@@ -8,12 +8,12 @@
    functions instead"
   (fn (x y) (funcall comparer (funcall scorer x) (funcall scorer y))))
 
-(def best (f seq)
-  "Finds the first element of seq if it was sorted using f"
-  (if (no seq)
+(def best (f xs)
+  "Finds the first element of the list xs if it was sorted using f"
+  (if (no xs)
       nil
-      (ret wins (car seq)
-	(each elt (cdr seq)
+      (ret wins (car xs)
+	(each elt (cdr xs)
 	  (if (funcall f elt wins) (= wins elt))))))
 
 (def bestn (n f seq)
