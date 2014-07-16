@@ -10,10 +10,13 @@
   (loop for i from a to b by by collect i))
 
 (def firstn (n xs)
-  "Evaluates to the first n elements of the list xs"
-  (if (no n)           xs
-      (and (> n 0) xs) (cons (car xs) (firstn (1- n) (cdr xs)))
-      'else            '()))
+  "Evaluates to a list containing first n elements of the seq xs.
+   If n is nil, returns the entire seq"
+  (if (no n)
+      xs
+      (loop repeat n
+	    for x being the elements of xs
+	    collect x)))
 
 (def group (xs &key (by 2) (with #'list))
   "Groups every 'by' elements using the procedure 'with'"
