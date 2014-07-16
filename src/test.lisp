@@ -107,7 +107,7 @@
   (assert-eql 3 (count 5 '(1 5 3 2 5 7 5)))
   (assert-eql 4 (count #'even '(1 6 3 2 2 4))))
 
-(deftest pos (hof)
+(defest pos (hof)
   (assert-false (pos 2 '()))
   (assert-false (pos #'even '()))
   (assert-false (pos #'even '(123 45 3 7)))
@@ -141,7 +141,9 @@
   (assert-equal '(1 2 3) (firstn 3 (range 1 5)))
   (assert-equal nil (firstn 0 (range 1 5)))
   (assert-equal (range 1 5) (firstn nil (range 1 5)))
-  (assert-equal (range 1 5) (firstn 10 (range 1 5))))
+  (assert-equal (range 1 5) (firstn 10 (range 1 5)))
+  (assert-equal (range 1 5) (firstn 5 (vector 1 2 3 4 5 6 7 8)))
+  (assert-equal (range 1 5) (firstn 10 (vector 1 2 3 4 5))))
 
 (deftest group (list)
   (assert-equal '() (group '()))
