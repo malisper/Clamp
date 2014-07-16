@@ -133,7 +133,9 @@
 (deftest range (list)
   (assert-equal '(1 2 3 4 5) (range 1 5))
   (assert-equal '(5) (range 5 5))
-  (assert-equal '() (range 5 4)))
+  (assert-equal '() (range 5 4))
+  (assert-equal '(2 4 6 8 10) (range 2 10 2))
+  (assert-equal '(1 3 5 7 9) (range 1 10 2)))
 
 (deftest firstn (list)
   (assert-equal '(1 2 3) (firstn 3 (range 1 5)))
