@@ -15,7 +15,7 @@
    "ERRSAFE" "W/FILE"
    
    ;;; base
-   "SINGLE" "PAIR" "IF"
+   "SINGLE" "IF"
 
    ;;; binding
    "WITH" "LET" "RET" "FLET1" "WITHS"
@@ -27,12 +27,12 @@
    "TESTIFY" "REM" "KEEP" "MEM" "FIND" "COUNT" "POS"
    "MAPPEND" "SUBST"
 
-   ;;; conditions
+   ;;; conditionals
    "IFLET" "WHENLET" "AIF" "IT" "AWHEN" "AAND" "AIF2" "CASE"
    "CCASE" "ECASE"
 
    ;;; list
-   "RANGE" "FIRSTN" "LAST1" "FLAT" "LEN<" "LEN>" "N-OF" "TUPLES"
+   "RANGE" "FIRSTN" "LAST1" "FLAT" "LEN<" "LEN>" "N-OF" "GROUP"
 
    ;;; macros
    "W/UNIQ"
