@@ -107,7 +107,7 @@
   (assert-eql 3 (count 5 '(1 5 3 2 5 7 5)))
   (assert-eql 4 (count #'even '(1 6 3 2 2 4))))
 
-(defest pos (hof)
+(deftest pos (hof)
   (assert-false (pos 2 '()))
   (assert-false (pos #'even '()))
   (assert-false (pos #'even '(123 45 3 7)))
