@@ -3,7 +3,9 @@
 (in-package "CLAMP")
 
 (def range (a b &optional (by 1))
-  "Generates the range of numbers from a to b"
+  "Generates the range of numbers from a to b in steps of 'by'.
+   Right now 'by' has to be a positive integer instead of any
+   integer"
   ;; loop generates efficent code
   (loop for i from a to b by by collect i))
 
