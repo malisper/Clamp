@@ -12,12 +12,20 @@
   `(loop repeat ,n do (do ,@body)))
 
 (mac up (var a b &body body)
+  "Evaluates body iterating from a up to b exclusive"
+  `(loop for ,var from ,a below ,b do (do ,@body)))
+
+(mac upto (var a b &body body)
   "Evaluates body iterating from a up to b inclusive"
-  `(loop for ,var from ,a to ,b do (do ,@body)))
+  `(loop for ,var from ,a upto ,b do (do ,@body)))
+
+(mac downfrom (var a b &body body)
+  "Evaluates body iterating from a down to b inclusive"
+  `(loop for ,var downfrom ,a to ,b do (do ,@body)))
 
 (mac down (var a b &body body)
-  "Evaluates body iterating from a down to b inclusive"
-  `(loop for ,var from ,a downto ,b do (do ,@body)))
+  "Evaluates body iterating from a (exclusive) to b (inclusive)"
+  `(downfrom ,var (1- ,a) ,b ,@body))
 
 (mac while (test &body body)
   "Evaluates body while the test is true"
@@ -37,3 +45,4 @@
   `(loop for ,var being the elements of ,seq
 	 for index from 0
 	 do (do ,@body)))
+
