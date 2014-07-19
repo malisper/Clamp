@@ -49,7 +49,7 @@
         (let (t1 c1 . rest) clauses
 	  `(mvb (,val ,win) ,t1
 	     (if (or ,val ,win)
-		 (let it ,val ,c1)
+		 (let it (declare ignorable it) ,val ,c1)
 		 (aif2 ,@rest)))))))
 
 (mac case (keyform &rest clauses)
