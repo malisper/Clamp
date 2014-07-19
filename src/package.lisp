@@ -38,7 +38,8 @@
    "W/UNIQ"
 
    ;;; iter
-   "REC" "RECUR" "REPEAT" "UP" "DOWN" "WHILE" "UNTIL" "EACH" "ON" "INDEX"
+   "REC" "RECUR" "REPEAT" "UPTO" "UP" "DOWNFROM" "DOWN" "WHILE" "UNTIL"
+   "EACH" "ON" "INDEX"
 
    ;;; fns
    "RFN" "AFN"
