@@ -35,7 +35,9 @@
       (no (cdr args))
         (car args)
       'else
-        `(let it ,(car args) (and it (aand ,@(cdr args))))))
+        `(let it ,(car args)
+	   (declare (ignorable it))
+	   (and it (aand ,@(cdr args))))))
 
 (mac aif2 (&rest clauses)
   "aif but for working with functions that have multiple return values
@@ -49,7 +51,7 @@
         (let (t1 c1 . rest) clauses
 	  `(mvb (,val ,win) ,t1
 	     (if (or ,val ,win)
-		 (let it (declare ignorable it) ,val ,c1)
+		 (let it ,val (declare (ignorable it)) ,c1)
 		 (aif2 ,@rest)))))))
 
 (mac case (keyform &rest clauses)
