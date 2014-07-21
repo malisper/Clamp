@@ -7,7 +7,7 @@
 (set-macro-character #\[
   (fn (stream char)
       (declare (ignore char))
-      `(fn (_) (,@(read-delimited-list #\] stream t)))))
+      `(lambda (_) (,@(read-delimited-list #\] stream t)))))
 
 (def single (xs)
   "A predicate for testing whether a list has only one element"
