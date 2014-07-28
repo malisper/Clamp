@@ -52,3 +52,13 @@
   "Evaluates exp n times and collects the result into a list"
   ;; loop generates faster code than what I would write by hand
   `(loop repeat ,n collect ,exp))
+
+(def caris (x val)
+  "Tests that x is a cons and (car x) is val."
+  (and (consp x) (is (car x) val)))
+
+(def carif (x)
+  "Returns x if it is an atom, otherwise returns (car x)"
+  (if (atom x)
+      x
+      (car x)))
