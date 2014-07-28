@@ -32,7 +32,8 @@
    "CCASE" "ECASE"
 
    ;;; list
-   "RANGE" "FIRSTN" "LAST1" "FLAT" "LEN<" "LEN>" "N-OF" "GROUP"
+   "RANGE" "FIRSTN" "LAST1" "FLAT" "LEN<" "LEN>" "N-OF" "GROUP" "CARIS"
+   "CARIF"
 
    ;;; macros
    "W/UNIQ"
