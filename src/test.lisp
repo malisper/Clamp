@@ -160,6 +160,15 @@
   (let x 0
     (assert-equal (range 1 5) (n-of 5 (incf x)))))
 
+(deftest caris (list)
+  (assert-false (caris 5 5))
+  (assert-false (caris '(1 2 3) 2))
+  (assert-true  (caris '(1 2 3) 1)))
+
+(deftest carif (list)
+  (assert-eql 5 (carif 5))
+  (assert-eql 1 (carif '(1 2 3))))
+
 ;;; conditionals
 
 (deftest iflet (conditionals)
