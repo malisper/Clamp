@@ -26,7 +26,7 @@
   (zerop (mod x y)))
 
 (mac check (x test &optional alt)
-  "If x passes the test, otherwise evaluate alt"
+  "If x passes the test return it, otherwise evaluate alt"
   (w/uniq val
     `(let ,val ,x
        (if (funcall ,test ,val)
