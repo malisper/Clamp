@@ -1,5 +1,7 @@
 ;;;; these are several utilities for performing i/o
 
+(in-package "CLAMP")
+
 (mac w/infile (var file &body body)
   "Binds var to the input stream from file and will automatically
    close it"
@@ -12,5 +14,5 @@
   `(w/file (,var ,file :direction :output :if-exists :supersede) ,@body))
 
 (mac w/appendfile (var file &body body)
-  "Same as w/outfile ecept appends to the file instead of superseding it"
+  "Same as w/outfile except appends to the file instead of superseding it"
   `(w/file (,var ,file :direction :output :if-exists :append) ,@body))
