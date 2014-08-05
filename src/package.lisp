@@ -2,7 +2,7 @@
   (:nicknames "CLAMP")
   (:use "COMMON-LISP")
   (:shadow "DO" "MAP" "IF" "CASE" "=" "CCASE" "ECASE"
-	   "REM" "LET" "FIND" "COUNT" "SUBST" "SORT"
+	   "REM" "LET" "FIND" "COUNT" "SORT"
 	   "++")
   (:export
    ;;; defalias
@@ -25,7 +25,7 @@
 
    ;;; hof
    "TESTIFY" "REM" "KEEP" "MEM" "FIND" "COUNT" "POS"
-   "MAPPEND" "SUBST"
+   "MAPPEND" "PARTITION"
 
    ;;; conditionals
    "IFLET" "WHENLET" "AIF" "IT" "AWHEN" "AAND" "AIF2" "CASE"
