@@ -55,10 +55,13 @@
 		 (aif2 ,@rest)))))))
 
 (mac case (keyform &rest clauses)
+  "Same as regular CL case except there are no parens around each pair."
   `(cl:case ,keyform ,@(group clauses)))
 
 (mac ccase (keyform &rest clauses)
+  "Same as regular CL ccase except there are no parens around each pair."
   `(cl:ccase ,keyform ,@(group clauses)))
 
 (mac ecase (keyform &rest clauses)
+  "Same as regular CL ecase except there are no parens around each pair"
   `(cl:ecase ,keyform ,@(group clauses)))
