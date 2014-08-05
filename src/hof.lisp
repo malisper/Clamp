@@ -35,17 +35,14 @@
   "Joins the results of mapping f over xs"
   (apply #'join (apply #'map f xss)))
 
-(def subst (old new tree)
-  "Substitues everything that passes the testified version of old
-   with new (which can be a function which is called on the old elt).
-   WARNING: traverses treewise so any nils will be tested"
-  (with (test (testify old) next (if (functionp new)
-				     new
-				     (const new)))
-    (rec (tree tree)
-       (if (atom tree)
-	   (if (funcall test tree)
-	       (funcall next tree)
-	       tree)
-	   (cons (recur (car tree))
-		 (recur (cdr tree)))))))
+(def partition (test xs &key (key #'identity) (start 0))
+  "Returns two lists, the first one containing all of the
+   elements of xs that pass the test and the second containing
+   all of those that don't."
+  (loop with f = (testify test)
+        for x in (nthcdr start xs)
+        if (funcall f (funcall key x))
+          collect x into pass
+        else
+          collect x into fail
+        finally (return (values pass fail))))
