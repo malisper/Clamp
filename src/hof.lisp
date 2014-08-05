@@ -40,7 +40,7 @@
    elements of xs that pass the test and the second containing
    all of those that don't."
   (loop with f = (testify test)
-        for x in (nthcdr start xs)
+        for x being the elements of (subseq xs start)
         if (funcall f (funcall key x))
           collect x into pass
         else
