@@ -118,15 +118,18 @@
   (assert-equal '() (mappend #'identity '()))
   (assert-equal '(1 4 2 5 3 6) (mappend #'list '(1 2 3) '(4 5 6))))
 
-(deftest subst (hof)
-  (assert-equal '() (subst 3 5 '()))
-  (assert-equal '((7 5 . 2) (5 . 5) . 7)
-                (subst 3 5 '((7 3 . 2) (5 . 3) . 7)))
-  (assert-equal '((3 5 . 5) . 3) (subst #'even 5 '((3 2 . 4) . 3)))
-  (assert-equal '((3 . 1) (1 . 7)) (subst 2 #'1- '((3 . 2) (2 . 7))))
-  (assert-equal '((5 . 3) 3 . 5)
-                (subst #'even #'1+ '((4 . 3) 2 . 5))))
-
+(deftest partition (hof)
+  (assert-equal '(() ()) (mvl (partition #'even '())))
+  (assert-equal '(() ()) (mvl (partition 1 '())))
+  (assert-equal '((2 4) (1 3 5)) (mvl (partition #'even '(1 2 3 4 5))))
+  (assert-equal '((4) (5)) (mvl (partition #'even '(1 2 3 4 5) :start 3)))
+  (assert-equal '((1 1 1) (0)) (mvl (partition 1 '(1 0 1 1))))
+  (assert-equal '(((2) (4)) ((1) (3) (5)))
+		(mvl (partition #'even '((1) (2) (3) (4) (5)) :key #'car)))
+  (assert-equal '(((4)) ((5)))
+		(mvl (partition #'even '((1) (2) (3) (4) (5))
+				:key #'car
+				:start 3))))
 
 ;;; list
 
