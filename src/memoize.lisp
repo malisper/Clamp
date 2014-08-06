@@ -13,6 +13,8 @@
 
 (mac defmemo (name args &body body)
   "Defines a memoized function"
-  `(do (= (symbol-function ',name) #'idfn)
-       (= (symbol-function ',name)
-	  (memo (fn ,args (block ,name ,@body))))))
+  `(do (= (symbol-function ',name)
+	  (memo (fn ,args (block ,name ,@body))))
+       ,(when (stringp (car body)) ; test for a documentation string
+	  `(= (documentation ',name 'function) ,(car body)))
+       ',name))
