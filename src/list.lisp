@@ -24,7 +24,7 @@
   "Given a sequence and an integer will return two sequences. The first
    one will contain the first n elements of the sequence, and the second
    will contain the rest of the elements of the initial sequence."
-  (values (firstn n seq) (cut seq n)))
+  (values (cut n seq) (cut seq n)))
 
 (def group (xs &key (by 2) (with #'list))
   "Groups every 'by' elements of the given list using the procedure 
