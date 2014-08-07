@@ -131,7 +131,7 @@
   (assert-eql 0 (count #'even #()))
   (assert-eql 0 (count #'even #(1 3 71 21)))
   (assert-eql 3 (count 5 #(1 5 3 2 5 7 5)))
-  (assert-eql 4 (count #'even #(1 6 3 2 2 4)))))
+  (assert-eql 4 (count #'even #(1 6 3 2 2 4))))
 
 (deftest pos (hof)
   (assert-false (pos 2 '()))
@@ -191,6 +191,15 @@
   (assert-equal (range 1 5) (firstn 10 (range 1 5)))
   (assert-equal (range 1 5) (firstn 5 (vector 1 2 3 4 5 6 7 8)))
   (assert-equal (range 1 5) (firstn 10 (vector 1 2 3 4 5))))
+
+(deftest split (list)
+  (assert-equal '(() ()) (mvl (split '() 0)))
+  (assert-equal '(() (a b c)) (mvl (split '(a b c) 0)))
+  (assert-equal '((a) (b c)) (mvl (split '(a b c) 1)))
+  ;;; same tests but for vectors
+  (assert-equalp '(#() #()) (mvl (split #() 0)))
+  (assert-equalp '(#() #(a b c)) (mvl (split #(a b c) 0)))
+  (assert-equalp '(#(a) #(b c)) (mvl (split #(a b c) 1))))
 
 (deftest group (list)
   (assert-equal '() (group '()))
