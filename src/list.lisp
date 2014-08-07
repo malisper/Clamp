@@ -32,7 +32,7 @@
   (if (no xs)
       '()
       (cons (apply with (firstn by xs))
-	    (group (cut by xs) :by by :with with))))
+	    (group (cut xs by) :by by :with with))))
 
 (def last1 (xs)
   "Returns the last element of xs. Not the last cons pair."
