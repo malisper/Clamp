@@ -52,11 +52,11 @@
 
 (def len< (seq n)
   "Is a sequence shorter than some length?"
-  (< (len xs) n))
+  (< (len seq) n))
 
-(def len> (xs n)
+(def len> (seq n)
   "Is a sequence longer than some length?"
-  (> (len xs) n))
+  (> (len seq) n))
 
 (mac n-of (n exp)
   "Returns a list of calling exp, n times."
