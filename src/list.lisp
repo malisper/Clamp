@@ -3,62 +3,68 @@
 (in-package "CLAMP")
 
 (def range (a b &optional (by 1))
-  "Generates the range of numbers from a to b in steps of 'by'.
-   Right now 'by' has to be a positive integer instead of any
-   integer"
+  "Returns a list of numbers from a to b in steps of by. By has to be
+   a positive integer."
   ;; loop generates efficent code
   (loop for i from a to b by by collect i))
 
-(def firstn (n xs)
-  "Evaluates to a list containing first n elements of the seq xs.
-   If n is nil, returns the entire seq"
+(def firstn (n seq)
+  "Returns a list of the first n elements of the sequence seq."
   (if (no n)
-      xs
+      seq
       (loop repeat n
-	    for x being the elements of xs
+	    for x being the elements of seq
 	    collect x)))
 
+(def split (seq n)
+  "Given a sequence and an integer will return two sequences. The first
+   one will contain the first n elements of the sequence, and the second
+   will contain the rest of the elements of the initial sequence."
+  (values (cut seq 0 n) (cut seq n)))
+
 (def group (xs &key (by 2) (with #'list))
-  "Groups every 'by' elements using the procedure 'with'"
+  "Groups every 'by' elements of the given list using the procedure 
+   'with'."
   (if (no xs)
       '()
       (cons (apply with (firstn by xs))
-	    (group (nthcdr by xs) :by by :with with))))
+	    (group (cut by xs) :by by :with with))))
 
 (def last1 (xs)
-  "Evaluates to the last element of xs. Not the last cons pair"
+  "Returns the last element of xs. Not the last cons pair."
   (car (last xs)))
 
 (def flat (tree)
-  "A list of all of the atoms in a tree"
-  (if (atom tree)
-      (list tree)
+  "Returns a list of all of the atoms in a tree (not including nil)"
+  (if (null tree)
+        '()
+      (atom tree)
+        (list tree)
       (append (flat (car tree))
 	      (flat (cdr tree)))))
 
-;;; predicates for testing length
-;;; may optimize these but they need testing
-;;; to see if it would make any difference
+;;; This are predicates for testing the length of sequences. They may
+;;; be further optimized, but benchmarks would be needed before then.
 
-(def len< (xs n)
-  "A predicate for testing if the length of xs is less than n"
+(def len< (seq n)
+  "Is a sequence shorter than some length?"
   (< (len xs) n))
 
 (def len> (xs n)
-  "A predicate for testing if the length of xs is greater than n"
+  "Is a sequence longer than some length?"
   (> (len xs) n))
 
 (mac n-of (n exp)
-  "Evaluates exp n times and collects the result into a list"
+  "Returns a list of calling exp, n times."
   ;; loop generates faster code than what I would write by hand
   `(loop repeat ,n collect ,exp))
 
 (def caris (x val)
-  "Tests that x is a cons and (car x) is val."
+  "Is x a cons pair, and is its car the given value?"
   (and (consp x) (is (car x) val)))
 
 (def carif (x)
-  "Returns x if it is an atom, otherwise returns (car x)"
+  "Returns x if it is an atom, otherwise returns (car x)."
   (if (atom x)
       x
       (car x)))
