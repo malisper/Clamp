@@ -9,10 +9,16 @@
   (loop for i from a to b by by collect i))
 
 (def firstn (n seq)
-  "Returns a list of the first n elements of the sequence seq."
+  "Returns a list of the first n elements of the sequence seq or a
+   list of all the elements if seq is too short. Can also be given
+   nil instead of a number to just return the sequence instead."
   (if (no n)
       seq
-      (cut seq 0 n)))
+      (loop repeat n
+	    ;; needed because taking the firstn elements on a larger
+	    ;; list would then be an error
+	    for x being the elements of seq
+	    collect x)))
 
 (def split (seq n)
   "Given a sequence and an integer will return two sequences. The first
