@@ -49,6 +49,17 @@
     `(withs (,@(mappend #'list vars forms) ,(car var) (or ,access ,new))
        ,set)))
 
+(mac or2= (place new)
+  "Or= but also works on places that may be nil but return multiple
+   values instead."
+  (mvb (vars forms var set access)
+       (get-setf-expansion place)
+    (w/uniq (val win)
+      `(withs (,@(mappend #'list vars forms))
+	 (mvb (,val ,win) ,access
+	   (let ,(car var) (if (or ,val ,win) ,val ,new)
+	     ,set))))))
+
 (mac in (x &rest choices)
   "Checks if the result of evaluating x is the result of
    one of the other arguments. Only evaluates arguments
