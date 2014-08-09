@@ -1,6 +1,6 @@
 ;;;; these are macros which allow for different kinds of iteration
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (mac rec (withses &body body)
   "Same as loop in Anarki. Look for use cases"
@@ -46,3 +46,18 @@
 	 for index from 0
 	 do (do ,@body)))
 
+(mac whilet (var test &body body)
+  "Executes body until test returns nil. The value of test is bound
+   to var on each iteration."
+  `(loop for ,var = ,test
+	 while ,var
+	 do (do ,@body)))
+
+(mac whiler (var expr endval &body body)
+  "Executes body until expr returns endval. The value of endval is bound
+   to var on each iteration."
+  (w/uniq gval
+    `(loop with ,gval = ,endval
+	   for ,var = ,expr
+	   until (iso ,var ,gval)
+	   do (do ,@body))))
