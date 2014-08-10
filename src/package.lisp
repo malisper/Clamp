@@ -40,7 +40,7 @@
 
    ;;; iter
    :rec :recur :repeat :upto :up :downfrom :down :while :until
-   :each :on :index
+   :each :on :index :whilet :whiler
 
    ;;; fns
    :rfn :afn
