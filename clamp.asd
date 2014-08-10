@@ -1,3 +1,4 @@
+
 (in-package :asdf-user)
 
 (defsystem "clamp"
@@ -15,7 +16,7 @@
 			     (:file "conditionals" :depends-on ("list" "binding" "base" "macros"))
 			     (:file "list" :depends-on ("binding"))
 			     (:file "macros" :depends-on ("base"))
-			     (:file "iter" :depends-on ("binding" "fns"))
+			     (:file "iter" :depends-on ("binding" "fns" "macros"))
 			     (:file "fns" :depends-on ("base"))
 			     (:file "misc" :depends-on ("macros" "binding" "conditionals"))
 			     (:file "fnops" :depends-on ("conditionals" "binding"))
