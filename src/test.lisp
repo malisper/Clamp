@@ -1,11 +1,11 @@
 ;;;; several tests for clamp
 ;;;; TODO: figure out how to avoid duplication with packages
 
-(defpackage "CLAMP-TESTS"
-  (:use "CLAMP" "CLUNIT")
-  (:export "CLAMP"))
+(defpackage :clamp-tests
+  (:use :clamp :clunit)
+  (:export :clamp))
 
-(in-package "CLAMP-TESTS")
+(in-package :clamp-tests)
 
 (defsuite clamp ())
 
