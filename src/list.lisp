@@ -63,6 +63,15 @@
   ;; loop generates faster code than what I would write by hand
   `(loop repeat ,n collect ,exp))
 
+(mac drain (exp &optional (endval nil))
+  "Repeatedly evaluates exp until it returns endval. Returns
+   a list of the results."
+  (w/uniq (gval gend)
+    `(loop with ,gend = ,endval
+	   for ,gval = ,exp
+	   until (iso ,gval ,gend)
+	   collect ,gval)))
+
 (def caris (x val)
   "Is x a cons pair, and is its car the given value?"
   (and (consp x) (is (car x) val)))
