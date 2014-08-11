@@ -216,6 +216,14 @@
   (let x 0
     (assert-equal (range 1 5) (n-of 5 (incf x)))))
 
+(deftest drain (list)
+  (assert-equal '((1 2) (3 4))
+		(w/instring in "(1 2) (3 4)"
+		  (drain (read in nil nil))))
+  (assert-equal '(128 64 32 16 8 4 2)
+		(let x 256
+		  (drain (= x (/ x 2)) 1))))
+
 (deftest caris (list)
   (assert-false (caris 5 5))
   (assert-false (caris '(1 2 3) 2))
