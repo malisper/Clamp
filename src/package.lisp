@@ -32,7 +32,7 @@
    :ccase :ecase
 
    ;;; list
-   :range :firstn :last1 :flat :len< :len> :n-of :split
+   :range :firstn :last1 :flat :len< :len> :n-of :drain :split
    :group :caris :carif
 
    ;;; macros
