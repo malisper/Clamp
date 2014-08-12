@@ -5,11 +5,11 @@
 (def memo (f)
   "Returns a memoized version of the function f"
   (let cache (table :test #'iso)
-			 (fn (&rest args)
-					 (aif2 (gethash args cache)
-								 it
-								 (= (gethash args cache)
-										(apply f args))))))
+		(fn (&rest args)
+			(aif2 (gethash args cache)
+						it
+						(= (gethash args cache)
+							 (apply f args))))))
 
 (def variable-names (args)
 	"Extracts the variable names from an argslist."
@@ -25,10 +25,8 @@
 			(car var)))
 
 (mac defmemo (name args &body body)
-  "Defines a memoized function"
-  `(do (defun ,name (,@args)
-				 (declare (ignorable ,@(variable-names args))))
-		   (= (symbol-function ',name)
+  "Defines a memoized function."
+  `(do (= (symbol-function ',name)
 					(memo (fn ,args (block ,name ,@body))))
        ,(when (stringp (car body)) ; test for a documentation string
 							`(= (documentation ',name 'function) ,(car body)))
