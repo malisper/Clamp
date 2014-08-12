@@ -1,6 +1,6 @@
 ;;;; These are macros which allow allow for different kinds of fns
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (mac rfn (name parms &body body)
   "Creates a recursive function which can refer to itself through name"
