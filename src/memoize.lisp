@@ -11,23 +11,12 @@
 						(= (gethash args cache)
 							 (apply f args))))))
 
-(def variable-names (args)
-	"Extracts the variable names from an argslist."
-	(map #'variable-name
-			 (rem [char= (char (symbol-name _) 0)
-									 #\&]
-						args)))
-
-(def variable-name (var)
-	"Extracts the variable name from a single element of an arglist."
-	(if (atom var)
-			var
-			(car var)))
-
 (mac defmemo (name args &body body)
   "Defines a memoized function."
-  `(do (= (symbol-function ',name)
-					(memo (fn ,args (block ,name ,@body))))
-       ,(when (stringp (car body)) ; test for a documentation string
-							`(= (documentation ',name 'function) ,(car body)))
-		   ',name))
+	(let fn-body `(memo (fn ,args (block ,name ,@body)))
+		(w/uniq args
+			`(do (defun ,name (&rest ,args) (apply ,fn-body ,args))
+					 (= (symbol-function ',name) ,fn-body)
+				   ,(when (stringp (car body))
+									`(= (documentation ',name 'function) ,(car body)))
+				   ',name))))
