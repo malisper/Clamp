@@ -59,6 +59,6 @@
    each iteration."
   (w/uniq gtest
     `(loop with ,gtest = (testify ,endval)
-	         for ,var = ,expr
+	   for ,var = ,expr
       	   until (funcall ,gtest ,var)
-      		 do (do ,@body))))
+           do (do ,@body))))
