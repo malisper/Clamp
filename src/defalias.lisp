@@ -8,10 +8,13 @@
 
 (defun make-macro (new old)
   "Generates the code for making the macros new and old equivalent."
-  `(progn
-		 (defmacro ,new ())
-		 (setf (documentation ',new 'function) (documentation ',old 'function)
-					 (macro-function ',new) (macro-function ',old))))
+	(cl:let ((rest (gensym "REST")))
+    `(progn
+			 (defmacro ,new (&rest ,rest) `(,',old ,@,rest))
+			 (setf (documentation ',new 'function)
+						 (documentation ',old 'function)
+						 (macro-function ',new)
+						 (macro-function ',old)))))
 
 (defun fnp (x)
   "Is x a function?"
@@ -21,10 +24,11 @@
   "Generates the code for making new and old the same function."
 	;; compiler macros may be risky if they rely on using the same
 	;; symbol they are named with so they are not included
-  `(progn
-		 (defun ,new ())
-		 (setf (documentation ',new 'function) (documentation ',old 'function)
-					 (symbol-function ',new) (symbol-function ',old))))
+	(cl:let ((args (gensym "ARGS")))
+		`(progn
+			 (defun ,new (&rest ,args) (apply #',old ,args))
+			 (setf (documentation ',new 'function) (documentation ',old 'function)
+						 (symbol-function ',new) (symbol-function ',old)))))
 
 (defun make-special-macro (new old)
 	"Generates the code to create a macro 'new' which expands into a use 
