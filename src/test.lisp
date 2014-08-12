@@ -222,7 +222,10 @@
 		  (drain (read in nil nil))))
   (assert-equal '(128 64 32 16 8 4 2)
 		(let x 256
-		  (drain (= x (/ x 2)) 1))))
+		  (drain (= x (/ x 2)) 1)))
+	(assert-equal '(100 50)
+		(let x 200
+			(drain (= x (/ x 2)) #'odd))))
 
 (deftest caris (list)
   (assert-false (caris 5 5))
