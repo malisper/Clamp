@@ -1,6 +1,13 @@
 ;;;; these are some basic functions which need to be loaded first
 
-(in-package "CLAMP")
+(in-package :clamp)
+
+;; this cannot be defined as an alias because then it would
+;; expand into #'(fn ..) which is an error
+(mac fn (args &body body)
+	"Equivalent to 'lambda' except this cannot be used as the name of
+   of function (ie ((fn ..) ..))."
+	`(lambda ,args ,@body))
 
 ;;; reader macro for literal fn notation with brackets
 (set-macro-character #\] (get-macro-character #\)))
@@ -17,7 +24,7 @@
     "Applies a function f to every two elements in xs"
     (cond ((no xs) '())
 	  ((single xs) (list (funcall f (car xs))))
-	  ('else (cons (funcall f (car xs) (cadr xs))
+	  (:else (cons (funcall f (car xs) (cadr xs))
 		       (pair (cddr xs) f)))))
 
 (def auto (x)
