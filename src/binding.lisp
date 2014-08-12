@@ -1,6 +1,6 @@
 ;;;; these are macros which create new bindings
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (mac with (parms &body body)
   "Destructuring-bind (let) but doesn't require parens for each binding"
