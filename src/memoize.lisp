@@ -1,15 +1,15 @@
 ;;;; these are utilities for taking advantage of memoization
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def memo (f)
   "Returns a memoized version of the function f"
   (let cache (table :test #'iso)
-    (fn (&rest args)
-      (aif2 (gethash args cache)
-	    it
-	    (= (gethash args cache)
-	       (apply f args))))))
+			 (fn (&rest args)
+					 (aif2 (gethash args cache)
+								 it
+								 (= (gethash args cache)
+										(apply f args))))))
 
 (def variable-names (args)
 	"Extracts the variable names from an argslist."
