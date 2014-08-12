@@ -1,6 +1,6 @@
 ;;;; these are different kinds of conditionals
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (mac iflet (var expr &body branches)
   "Same as if but if a predicate is true, it is bound to var"
@@ -34,7 +34,7 @@
         t
       (no (cdr args))
         (car args)
-      'else
+      :else
         `(let it ,(car args)
 	   (declare (ignorable it))
 	   (and it (aand ,@(cdr args))))))
@@ -47,7 +47,7 @@
           nil
 	(single clauses)
           (car clauses)
-	'else
+	:else
         (let (t1 c1 . rest) clauses
 	  `(mvb (,val ,win) ,t1
 	     (if (or ,val ,win)
@@ -63,5 +63,5 @@
   `(cl:ccase ,keyform ,@(group clauses)))
 
 (mac ecase (keyform &rest clauses)
-  "Same as regular CL ecase except there are no parens around each pair"
+  "Same as regular CL ecase except there are no parens around each pair."
   `(cl:ecase ,keyform ,@(group clauses)))
