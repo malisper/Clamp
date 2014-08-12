@@ -1,6 +1,6 @@
 ;;;; functions for printing
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def pr (&rest args)
   "Prints all of its arguments to *standard-output* in a human
