@@ -1,6 +1,6 @@
 ;;;; these are several utilities for performing i/o
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (mac w/infile (var file &body body)
   "Binds var to the input stream from file and will automatically
