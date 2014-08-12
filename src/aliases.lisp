@@ -1,20 +1,22 @@
 ;;;; these are several cl operations which are aliased for clamp
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 ;;; special forms
+(defalias do  progn)
+(defalias after unwind-protect)
+
+;;; macros
 (defalias def defun)
 (defalias mac defmacro)
 (defalias ++ incf)
 (defalias -- decf)
 (defalias mvb multiple-value-bind)
 (defalias mvl multiple-value-list)
-(defalias do  progn)
 (defalias do1 prog1)
 (defalias do2 prog2)
 (defalias = setf)
 (defalias errsafe ignore-errors)
-(defalias after unwind-protect)
 (defalias w/file with-open-file)
 
 ;;; functions
