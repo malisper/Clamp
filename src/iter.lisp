@@ -54,10 +54,11 @@
 	 do (do ,@body)))
 
 (mac whiler (var expr endval &body body)
-  "Executes body until expr returns endval. The value of endval is bound
-   to var on each iteration."
+  "Executes body until the result of expr passes the testified 
+   version of endval. The value of endval is bound to var on 
+   each iteration."
   (w/uniq gval
-    `(loop with ,gval = ,endval
+    `(loop with ,gtest = (testify ,endval)
 	   for ,var = ,expr
-	   until (iso ,var ,gval)
-	   do (do ,@body))))
+	   until (funcall ,gtest ,var)
+		 do (do ,@body))))
