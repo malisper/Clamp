@@ -1,6 +1,6 @@
 ;;;; functions for specific kinds of sorting
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def compare (comparer scorer)
   "Returns a function which compares its arguments score on scorer
