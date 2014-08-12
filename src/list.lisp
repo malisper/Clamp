@@ -1,6 +1,6 @@
 ;;;; these are functions for working with lists
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def range (a b &optional (by 1))
   "Returns a list of numbers from a to b in steps of by. By has to be
@@ -64,13 +64,13 @@
   `(loop repeat ,n collect ,exp))
 
 (mac drain (exp &optional (endval nil))
-  "Repeatedly evaluates exp until it returns endval. Returns
-   a list of the results."
+  "Repeatedly evaluates exp until it passes the testified version of
+   endval. Then return a list of the results a list of the results."
   (w/uniq (gval gend)
-    `(loop with ,gend = ,endval
+    `(loop with ,gend = (testify ,endval)
 	   for ,gval = ,exp
-	   until (iso ,gval ,gend)
-	   collect ,gval)))
+	   until (funcall ,gend ,gval)
+		 collect ,gval)))
 
 (def caris (x val)
   "Is x a cons pair, and is its car the given value?"
