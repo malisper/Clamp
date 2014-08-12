@@ -8,13 +8,17 @@
    procedures instead"
   (fn (x y) (funcall comparer (funcall scorer x) (funcall scorer y))))
 
-(def best (f xs)
-  "Finds the first element of the list xs if it was sorted using f"
+(def best (f xs &key (key #'identity))
+  "Finds the first element of the list xs if it was sorted using f."
   (if (no xs)
       nil
       (ret wins (car xs)
-	(each elt (cdr xs)
-	  (if (funcall f elt wins) (= wins elt))))))
+				(let score (funcall key wins)
+					(each elt (cdr xs)
+						(let elt-score (funcall key elt)
+							(when (funcall f elt-score score)
+								(= wins elt
+									 score elt-score))))))))
 
 (def bestn (n f xs)
   "Finds the first n elements of the list xs if it was sorted using f"
