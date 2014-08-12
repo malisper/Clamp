@@ -1,6 +1,6 @@
 ;;;; several higher order functions
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def testify (x)
   "If passed a function, returns it. Otherwise returns a function which
