@@ -68,9 +68,9 @@
    endval. Then return a list of the results a list of the results."
   (w/uniq (gval gend)
     `(loop with ,gend = (testify ,endval)
-	   for ,gval = ,exp
-	   until (funcall ,gend ,gval)
-		 collect ,gval)))
+           for ,gval = ,exp
+           until (funcall ,gend ,gval)
+           collect ,gval)))
 
 (def caris (x val)
   "Is x a cons pair, and is its car the given value?"
