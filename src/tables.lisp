@@ -1,6 +1,6 @@
 ;;;; these are utilities for working with (hash) tables
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def keys (tab)
   "Evaluates to all of the keys in the hash table tab"
