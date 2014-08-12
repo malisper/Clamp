@@ -57,8 +57,8 @@
   "Executes body until the result of expr passes the testified 
    version of endval. The value of endval is bound to var on 
    each iteration."
-  (w/uniq gval
+  (w/uniq gtest
     `(loop with ,gtest = (testify ,endval)
-	   for ,var = ,expr
-	   until (funcall ,gtest ,var)
-		 do (do ,@body))))
+	         for ,var = ,expr
+      	   until (funcall ,gtest ,var)
+      		 do (do ,@body))))
