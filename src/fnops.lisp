@@ -1,6 +1,6 @@
 ;;;; these are utilities for working with fns
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (def compose (&rest fns)
   "Composes the arguments which are functions"
