@@ -1,17 +1,18 @@
 ;;;; utilities which do not belong in any other file
 
-(in-package "CLAMP")
+(in-package :clamp)
 
 (mac ado (&body body)
-  "Evaluates each expression with it bound to the result of
+	"Evaluates each expression with it bound to the result of
    the previous one. Returns the value of the last expression"
-  (if (null body)
-        nil
-      (single body)
-        (car body)
-      `(let it ,(car body)
-	(declare (ignorable it))
-        (ado ,@(cdr body)))))
+	(if (null body)
+			  nil
+			(single body)
+			  (car body)
+			:else
+			  `(let it ,(car body)
+					 (declare (ignorable it))
+					 (ado ,@(cdr body)))))
 
 (mac accum (accfn &body body)
   "The result is all of the arguments passed into accfn"
