@@ -18,5 +18,5 @@
       `(do (defun ,name (&rest ,args) (apply ,fn-body ,args))
            (= (symbol-function ',name) ,fn-body)
            ,(when (stringp (car body))
-                  `(= (documentation ',name 'function) ,(car body)))
+              `(= (documentation ',name 'function) ,(car body)))
            ',name))))
