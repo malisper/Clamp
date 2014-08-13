@@ -63,6 +63,9 @@
    ;;; io
    :w/infile :w/outfile :w/appendfile
 
+   ;;; strings
+   :whitec :tokens
+
    ;;; symbols from the common lisp package
    ;;; this way only clamp needs to be used
    ;;; also avoids name-collision issues
