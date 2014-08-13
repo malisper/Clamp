@@ -31,8 +31,8 @@
   (if (null fns)
       f
       (let chain (apply #'andf fns)
-	(fn (x)
-	  (and (funcall f x) (funcall chain x))))))
+	(fn (&rest args)
+	  (and (apply f args) (apply chain args))))))
 
 (def orf (f &rest fns)
   "Returns a predicate function which returns true when any of the
@@ -40,13 +40,15 @@
   (if (null fns)
       f
       (let chain (apply #'orf fns)
-	(fn (x)
-	  (or (funcall f x) (funcall chain x))))))
+	(fn (&rest args)
+	  (or (apply f args) (apply chain args))))))
 
 (def curry (f &rest args1)
-  "Returns a function with its left most arguments passed in and waiting for the rest"
+  "Returns a function with its left most arguments passed in and 
+   waiting for the rest"
   (fn (&rest args2) (apply f (append args1 args2))))
 
 (def rcurry (f &rest args1)
-  "Returns a function with its right most arguments passed in and waiting for the rest"
+  "Returns a function with its right most arguments passed in and
+   waiting for the rest"
   (fn (&rest args2) (apply f (append args2 args1))))
