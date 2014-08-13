@@ -15,8 +15,9 @@
   (if (no n)
       seq
       (loop repeat n
-	    ;; needed because taking the firstn elements on a larger
-	    ;; list would then be an error
+	    ;; need to iterate over the actual elements because
+	    ;; otherwise it would be an error to take the first n
+            ;; elements of a seq that is not long enough
 	    for x being the elements of seq
 	    collect x)))
 
@@ -66,10 +67,10 @@
 (mac drain (exp &optional (endval nil))
   "Repeatedly evaluates exp until it passes the testified version of
    endval. Then return a list of the results a list of the results."
-  (w/uniq (gval gend)
-    `(loop with ,gend = (testify ,endval)
+  (w/uniq (gval gtest)
+    `(loop with ,gtest = (testify ,endval)
            for ,gval = ,exp
-           until (funcall ,gend ,gval)
+           until (funcall ,gtest ,gval)
            collect ,gval)))
 
 (def caris (x val)
