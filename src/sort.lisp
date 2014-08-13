@@ -8,26 +8,29 @@
    procedures instead"
   (fn (x y) (funcall comparer (funcall scorer x) (funcall scorer y))))
 
+;;; best can be modified easily to have it work an all sequences as
+;;; well as lists
 (def best (f xs &key (key #'identity))
   "Finds the first element of the list xs if it was sorted using f."
   (if (no xs)
-      nil
+        nil
       (ret wins (car xs)
-				(let score (funcall key wins)
-					(each elt (cdr xs)
-						(let elt-score (funcall key elt)
-							(when (funcall f elt-score score)
-								(= wins elt
-									 score elt-score))))))))
+        (let score (funcall key wins)
+          (each elt (cdr xs)
+            (let elt-score (funcall key elt)
+              (when (funcall f elt-score score)
+                (= wins elt
+                   score elt-score))))))))
 
 (def bestn (n f xs)
-  "Finds the first n elements of the list xs if it was sorted using f"
+  "Returns the first n elements of the seq xs if it was sorted using 
+   f."
   (firstn n (sort xs f)))
 
 (def nsort (comparer sequence &optional (key #'identity))
-  "Destructively sorts the sequence using comparer"
+  "Destructively sorts the sequence using comparer."
   (cl:sort sequence comparer :key key))
 
 (def sort (comparer sequence &optional (key #'identity))
-  "Non-destructively sorts sequence using comparer"
+  "Non-destructively sorts sequence using comparer."
   (nsort comparer (copy-seq sequence) key))
