@@ -3,7 +3,8 @@
 (in-package :clamp)
 
 (mac rec (withses &body body)
-  "Same as loop in Anarki. Look for use cases"
+  "Same as loop in Anarki. Similar to loop/recur in clojure except
+   rec allows for multiple recursive calls."
   (let w (pair withses)
     `(funcall (rfn recur ,(map #'car w) ,@body) ,@(map #'cadr w))))
 
@@ -41,7 +42,8 @@
  `(loop for ,var being the elements of ,seq do (do ,@body)))
 
 (mac on (var seq &body body)
-  "Same as each except simultaneously binds 'index' to the index of the element"
+  "Same as each except simultaneously binds 'index' to the index of 
+   the element"
   `(loop for ,var being the elements of ,seq
 	 for index from 0
 	 do (do ,@body)))
