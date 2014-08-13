@@ -23,4 +23,5 @@
 			     (:file "sort" :depends-on ("base"))
 			     (:file "memoize" :depends-on ("binding" "conditionals" "macros"))
 			     (:file "tables" :depends-on ("binding" "iter" "macros"))
-			     (:file "io" :depends-on ("aliases"))))))
+			     (:file "io" :depends-on ("aliases"))
+                             (:file "strings" :depends-on ("hof" "misc"))))))
