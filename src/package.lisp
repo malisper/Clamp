@@ -8,14 +8,13 @@
    ;;; defalias
    :defalias
    ;;; aliases
-   :fn :def :mac :++ :-- :mvb :mvl :do :do1 :do2
-   := :is :iso :no :len :map :isa :uniq :even :odd
-   :redup :dedup :table :rand :trunc :join :cut
-   :rev :nrev :const :idfn :outstring :inside :instring
-   :errsafe :w/file
+   :def :mac :++ :-- :mvb :mvl :do :do1 :do2 := :is :iso :no :len
+   :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
+   :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
+   :w/file :swap :writec
    
    ;;; base
-   :single :if
+   :single :if :fn 
 
    ;;; binding
    :with :let :ret :flet1 :withs
@@ -61,7 +60,7 @@
    :keys :vals :listtab :tablist :obj :alref
 
    ;;; io
-   :w/infile :w/outfile :w/appendfile
+   :w/infile :w/outfile :w/appendfile :allchars :filechars
 
    ;;; strings
    :whitec :tokens
