@@ -23,6 +23,6 @@
 			     (:file "sort" :depends-on ("base"))
 			     (:file "memoize" :depends-on ("binding" "conditionals" "macros"))
 			     (:file "tables" :depends-on ("binding" "iter" "macros"))
-			     (:file "io" :depends-on ("aliases" "read"))
+			     (:file "io" :depends-on ("aliases" "read" "iter"))
                              (:file "strings" :depends-on ("hof" "misc"))
                              (:file "read" :depends-on ("aliases"))))))
