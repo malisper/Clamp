@@ -3,7 +3,7 @@
   (:use :common-lisp)
   (:shadow :do :map :if :case := :ccase :ecase
 	   :rem :let :find :count :sort
-	   :++)
+	   :++ :read :read-line)
   (:export
    ;;; defalias
    :defalias
