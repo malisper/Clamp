@@ -45,4 +45,4 @@
 (defalias instring make-string-input-stream)
 (defalias swap rotatef)
 ;; (defalias rotate rotatef) is there any reason to have rotate and swap?
-
+(defalias writec write-char)
