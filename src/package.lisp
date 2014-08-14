@@ -66,6 +66,9 @@
    ;;; strings
    :whitec :tokens
 
+   ;;; read
+   :readb :readc :peakc :read :read-line
+
    ;;; symbols from the common lisp package
    ;;; this way only clamp needs to be used
    ;;; also avoids name-collision issues
@@ -214,8 +217,8 @@
    :prog* :prog1 :prog2 :progn :program-error :progv :provide :psetf
    :psetq :push :pushnew :quote :random :random-state :random-state-p
    :rassoc :rassoc-if :rassoc-if-not :ratio :rational :rationalize
-   :rationalp :read :read-byte :read-char :read-char-no-hang
-   :read-delimited-list :read-from-string :read-line
+   :rationalp #|:read|# :read-byte :read-char :read-char-no-hang
+   :read-delimited-list :read-from-string #|:read-line|#
    :read-preserving-whitespace :read-sequence :reader-error :readtable
    :readtable-case :readtablep :real :realp :realpart :reduce
    :reinitialize-instance #|:rem|# :remf :remhash :remove :remove-duplicates
