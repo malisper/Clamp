@@ -57,7 +57,7 @@
    :memo :defmemo
 
    ;;; tables
-   :keys :vals :listtab :tablist :obj :alref
+   :keys :vals :listtab :tablist :obj :alref :counts
 
    ;;; io
    :w/infile :w/outfile :w/appendfile :allchars :filechars
