@@ -39,3 +39,12 @@
 (def alref (al key)
   "Evaluates to the value of key in the alist al"
   (cadr (assoc key al)))
+
+(def counts (seq &optional (test #'iso))
+  "Returns a table containing how many times every element in seq
+   appears."
+  (ret result (table :test test)
+    (loop for x being the elements of seq
+          do
+          (or2= (gethash x result) 0)
+          (++ (gethash x result)))))
