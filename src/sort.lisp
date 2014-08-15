@@ -13,7 +13,7 @@
 (def best (f xs &optional (key #'identity))
   "Finds the first element of the list xs if it was sorted using f."
   (if (no xs)
-        nil
+      nil
       (ret wins (car xs)
         (let score (funcall key wins)
           (each elt (cdr xs)
