@@ -10,7 +10,7 @@
 
 ;;; best can be modified easily to have it work an all sequences as
 ;;; well as lists
-(def best (f xs &key (key #'identity))
+(def best (f xs &optional (key #'identity))
   "Finds the first element of the list xs if it was sorted using f."
   (if (no xs)
         nil
