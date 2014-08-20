@@ -7,24 +7,24 @@
 	   :rem :let :find :count :sort
 	   :++ :read :read-line)
   (:export
-   ;;;; From defalias.
+   ;; From defalias.
    :defalias
-   ;;;; From aliases
+   ;; From aliases
    :def :mac :++ :-- :mvb :mvl :do :do1 :do2 := :is :iso :no :len
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec
    
-   ;;;; From base.
+   ;; From base.
    :_ :single :if :fn
 
-   ;;;; From binding.
+   ;; From binding.
    :with :let :ret :flet1 :withs
 
-   ;;;; From print.
+   ;; From print.
    :pr :prn :w/outstring :tostring :w/instring :fromstring
 
-   ;;;; From hof.
+   ;; From hof.
    :testify :rem :keep :mem :find :count :pos
    :mappend :partition
 
@@ -36,47 +36,47 @@
    :range :firstn :last1 :flat :len< :len> :n-of :drain :split
    :group :caris :carif
 
-   ;;;; From macros.
+   ;; From macros.
    :w/uniq
 
-   ;;;; From iter.
+   ;; From iter.
    :rec :recur :repeat :upto :up :downfrom :down :while :until
    :each :on :index :whilet :whiler
 
-   ;;;; From fns.
+   ;; From fns.
    :rfn :afn
    
-   ;;;; From misc.
+   ;; From misc.
    :ado :accum :multiple :check :zap :or= :in :cart
 
-   ;;;; From fnops.
+   ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry
 
-   ;;;; From sort.
+   ;; From sort.
    :compare :best :bestn :sort
 
-   ;;;; From memoize.
+   ;; From memoize.
    :memo :defmemo
 
-   ;;;; From tables.
+   ;; From tables.
    :keys :vals :listtab :tablist :obj :alref :counts
 
-   ;;;; From io.
+   ;; From io.
    :w/infile :w/outfile :w/appendfile :allchars :filechars
 
-   ;;;; From strings.
+   ;; From strings.
    :whitec :tokens
 
-   ;;;; From read.
+   ;; From read.
    :readb :readc :peakc :read :read-line
 
-   ;;;; Symbols to be exported from the common-lisp package. This
-   ;;;; makes it easy to import clamp (which shadows some names) and
-   ;;;; still access everything from common-lisp. Some symbols whose
-   ;;;; use is discouraged (such as rplaca) are also removed. Symbols
-   ;;;; which would normally be commented out on the beginning of the
-   ;;;; are moved to the end of the previous because otherwise it
-   ;;;; leads to weird indentation.
+   ;; Symbols to be exported from the common-lisp package. This
+   ;; makes it easy to import clamp (which shadows some names) and
+   ;; still access everything from common-lisp. Some symbols whose
+   ;; use is discouraged (such as rplaca) are also removed. Symbols
+   ;; which would normally be commented out on the beginning of the
+   ;; are moved to the end of the previous because otherwise it
+   ;; leads to weird indentation.
    :&allow-other-keys :&aux :&body :&environment :&key :&optional :&rest
    :&whole :* :** :*** :*break-on-signals* :*compile-file-pathname*
    :*compile-file-truename* :*compile-print* :*compile-verbose* :*debug-io*
