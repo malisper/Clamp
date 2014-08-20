@@ -1,13 +1,14 @@
-;;;; definitions for defalias which allows redefinition of macros/fns
+;;;; Definitions for defalias which allows redefinition of
+;;;; macros, functions, and special forms.
 
 (in-package :clamp)
 
 (defun macrop (x)
-  "Is x a macro?"
+  "Is this a macro?"
   (and (symbolp x) (macro-function x)))
 
 (defun make-macro (new old)
-  "Generates the code for making the macros new and old equivalent."
+  "Generates the code for making the macros NEW and OLD equivalent."
   (cl:let ((rest (gensym "REST")))
     `(progn
        (defmacro ,new (&rest ,rest) `(,',old ,@,rest))
@@ -17,13 +18,13 @@
              (macro-function ',old)))))
 
 (defun fnp (x)
-  "Is x a function?"
+  "Is this a function?"
   (and (symbolp x) (symbol-function x)))
 
 (defun make-fn (new old)
-  "Generates the code for making new and old the same function."
-  ;; compiler macros may be risky if they rely on using the same
-  ;; symbol they are named with so they are not included
+  "Generates the code for making NEW and OLD the same function."
+  ;; Copying the compiler macro can lead to weird behavior because it
+  ;; might rely on the original name of the function.
   (cl:let ((args (gensym "ARGS")))
     `(progn
        (defun ,new (&rest ,args) (apply #',old ,args))
@@ -33,14 +34,15 @@
              (symbol-function ',old)))))
 
 (defun make-special-macro (new old)
-  "Generates the code to create a macro 'new' which expands into a use 
-   of the special form 'old'."
+  "Generates the code to create a macro NEW which expands into a use 
+   of the special form OLD."
   (cl:let ((rest (gensym "REST")))
     `(defmacro ,new (&rest ,rest)
        `(,',old ,@,rest))))
 
 (defmacro defalias (new old)
-  "Makes a use of new the equivalent to a use of old."
+  "Makes a use of NEW the equivalent to a use of OLD. Works on
+   functions, macros, and (most) special forms."
   (cond ((special-operator-p old)
          (make-special-macro new old))
         ((macrop old)
