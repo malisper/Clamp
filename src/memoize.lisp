@@ -1,9 +1,9 @@
-;;;; these are utilities for taking advantage of memoization
+;;;; These are utilities for taking advantage of memoization.
 
 (in-package :clamp)
 
 (def memo (f)
-  "Returns a memoized version of the function f"
+  "Returns a memoized version of the function F."
   (let cache (table :test #'iso)
     (fn (&rest args)
         (aif2 (gethash args cache)
