@@ -1,5 +1,4 @@
-;;;; several tests for clamp
-;;;; TODO: figure out how to avoid duplication with packages
+;;;; Several tests for clamp.
 
 (defpackage :clamp-tests
   (:use :clamp :clunit)
@@ -16,9 +15,10 @@
 (defsuite conditionals (clamp))
 (defsuite print (clamp))
 
-;;; base
+;;;; Tests for base.
 
-;;; figure out how to add tests for reader macros
+(deftest literal-fn (base)
+  (assert-equal (range 1 10) (map [+ _ 2] (range -1 8))))
 
 (deftest single (base)
   (assert-true  (single '(a)))
@@ -36,7 +36,7 @@
   (assert-expands (cond (a b) (c d)) (if a b c d))
   (assert-expands (cond (a b) (t c)) (if a b c)))
 
-;;; binding
+;;;; Tests for binding.
 
 (deftest with (binding)
   (assert-eql 6 (with (a 1 b 2 c 3) (+ a b c)))
@@ -59,7 +59,7 @@
 (deftest withs (binding)
   (assert-eql 12 (withs (x 5 y (+ x 3)) (+ y 4))))
 
-;;; hof
+;;;; Tests for hof.
 
 (deftest testify (hof)
   (assert-true  (funcall (testify 5) 5))
@@ -74,7 +74,7 @@
   (assert-equal '(5 29 5) (rem #'even '(2 5 29 5 28)))
   (assert-equal '() (rem #'even '(2 12 16 4)))
   (assert-equal '(13 5 7) (rem #'even '(13 5 7)))
-  ;;; same tests but with vectors instead
+  ;; Same tests but with vectors instead.
   (assert-equalp #() (rem 5 #()))
   (assert-equalp #() (rem #'even #()))
   (assert-equalp #(1 2 8 2) (rem 5 #(1 5 2 8 2 5)))
@@ -88,14 +88,14 @@
   (assert-equal '(2 8 2 4) (keep #'even '(1 2 8 2 3 4)))
   (assert-equal '() (keep #'even '(5 7 3)))
   (assert-equal '(2 12 72 6) (keep #'even '(2 12 72 6)))
-  ;;; same tests but for vectors
+  ;; Same tests but for vectors.
   (assert-equalp #() (keep 7 #()))
   (assert-equalp #() (keep #'even #()))
   (assert-equalp #(2 8 2 4) (keep #'even #(1 2 8 2 3 4)))
   (assert-equalp #() (keep #'even #(5 7 3)))
   (assert-equalp #(2 12 72 6) (keep #'even #(2 12 72 6))))
 
-;; member does not work on vectors (what is the tail of a vector?)
+;;; Member does not work on vectors (what is the tail of a vector?).
 (deftest mem (hof)
   (assert-false (mem 7 '()))
   (assert-false (mem #'even '()))
@@ -109,7 +109,7 @@
   (assert-false (find 5 '(2 9 1 2 7 3)))
   (assert-eql 5 (find 5 '(1 3 5 2 9 3)))
   (assert-eql 2 (find #'even '(1 3 5 2 9 3 4 6 7)))
-  ;;; same tests but for vectors
+  ;; Same tests but for vectors.
   (assert-false (find 5 #()))
   (assert-false (find #'even #()))
   (assert-false (find 5 #(2 9 1 2 7 3)))
@@ -122,7 +122,7 @@
   (assert-eql 0 (count #'even '(1 3 71 21)))
   (assert-eql 3 (count 5 '(1 5 3 2 5 7 5)))
   (assert-eql 4 (count #'even '(1 6 3 2 2 4)))
-  ;;; same tests but for vectors
+  ;; Same tests but for vectors.
   (assert-eql 0 (count 2 #()))
   (assert-eql 0 (count #'even #()))
   (assert-eql 0 (count #'even #(1 3 71 21)))
@@ -135,7 +135,7 @@
   (assert-false (pos #'even '(123 45 3 7)))
   (assert-eql 2 (pos 5 '(1 3 5 3 2 5)))
   (assert-eql 3 (pos #'even '(1 7 3 2 5 7 4 2)))
-  ;;;
+  ;; Same tests but for vectors.
   (assert-false (pos 2 #()))
   (assert-false (pos #'even #()))
   (assert-false (pos #'even #(123 45 3 7)))
@@ -158,7 +158,7 @@
 		(mvl (partition #'even '((1) (2) (3) (4) (5))
 				:key #'car
 				:start 3)))
-  ;;; same tests but for vectors
+  ;; Same tests but for vectors.
   (assert-equal '(() ()) (mvl (partition #'even #())))
   (assert-equal '(() ()) (mvl (partition 1 #())))
   (assert-equal '((2 4) (1 3 5)) (mvl (partition #'even #(1 2 3 4 5))))
@@ -171,7 +171,7 @@
 				:key #'car
 				:start 3))))
 
-;;; list
+;;;; Tests for list.
 
 (deftest range (list)
   (assert-equal '(1 2 3 4 5) (range 1 5))
@@ -192,7 +192,7 @@
   (assert-equal '(() ()) (mvl (split '() 0)))
   (assert-equal '(() (a b c)) (mvl (split '(a b c) 0)))
   (assert-equal '((a) (b c)) (mvl (split '(a b c) 1)))
-  ;;; same tests but for vectors
+  ;; Same tests but for vectors.
   (assert-equalp '(#() #()) (mvl (split #() 0)))
   (assert-equalp '(#() #(a b c)) (mvl (split #(a b c) 0)))
   (assert-equalp '(#(a) #(b c)) (mvl (split #(a b c) 1))))
@@ -215,7 +215,7 @@
 (deftest drain (list)
   (assert-equal '((1 2) (3 4))
 		(w/instring in "(1 2) (3 4)"
-		  (drain (read in nil nil))))
+		  (drain (read :from in :eof nil))))
   (assert-equal '(128 64 32 16 8 4 2)
 		(let x 256
 		  (drain (= x (/ x 2)) 1)))
@@ -232,7 +232,7 @@
   (assert-eql 5 (carif 5))
   (assert-eql 1 (carif '(1 2 3))))
 
-;;; conditionals
+;;;; Test for conditionals.
 
 (deftest iflet (conditionals)
   (assert-eql 15 (iflet x 5 (+ x 10)))
@@ -289,22 +289,17 @@
 
 (deftest pr (print)
   (assert-equal "hello world 5"
-                ;; need to use *standard-output* because pr
-                ;; currently does not allow output to another stream 
-                (with-output-to-string (*standard-output*)
-		  (pr "hello" " world " (+ 2 3))))
-  (with-output-to-string (*standard-output*)
-    (assert-eql 3 (pr (+ 1 2) (+ 4 5)))))
+                (tostring (pr "hello" " world " (+ 2 3))))
+  ;; This use of tostring is just so the output is not visible.
+  (tostring (assert-eql 3 (pr (+ 1 2) (+ 4 5)))))
 
 (deftest prn (print)
   (assert-equal (format nil "~%")
-                (with-output-to-string (*standard-output*)
-		  (prn)))
+                (tostring (prn)))
   (assert-equal (format nil "Hello World 5~%")
-                (with-output-to-string (*standard-output*)
-		  (prn "Hello" " World " (+ 3 2))))
-  (with-output-to-string (*standard-output*)
-    (assert-eql 5 (prn (+ 1 4) (+ 3 7)))))
+                (tostring (prn "Hello" " World " (+ 3 2))))
+  ;; This use of tostring is just so the output is not visible.
+  (tostring (assert-eql 5 (prn (+ 1 4) (+ 3 7)))))
 
 (deftest w/outstring (print)
   (assert-equal "Hello World 3" (w/outstring stream
@@ -319,9 +314,9 @@
   (assert-equal (format nil "~%") (tostring (prn))))
 
 (deftest w/instring (print)
-  (assert-eq 'hello (w/instring stream "Hello World" (read stream)))
-  (assert-equal "Hello World" (w/instring stream "Hello World" (read-line stream)))
-  (assert-equal 123 (w/instring stream "123" (parse-integer (read-line stream)))))
+  (assert-eq 'hello (w/instring stream "Hello World" (read :from stream)))
+  (assert-equal "Hello World" (w/instring stream "Hello World" (read-line :from stream)))
+  (assert-equal 123 (w/instring stream "123" (parse-integer (read-line :from stream)))))
 
 (deftest fromstring (print)
   (assert-eq 'hello (fromstring "Hello World" (read)))
