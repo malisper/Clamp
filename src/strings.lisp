@@ -1,3 +1,5 @@
+;;;; These are utilities for working with strings.
+
 (in-package :clamp)
 
 (def whitec (c)
@@ -11,7 +13,7 @@
     (loop for prev = 0 then (+ next 1)
           for next = (pos test str :start prev)
           for substr = (cut str prev next)
-          ;; there must be a better way to test for this
+          ;; There must be a better way to test for the empty string.
           unless (iso "" substr)
             collect substr
           while next)))
