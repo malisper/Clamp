@@ -30,7 +30,9 @@
 (mac if (&rest clauses)
   "Equivalent to cond, but does not require parens parens around each
    individual clause."
-  ;; the if is needed to prevent warnings from occuring
+  ;; SBCL deduces that the value of the cond can be nil when there
+  ;; only a return value for the else clause. Because of this the
+  ;; else clause needs to be explicit about that last value.
   (cl:if (even (len clauses))
     `(cond ,@(pair clauses))
     `(cond ,@(pair (butlast clauses)) ,(cons t (last clauses))))) 
