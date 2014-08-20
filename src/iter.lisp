@@ -1,49 +1,51 @@
-;;;; these are macros which allow for different kinds of iteration
+;;;; These are macros which allow for different kinds of iteration.
 
 (in-package :clamp)
 
 (mac rec (withses &body body)
-  "Same as loop in Anarki. Similar to loop/recur in clojure except
-   rec allows for multiple recursive calls."
+  "Bind the WITHSES and execute BODY. Using 'recur' allows a
+   recursive 'jump' to the top of the body with the new bindings
+   passed into recur. This is very similar to loop in clojure,
+   but this allows multiple recursive calls."
   (let w (pair withses)
     `(funcall (rfn recur ,(map #'car w) ,@body) ,@(map #'cadr w))))
 
 (mac repeat (n &body body)
-  "Excutes the body n times"
+  "Excutes BODY N times."
   `(loop repeat ,n do (do ,@body)))
 
 (mac up (var a b &body body)
-  "Evaluates body iterating from a up to b exclusive"
+  "Evaluates BODY iterating from A up to B exclusive."
   `(loop for ,var from ,a below ,b do (do ,@body)))
 
 (mac upto (var a b &body body)
-  "Evaluates body iterating from a up to b inclusive"
+  "Evaluates BODY iterating from A up to B inclusive."
   `(loop for ,var from ,a upto ,b do (do ,@body)))
 
 (mac downfrom (var a b &body body)
-  "Evaluates body iterating from a down to b inclusive"
+  "Evaluates BODY iterating from A down to B inclusive."
   `(loop for ,var downfrom ,a to ,b do (do ,@body)))
 
 (mac down (var a b &body body)
-  "Evaluates body iterating from a (exclusive) to b (inclusive)"
-  `(downfrom ,var (1- ,a) ,b ,@body))
+  "Evaluates BODY iterating from A (exclusive) to B (inclusive)."
+  `(downfrom ,var (- ,a 1) ,b ,@body))
 
 (mac while (test &body body)
-  "Evaluates body while the test is true"
+  "Repeatedly evaluates BODY while TEST returns true."
   `(loop while ,test do (do ,@body)))
 
 (mac until (test &body body)
-  "Evaluates body until the test is true"
+  "Repeatedly evaluates BODY until TEST returns true."
   `(loop until ,test do (do ,@body)))
 
 (mac each (var seq &body body)
- "Iterates across each element in seq. Currently works
-  on both lists and arrays (maybe add hashtables in the future)"
+ "Evaluates BODY while iterating across SEQ binding each element to
+  VAR."
  `(loop for ,var being the elements of ,seq do (do ,@body)))
 
 (mac on (var seq &body body)
-  "Same as each except simultaneously binds 'index' to the index of 
-   the element"
+  "Equivalent to each but binds the symbol 'index' to the position of
+   the current element in SEQ."
   `(loop for ,var being the elements of ,seq
 	 for index from 0
 	 do (do ,@body)))
