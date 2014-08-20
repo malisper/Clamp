@@ -1,24 +1,26 @@
+;;;; These are utilities that make it easier to read input.
+
 (in-package :clamp)
 
 (def readb (&key (from *standard-input*) (eof nil eof-p))
-  "Reads a byte from 'from'. If reaches end of the file, signal an
-   error if 'eof' was not supplied. If 'eof' was supplied, return 
-   it."
+  "Reads a byte from FROM. If this reaches the end of the file, 
+   it signals error if EOF was not supplied. If EOF was supplied, 
+   returns EOF."
   (read-byte from (no eof-p) eof))
 
 (def readc (&key (from *standard-input*) (eof nil eof-p) (recur nil))
-  "Reads a char from 'from'. If readc reaches end of the file signal 
-   an error if 'eof' was not supplied. If 'eof' was supplied, return
-   it. The 'recur' argument is if it is possible this call can lead 
-   to another call to read."
+  "Reads a char from FROM. If this reaches then end of the file 
+   signal an error if EOF was not supplied. If EOF was supplied, 
+   return EOF. The RECUR argument is if it is possible this call can 
+   lead to another call to some version of read."
   (read-char from (no eof-p) eof recur))
 
 (def peekc (&key (from *standard-input*) (eof nil eof-p)
                  (recur nil) (type nil))
-  "Same as readc but leaves the char on the stream. If 'type' is nil
-   return the next char. If 'type' is t, return the next char,
-   skipping whitespace. Otherwise if 'type' is a char, return the
-   next char that is char= to 'type'."
+  "Same as readc but leaves the char on the stream. If TYPE is nil
+   return the next char. If TYPE is t, return the next char after
+   skipping whitespace. Otherwise if TYPE is a char, return the
+   next char that is char= to TYPE."
   (peek-char type from (no eof-p) eof recur))
 
 (def read (&key (from *standard-input*) (eof nil eof-p) (recur nil))
