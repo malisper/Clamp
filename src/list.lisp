@@ -1,30 +1,32 @@
-;;;; these are functions for working with lists
+;;;; These are utilities for working with lists.
 
 (in-package :clamp)
 
 (def range (a b &optional (by 1))
-  "Returns a list of numbers from a to b in steps of by. By has to be
-   a positive integer."
-  ;; loop generates efficent code
+  "Returns a list of numbers from A to B (inclusive) in steps of BY. 
+   The argument BY has to be a positive integer."
+  ;; The loop macro generates code that is more efficent than what
+  ;; should be written by hand
   (loop for i from a to b by by collect i))
 
 (def firstn (n seq)
-  "Returns a list of the first n elements of the sequence seq or a
-   list of all the elements if seq is too short. Can also be given
-   nil instead of a number to just return the sequence instead."
+  "Returns a list of the first N elements of the sequence SEQ or a
+   list of all the elements if SEQ is too short. If N is nil, returns
+   the entire sequence."
   (if (no n)
       seq
       (loop repeat n
-	    ;; need to iterate over the actual elements because
-	    ;; otherwise it would be an error to take the first n
-            ;; elements of a seq that is not long enough
+	    ;; Cannot use cut to access the the elements because
+            ;; this should not throw an error when the sequence
+            ;; is too short.
 	    for x being the elements of seq
 	    collect x)))
 
 (def split (seq n)
   "Given a sequence and an integer will return two sequences. The first
-   one will contain the first n elements of the sequence, and the second
-   will contain the rest of the elements of the initial sequence."
+   one will contain the first N elements of the sequence, and the second
+   will contain the rest of the elements of the initial sequence. The
+   return sequences are of the same type as the sequence passed in."
   (values (cut seq 0 n) (cut seq n)))
 
 (def group (xs &key (by 2) (with #'list))
@@ -74,11 +76,11 @@
            collect ,gval)))
 
 (def caris (x val)
-  "Is x a cons pair, and is its car the given value?"
+  "Is X a cons pair, and is its car the given value?"
   (and (consp x) (is (car x) val)))
 
 (def carif (x)
-  "Returns x if it is an atom, otherwise returns (car x)."
+  "Returns X if it is an atom, otherwise returns (car X)."
   (if (atom x)
       x
       (car x)))
