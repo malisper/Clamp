@@ -1,4 +1,4 @@
-';;;; Functions for specific kinds of sorting.
+;;;; Functions for specific kinds of sorting.
 
 (in-package :clamp)
 
