@@ -1,4 +1,4 @@
-;;;; Functions for specific kinds of sorting.
+';;;; Functions for specific kinds of sorting.
 
 (in-package :clamp)
 
@@ -26,7 +26,7 @@
 (def bestn (n f seq)
   "Returns a list containg the first N elements of SEQ if it was 
    sorted using the function F."
-  (firstn n (sort f xs)))
+  (firstn n (sort f seq)))
 
 (def nsort (comparer sequence &optional (key #'identity))
   "Destructively sorts SEQUENCE using COMPARER."
