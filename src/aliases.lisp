@@ -1,12 +1,12 @@
-;;;; these are several cl operations which are aliased for clamp
+;;;; These are several cl operations which are aliased for clamp.
 
 (in-package :clamp)
 
-;;; special forms
+;;;; Special Forms
 (defalias do  progn)
 (defalias after unwind-protect)
 
-;;; macros
+;;;; Macros
 (defalias def defun)
 (defalias mac defmacro)
 (defalias ++ incf)
@@ -19,7 +19,7 @@
 (defalias errsafe ignore-errors)
 (defalias w/file with-open-file)
 
-;;; functions
+;;;; Functions
 (defalias is eql)
 (defalias iso equalp)
 (defalias no not)
@@ -44,5 +44,5 @@
 (defalias inside get-output-stream-string)
 (defalias instring make-string-input-stream)
 (defalias swap rotatef)
-;; (defalias rotate rotatef) is there any reason to have rotate and swap?
+; (defalias rotate rotatef) is there any reason to have rotate and swap?
 (defalias writec write-char)
