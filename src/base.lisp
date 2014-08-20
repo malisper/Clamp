@@ -17,11 +17,11 @@
       `(lambda (_) (,@(read-delimited-list #\] stream t)))))
 
 (def single (xs)
-  "Does this list have only one element?"
+  "Does this list have one and only one element?"
   (and (consp xs) (no (cdr xs))))
 
 (def pair (xs &optional (f #'list))
-  "Applies f to every two elements of xs and collects the results."
+  "Applies F to every two elements of xs and collects the results."
   (cond ((no xs) '())
         ((single xs) (list (funcall f (car xs))))
         (:else (cons (funcall f (car xs) (cadr xs))
