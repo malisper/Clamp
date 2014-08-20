@@ -1,4 +1,4 @@
-;;;; these are some basic utilities which need to be loaded first
+;;;; These are some basic utilities which need to be loaded first.
 
 (in-package :clamp)
 
