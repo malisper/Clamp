@@ -1,10 +1,9 @@
-;;;; macros for writing macros
+;;;; Macros for writing macros.
 
 (in-package :clamp)
 
 (mac w/uniq (names &body body)
-  "Binds each element in names (or names if it is just a symbol), with
-   a unique symbol"
+  "Binds every symbol in NAMES to a uniq symbol. Then executes BODY."
   (if (consp names)
       `(with ,(mappend (fn (n) `(,n (uniq (symbol-name ',n))))
                        names)
