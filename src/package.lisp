@@ -16,7 +16,7 @@
    :w/file :swap :writec
    
    ;;;; From base.
-   :single :if :fn 
+   :_ :single :if :fn
 
    ;;;; From binding.
    :with :let :ret :flet1 :withs
