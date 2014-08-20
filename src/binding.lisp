@@ -1,4 +1,4 @@
-;;;; these are macros which create new bindings
+;;;; These are utilities for binding variables.
 
 (in-package :clamp)
 
