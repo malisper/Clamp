@@ -1,3 +1,5 @@
+;;;; This is the package declaration for clamp.
+
 (defpackage :clamp
   (:nicknames :clamp)
   (:use :common-lisp)
@@ -5,72 +7,76 @@
 	   :rem :let :find :count :sort
 	   :++ :read :read-line)
   (:export
-   ;;; defalias
+   ;;;; From defalias.
    :defalias
-   ;;; aliases
+   ;;;; From aliases
    :def :mac :++ :-- :mvb :mvl :do :do1 :do2 := :is :iso :no :len
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec
    
-   ;;; base
+   ;;;; From base.
    :single :if :fn 
 
-   ;;; binding
+   ;;;; From binding.
    :with :let :ret :flet1 :withs
 
-   ;;; print
+   ;;;; From print.
    :pr :prn :w/outstring :tostring :w/instring :fromstring
 
-   ;;; hof
+   ;;;; From hof.
    :testify :rem :keep :mem :find :count :pos
    :mappend :partition
 
-   ;;; conditionals
+   ;;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :case
    :ccase :ecase
 
-   ;;; list
+   ;;; From list.
    :range :firstn :last1 :flat :len< :len> :n-of :drain :split
    :group :caris :carif
 
-   ;;; macros
+   ;;;; From macros.
    :w/uniq
 
-   ;;; iter
+   ;;;; From iter.
    :rec :recur :repeat :upto :up :downfrom :down :while :until
    :each :on :index :whilet :whiler
 
-   ;;; fns
+   ;;;; From fns.
    :rfn :afn
    
-   ;;; misc
+   ;;;; From misc.
    :ado :accum :multiple :check :zap :or= :in :cart
 
-   ;;; fnops
+   ;;;; From fnops.
    :compose :fif :andf :orf :curry :rcurry
 
-   ;;; sort
+   ;;;; From sort.
    :compare :best :bestn :sort
 
-   ;;; memoize
+   ;;;; From memoize.
    :memo :defmemo
 
-   ;;; tables
+   ;;;; From tables.
    :keys :vals :listtab :tablist :obj :alref :counts
 
-   ;;; io
+   ;;;; From io.
    :w/infile :w/outfile :w/appendfile :allchars :filechars
 
-   ;;; strings
+   ;;;; From strings.
    :whitec :tokens
 
-   ;;; read
+   ;;;; From read.
    :readb :readc :peakc :read :read-line
 
-   ;;; symbols from the common lisp package
-   ;;; this way only clamp needs to be used
-   ;;; also avoids name-collision issues
+   ;;;; Symbols to be exported from the common-lisp package. This
+   ;;;; makes it easy to import clamp (which shadows some names) and
+   ;;;; still access everything from common-lisp. Some symbols whose
+   ;;;; use is discouraged (such as rplaca) are also removed. Symbols
+   ;;;; which would normally be commented out on the beginning of the
+   ;;;; are moved to the end of the previous because otherwise it
+   ;;;; leads to weird indentation.
    :&allow-other-keys :&aux :&body :&environment :&key :&optional :&rest
    :&whole :* :** :*** :*break-on-signals* :*compile-file-pathname*
    :*compile-file-truename* :*compile-print* :*compile-verbose* :*debug-io*
@@ -101,9 +107,9 @@
    :boole-orc2 :boole-set :boole-xor :boolean :both-case-p :boundp :break
    :broadcast-stream :broadcast-stream-streams :built-in-class :butlast
    :byte :byte-position :byte-size :caaaar :caaadr :caaar :caadar :caaddr
-   :caadr :caar :cadaar :cadadr :cadar :caddar :cadddr :caddr :cadr
+   :caadr :caar :cadaar :cadadr :cadar :caddar :cadddr :caddr :cadr #|:ccase|#
    :call-arguments-limit :call-method :call-next-method :car #|:case|# :catch
-   #|:ccase|# :cdaaar :cdaadr :cdaar :cdadar :cdaddr :cdadr :cdar :cddaar
+   :cdaaar :cdaadr :cdaar :cdadar :cdaddr :cdadr :cdar :cddaar
    :cddadr :cddar :cdddar :cddddr :cdddr :cddr :cdr :ceiling :cell-error
    :cell-error-name :cerror :change-class :char :char-code :char-code-limit
    :char-downcase :char-equal :char-greaterp :char-int :char-lessp
@@ -137,8 +143,8 @@
    :eval :eval-when :evenp :every :exp :export :expt :extended-char
    :fboundp :fceiling :fdefinition :ffloor :fifth :file-author :file-error
    :file-error-pathname :file-length :file-namestring :file-position
-   :file-stream :file-string-length :file-write-date :fill :fill-pointer
-   #|:find|# :find-all-symbols :find-class :find-if :find-if-not :find-method
+   :file-stream :file-string-length :file-write-date :fill :fill-pointer #|:find|#
+   :find-all-symbols :find-class :find-if :find-if-not :find-method
    :find-package :find-restart :find-symbol :finish-output :first :fixnum
    :flet :float :float-digits :float-precision :float-radix :float-sign
    :floating-point-inexact :floating-point-invalid-operation
@@ -224,11 +230,11 @@
    :remove-if :remove-if-not :remove-method :remprop :rename-file
    :rename-package :replace :require :rest :restart :restart-bind
    :restart-case :restart-name :return :return-from :revappend :reverse
-   :room :rotatef :round :row-major-aref :rplaca :rplacd :safety
+   :room :rotatef :round :row-major-aref #|:rplaca|# #|:rplacd|# :safety
    :satisfies :sbit :scale-float :schar :search :second :sequence
    :serious-condition :set :set-difference :set-dispatch-macro-character
    :set-exclusive-or :set-macro-character :set-pprint-dispatch
-   :set-syntax-from-char :setf :setq :seventh :shadow :shadowing-import
+   :set-syntax-from-char :setf #|:setq|# :seventh :shadow :shadowing-import
    :shared-initialize :shiftf :short-float :short-float-epsilon
    :short-float-negative-epsilon :short-site-name :signal :signed-byte
    :signum :simple-array :simple-base-string :simple-bit-vector
