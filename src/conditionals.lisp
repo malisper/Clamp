@@ -1,9 +1,10 @@
-;;;; these are different kinds of conditionals
+;;;; These are utilities for conditional branching.
 
 (in-package :clamp)
 
 (mac iflet (var expr &body branches)
-  "Same as if but if a predicate is true, it is bound to var"
+  "Same as clamp:if but if a predicate is true, the value of predicate 
+   is bound to VAR in the corresponding branch."
   (if branches
       (w/uniq gv
 	`(let ,gv ,expr
@@ -16,20 +17,21 @@
       expr))
 
 (mac whenlet (var expr &body body)
-  "Analog of iflet but for when"
+  "If EXPR returns non-nil, bind that value to VAR and execute body."
   `(iflet ,var ,expr (do ,@body)))
 
 (mac aif (expr &body branches)
-   "iflet but uses 'it' for var"
+   "Equivalent to iflet but automatically binds EXPR to 'it'."
   `(iflet it ,expr ,@branches))
 
 (mac awhen (expr &body body)
-   "Analog of aif but for when"
+   "Equivalent to whenlet but automatically binds the value of EXPR
+    to 'it'."
   `(whenlet it ,expr ,@body))
 
 (mac aand (&rest args)
-  "Evaluates each argument one by one. Binds the result of the previous
-   expression to 'it'. Otherwise the same as and"
+  "Equivalent to and, but binds the value of the previous expr to 
+   'it'."
   (if (no args)
         t
       (no (cdr args))
@@ -40,8 +42,9 @@
 	   (and it (aand ,@(cdr args))))))
 
 (mac aif2 (&rest clauses)
-  "aif but for working with functions that have multiple return values
-   ie gethash. See On Lisp for examples"
+  "Equivalent to aif, but will also execute the corresponding branch
+   if the predicate has a second return value which is non-nil. This
+   is useful for accessing hashtables."
   (w/uniq (val win)
     (if (null clauses)
           nil
@@ -55,13 +58,16 @@
 		 (aif2 ,@rest)))))))
 
 (mac case (keyform &rest clauses)
-  "Same as regular CL case except there are no parens around each pair."
+  "Equivalent to cl:case except there are no parens around each 
+   clause."
   `(cl:case ,keyform ,@(group clauses)))
 
 (mac ccase (keyform &rest clauses)
-  "Same as regular CL ccase except there are no parens around each pair."
+  "Equivalent to cl:ccase except there are no parens around each
+   clause."
   `(cl:ccase ,keyform ,@(group clauses)))
 
 (mac ecase (keyform &rest clauses)
-  "Same as regular CL ecase except there are no parens around each pair."
+  "Equivalent to cl:ecase except there are no parens around each
+   clause."
   `(cl:ecase ,keyform ,@(group clauses)))
