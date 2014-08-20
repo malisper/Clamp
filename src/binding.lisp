@@ -16,7 +16,7 @@
 
 (mac ret (var val &body body)
   "Equivalent to clamp:let, but the result of a ret expression is the
-   final value of the variable being created."
+   final value of VAR."
   `(let ,var ,val ,@body ,var))
 
 (mac flet1 (name args fbody &body body)
