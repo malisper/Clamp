@@ -1,9 +1,14 @@
-;;;; these are utilities for working with fns
+;;;; These are utilities for working with functions.
 
 (in-package :clamp)
 
 (def compose (&rest fns)
-  "Composes the arguments which are functions"
+  "Composes functions. For example 
+
+   (compose #'1+ #'length) 
+
+   will return a function which returns one plus the length of a 
+   list."
   (if fns
       (with (fn1 (last1 fns)
 	     fns (butlast fns))
@@ -14,8 +19,19 @@
       #'identity))
 
 (def fif (&rest funs)
-  "Returns a function which applies each 'test' in sequence
-   and if it passes the test calls the next function"
+  "Takes in functions, every two of which belong to a pair where the
+   first is a predicate, and the second is the consequent function 
+   (if there are an odd number of functions, the last one can be 
+   thought of as an 'else' function. This returns a function which 
+   will apply every test in sequence and if a test returns non-nil, 
+   apply the corresponding consequent function. If none of the 
+   predicates return non-nil, the function is equivalent to the
+   identity function. As an example example 
+
+   (fif #'odd #'1+ #'1-) 
+
+   will return a function which will increment odd numbers and
+   decrement all other numbers."
   (case (len funs)
     0 #'identity
     1 (car funs)
@@ -26,8 +42,14 @@
 			     (apply restfun args))))))
 
 (def andf (f &rest fns)
-  "Returns a predicate function which returns true when all of the
-   functions passed in as arguments would return true"
+  "Returns a function which lazily applies each function in sequence
+   and returns whatever the last function would return if all of the
+   other functions return non-nil. For example 
+
+   (andf #'integerp #'even #'1+) 
+
+   will return a function which increments even integers, and
+   returns nil for anything else."
   (if (null fns)
       f
       (let chain (apply #'andf fns)
@@ -35,20 +57,32 @@
 	  (and (apply f args) (apply chain args))))))
 
 (def orf (f &rest fns)
-  "Returns a predicate function which returns true when any of the
-   functions passed in as arguments would return true"
+  "Returns a function which lazily applies each function in sequence
+   and returns the result of the first function that returns a
+   non-nil value. For example
+
+   (orf #'odd #'zero) 
+
+   will return a function which tests for an odd number or zero."
   (if (null fns)
       f
       (let chain (apply #'orf fns)
-	(fn (&rest args)
-	  (or (apply f args) (apply chain args))))))
+        (fn (&rest args)
+          (or (apply f args) (apply chain args))))))
 
 (def curry (f &rest args1)
-  "Returns a function with its left most arguments passed in and 
-   waiting for the rest"
+  "Curries F from the left with the other arguments. For example
+
+   (curry #'reduce #'+)
+   
+   returns a function which will sum a sequence."
   (fn (&rest args2) (apply f (append args1 args2))))
 
 (def rcurry (f &rest args1)
-  "Returns a function with its right most arguments passed in and
-   waiting for the rest"
+  "Curries F from the right with the other arguments. For exmaple
+   
+   (rcurry #'map (range 1 100))
+
+   returns a function which will call its argument on all of the
+   numbers from 1 to 100 and collect the results."
   (fn (&rest args2) (apply f (append args2 args1))))
