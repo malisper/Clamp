@@ -1,33 +1,33 @@
-;;;; functions for printing
+;;;; Utilities for printing.
 
 (in-package :clamp)
 
 (def pr (&rest args)
-  "Prints all of its arguments to *standard-output* in a human
-   readable format"
+  "Prints all of its arguments to *standard-output* in a human 
+   readable format."
   (map #'princ args)
   (car args))
 
 (def prn (&rest args)
   "Prints all of its arguments to *standard-output* in a human
-   readable format with an additional newline"
+   readable format with an additional newline."
   (do1 (apply #'pr args)
        (terpri)))
 
 (mac w/outstring (var &rest body)
-  "Creates a stream 'var' and returns all of the output to var"
+  "Creates a string output stream and binds it to VAR."
   `(with-output-to-string (,var)
      ,@body))
 
 (mac tostring (&body body)
-  "Collects all of the output to *standard-output* into a string"
+  "Collects all of the output to *standard-output* into a string."
   `(w/outstring *standard-output* ,@body))
 
 (mac w/instring (var string &rest body)
-  "Creates an input stream which reads from string"
+  "Binds an string input stream which reads from STRING, to VAR."
   `(with-input-from-string (,var ,string)
      ,@body))
 
 (mac fromstring (string &body body)
-  "Binds the input from *standard-input to the string"
+  "Makes the input from *standard-input* read from STRING."
   `(w/instring *standard-input* ,string ,@body))
