@@ -1,9 +1,9 @@
-;;;; these are utilities for working with (hash) tables
+;;;; These are utilities for working with (hash) tables.
 
 (in-package :clamp)
 
 (def keys (tab)
-  "Evaluates to all of the keys in the hash table tab"
+  "Returns all of the keys of the table TAB."
   (ret result '()
     (maphash (fn (k v)
 		 (declare (ignore v))
@@ -11,7 +11,7 @@
 	     tab)))
 
 (def vals (tab)
-  "Evaluates to all of the values in the table tab"
+  "Returns all of the values stored in table TAB."
   (ret result '()
     (maphash (fn (k v)
 		 (declare (ignore k))
@@ -19,30 +19,33 @@
 	     tab)))
 
 (def listtab (xs &rest args)
-  "Evaluates to a table which is equivalent to the alist xs.
-   Takes the same keyword arguments as table"
+  "Returns a table which is equivalent to the alist XS. Takes
+   additional arguments which are passed to table, specifying the
+   kind of table to be created."
   (ret result (apply #'table args)
     (each (k v) xs
       (= (gethash k result) v))))
 
 (def tablist (tab)
-  "Evaluates to an alist which is equivalent to the table xs"
+  "Returns an alist which is equivalent to the table TAB."
   (ret result '()
     (maphash (fn (k v) (push (list k v) result)) tab)))
 
 (mac obj (&rest args)
-  "Makes a table for all of the passed in keys and values"
+  "Creates a table with every two arguments being key/value pairs.
+   The keys are not evaluated."
   `(listtab (list ,@(map [let (k v) _ `(list ',k ,v)]
 			 (pair args)))
 	    :test #'iso))
 
 (def alref (al key)
-  "Evaluates to the value of key in the alist al"
+  "Returns the value of KEY in the alist AL."
   (cadr (assoc key al)))
 
 (def counts (seq &optional (test #'iso))
-  "Returns a table containing how many times every element in seq
-   appears."
+  "Returns a table containing how many times every element in SEQ
+   appears. The function TEST needs to be able to be passed to table
+   for creating a table."
   (ret result (table :test test)
     (loop for x being the elements of seq
           do
