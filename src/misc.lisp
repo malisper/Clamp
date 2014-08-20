@@ -1,10 +1,10 @@
-;;;; utilities which do not belong in any other file
+;;;; Utilities which do not belong in any other file.
 
 (in-package :clamp)
 
 (mac ado (&body body)
-  "Evaluates each expression with it bound to the result of
-   the previous one. Returns the value of the last expression"
+  "Evaluates each expression with the symbol 'it' bound to the result
+   of the previous one. Returns the value of the last expression."
   (if (null body)
         nil
       (single body)
@@ -15,7 +15,9 @@
            (ado ,@(cdr body)))))
 
 (mac accum (accfn &body body)
-  "The result is all of the arguments passed into accfn"
+  "Binds ACCFN to a function which will accumulate values. The result
+   of accum is all of the elements passed to ACCFN in the same
+   order."
   (w/uniq gacc
     `(let ,gacc '()
        (flet1 ,accfn (arg) (push arg ,gacc)
@@ -23,11 +25,12 @@
        (nrev ,gacc))))
 
 (def multiple (x y)
-  "A predicate for testing if x is a multiple of y"
+  "Is X a multiple of Y?"
   (zerop (mod x y)))
 
 (mac check (x test &optional alt)
-  "If x passes the test return it, otherwise evaluate alt"
+  "If X passes TEST (not testified) return it, otherwise evaluate 
+   ALT."
   (w/uniq val
     `(let ,val ,x
        (if (funcall ,test ,val)
@@ -35,8 +38,9 @@
            ,alt))))
 
 (mac zap (op place &rest args)
-  "Assigns the value of applying op to the rest of the args
-   to the second arg"
+  "Assigns the result of calling OP on the rest of the arguments 
+   (including PLACE) to PLACE. For example (zap #'+ x n) is
+   equivalent to (incf x n)."
   (mvb (vars forms var set access)
        (get-setf-expansion place)
     `(withs (,@(mappend #'list vars forms)
@@ -44,16 +48,17 @@
        ,set)))
 
 (mac or= (place new)
-  "If the var is nil, it assigns the new value to it.
-   Otherwise does nothing"
+  "If PLACE is nil, assign the result of evaluating NEW there.
+   Otherwise returns whatever value was already in PLACE and does not
+   evaluate NEW."
   (mvb (vars forms var set access)
        (get-setf-expansion place)
     `(withs (,@(mappend #'list vars forms) ,(car var) (or ,access ,new))
        ,set)))
 
 (mac or2= (place new)
-  "Or= but also works on places that may be nil but return multiple
-   values instead."
+  "Equivalent to or= but will not carry through with the assignment 
+   if accessing PLACE has a second return value which is non-nil."
   (mvb (vars forms var set access)
        (get-setf-expansion place)
     (w/uniq (val win)
@@ -63,19 +68,18 @@
              ,set))))))
 
 (mac in (x &rest choices)
-  "Checks if the result of evaluating x is the result of
-   one of the other arguments. Only evaluates arguments
-   as necessary"
+  "Returns t if X is one of the results of evaluating every CHOICE
+   (lazily)."
   (w/uniq val
     `(let ,val ,x
        (or ,@(map (fn (c) `(is ,val ,c)) choices)))))
 
 (mac cart (f xs ys)
-  "Applies the function f to a subset of the cartesian product of xs and 
-   ys. The element from xs is bound to 'it' which can be used to change what
-   ys is"
+  "Applies F to a variation of the cartesian product of XS and YS.
+   While going through XS, every element is bound to 'it' which
+   can be used to modify YS."
   (w/uniq y
-    `(mapcan (fn (it) ; we can use mapcan because map creates new conses
+    `(mapcan (fn (it) ; It is okay to use mapcan since map conses.
                  (map (fn (,y)
                           (funcall ,f it ,y))
                       ,ys))
