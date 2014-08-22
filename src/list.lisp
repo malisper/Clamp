@@ -30,15 +30,15 @@
   (values (cut seq 0 n) (cut seq n)))
 
 (def group (xs &key (by 2) (with #'list))
-  "Groups every 'by' elements of the given list using the procedure 
-   'with'."
+  "Groups every BY elements of the given list using the procedure 
+   WITH."
   (if (no xs)
       '()
       (cons (apply with (firstn by xs))
 	    (group (nthcdr by xs) :by by :with with))))
 
 (def last1 (xs)
-  "Returns the last element of xs. Not the last cons pair."
+  "Returns the last element of XS. Not the last cons pair."
   (car (last xs)))
 
 (def flat (tree)
@@ -54,21 +54,21 @@
 ;;; be further optimized, but benchmarks would be needed before then.
 
 (def len< (seq n)
-  "Is a sequence shorter than some length?"
+  "Is this sequence shorter than some length?"
   (< (len seq) n))
 
 (def len> (seq n)
-  "Is a sequence longer than some length?"
+  "Is this sequence longer than some length?"
   (> (len seq) n))
 
 (mac n-of (n exp)
-  "Returns a list of calling exp, n times."
-  ;; loop generates faster code than what I would write by hand
+  "Returns a list of calling EXP, N times."
+  ;; Loop generates faster code than what I would write by hand.
   `(loop repeat ,n collect ,exp))
 
 (mac drain (exp &optional (endval nil))
-  "Repeatedly evaluates exp until it passes the testified version of
-   endval. Then return a list of the results a list of the results."
+  "Repeatedly evaluates EXP until it passes the testified version of
+   ENDVAL. Then return a list of the results."
   (w/uniq (gval gtest)
     `(loop with ,gtest = (testify ,endval)
            for ,gval = ,exp
