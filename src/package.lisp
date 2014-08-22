@@ -44,7 +44,7 @@
    :each :on :index :whilet :whiler
 
    ;; From fns.
-   :rfn :afn
+   :rfn :afn :self
    
    ;; From misc.
    :ado :accum :multiple :check :zap :or= :in :cart
