@@ -22,11 +22,11 @@
   "Takes in functions, every two of which belong to a pair where the
    first is a predicate, and the second is the consequent function 
    (if there are an odd number of functions, the last one can be 
-   thought of as an 'else' function. This returns a function which 
+   thought of as an 'else' function). This returns a function which 
    will apply every test in sequence and if a test returns non-nil, 
    apply the corresponding consequent function. If none of the 
    predicates return non-nil, the function is equivalent to the
-   identity function. As an example example 
+   identity function. As an example 
 
    (fif #'odd #'1+ #'1-) 
 
