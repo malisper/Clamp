@@ -14,6 +14,6 @@
           for next = (pos test str :start prev)
           for substr = (cut str prev next)
           ;; There must be a better way to test for the empty string.
-          unless (iso "" substr)
+          unless (is 0 (len substr))
             collect substr
           while next)))
