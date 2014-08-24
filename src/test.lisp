@@ -374,10 +374,10 @@
 
 (deftest fif (fnops)
   (assert-eql 5 (funcall (fif) 5))
-  (assert-eql 6 (funcall (fif #'oddp #'1+ #'1-) 5))
-  (assert-eql 5 (funcall (fif #'oddp #'1+ #'1-) 6))
-  (assert-eql 0 (funcall (fif #'plusp #'1+ #'minusp #'1-) 0))
-  (assert-eql 2 (funcall (fif #'plusp #'1+ #'minusp #'1-) 1))
+  (assert-eql 6 (funcall (fif #'odd #'1+ #'1-) 5))
+  (assert-eql 5 (funcall (fif #'odd #'1+ #'1-) 6))
+  (assert-eql 0 (funcall (fif #'plus #'1+ #'minusp #'1-) 0))
+  (assert-eql 2 (funcall (fif #'plus #'1+ #'minusp #'1-) 1))
   (assert-eql -2 (funcall (fif #'plusp #'1+ #'minusp #'1-) -1)))
 
 (deftest andf (fnops)
@@ -524,3 +524,4 @@
            (fib (- n 2)))))
   ;; We know defmemo works if this ever finishes with the answer.
   (assert-eql 354224848179261915075 (fib 100)))
+
