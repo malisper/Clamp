@@ -51,16 +51,16 @@
 	 do (do ,@body)))
 
 (mac whilet (var test &body body)
-  "Executes body until test returns nil. The value of test is bound
-   to var on each iteration."
+  "Executes BODY until test returns nil. The value of TEST is bound
+   to VAR on each iteration."
   `(loop for ,var = ,test
 	 while ,var
 	 do (do ,@body)))
 
 (mac whiler (var expr endval &body body)
-  "Executes body until the result of expr passes the testified 
-   version of endval. The value of endval is bound to var on 
-   each iteration."
+  "Executes BODY until the result of expr passes the testified 
+   version of ENDVAL. The value of EXPR is bound to VAR on each
+   iteration."
   (w/uniq gtest
     `(loop with ,gtest = (testify ,endval)
 	   for ,var = ,expr
