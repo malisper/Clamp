@@ -9,10 +9,10 @@
   (read-byte from (no eof-p) eof))
 
 (def readc (&key (from *standard-input*) (eof nil eof-p) (recur nil))
-  "Reads a char from FROM. If this reaches then end of the file 
-   signal an error if EOF was not supplied. If EOF was supplied, 
-   return EOF. The RECUR argument is if it is possible this call can 
-   lead to another call to some version of read."
+  "Reads a char from FROM. If this reaches the end of the file signal
+   an error if EOF was not supplied. If EOF was supplied, return EOF.
+   The RECUR argument is if it is possible this call can lead to
+   another call to some version of read."
   (read-char from (no eof-p) eof recur))
 
 (def peekc (&key (from *standard-input*) (eof nil eof-p)
