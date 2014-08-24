@@ -33,7 +33,7 @@
    will return a function which will increment odd numbers and
    decrement all other numbers."
   (case (len funs)
-    0 #'identity
+    0 #'idfn
     1 (car funs)
     t (withs ((test fun . rest) funs
 	      restfun (apply #'fif rest))
