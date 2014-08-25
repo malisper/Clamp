@@ -14,7 +14,9 @@
 (set-macro-character #\[
   (fn (stream char)
       (declare (ignore char))
-      `(lambda (_) (,@(read-delimited-list #\] stream t)))))
+      `(lambda (_)
+         (declare (ignorable _))
+         (,@(read-delimited-list #\] stream t)))))
 
 (def single (xs)
   "Does this list have one and only one element?"
