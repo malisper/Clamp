@@ -13,7 +13,7 @@
    :def :mac :++ :-- :mvb :mvl :do :do1 :do2 := :is :iso :no :len
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
-   :w/file :swap :writec
+   :w/file :swap :writec :notf
    
    ;; From base.
    :_ :single :if :fn
