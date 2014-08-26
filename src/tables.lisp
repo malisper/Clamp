@@ -40,7 +40,8 @@
 
 (def alref (al key)
   "Returns the value of KEY in the alist AL."
-  (cadr (assoc key al)))
+  (let pair (assoc key al)
+    (values (cadr pair) pair)))
 
 (def counts (seq &optional (test #'iso))
   "Returns a table containing how many times every element in SEQ
