@@ -41,8 +41,8 @@
 	   (declare (ignorable it))
 	   (and it (aand ,@(cdr args))))))
 
-(mac aif2 (&rest clauses)
-  "Equivalent to aif, but will also execute the corresponding branch
+(mac iflet2 (var &rest clauses)
+  "Equivalent to iflet, but will also execute the corresponding branch
    if the predicate has a second return value which is non-nil. This
    is useful for accessing hashtables."
   (w/uniq (val win)
@@ -51,11 +51,17 @@
 	(single clauses)
           (car clauses)
 	:else
-        (let (t1 c1 . rest) clauses
-	  `(mvb (,val ,win) ,t1
-	     (if (or ,val ,win)
-		 (let it ,val (declare (ignorable it)) ,c1)
-		 (aif2 ,@rest)))))))
+          (let (t1 c1 . rest) clauses
+            `(mvb (,val ,win) ,t1
+               (if (or ,val ,win)
+                   (let ,var ,val (declare (ignorable it)) ,c1)
+                   (aif2 ,@rest)))))))
+
+(mac aif2 (&rest clauses)
+  "Equivalent to aif, but will also execute the corresponding branch
+   if the predicate has a second return value which is non-nil. This
+   is useful for accessing hashtables."
+  `(iflet it ,@clauses))
 
 (mac case (keyform &rest clauses)
   "Equivalent to cl:case except there are no parens around each 
