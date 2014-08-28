@@ -61,7 +61,7 @@
   "Equivalent to aif, but will also execute the corresponding branch
    if the predicate has a second return value which is non-nil. This
    is useful for accessing hashtables."
-  `(iflet it ,@clauses))
+  `(iflet2 it ,@clauses))
 
 (mac case (keyform &rest clauses)
   "Equivalent to cl:case except there are no parens around each 
