@@ -255,6 +255,15 @@
   (assert-eql 5 (carif 5))
   (assert-eql 1 (carif '(1 2 3))))
 
+(deftest consif (list)
+  (assert-equal '(1 2 3) (consif 1 '(2 3)))
+  (assert-equal '(2 3)   (consif nil '(2 3))))
+
+(deftest conswhen (list)
+  (assert-equal '(1 2 3) (conswhen #'idfn 1 '(2 3)))
+  (assert-equal '(2 3)   (conswhen #'even 1 '(2 3)))
+  (assert-equal '(1 2 3) (conswhen #'odd  1 '(2 3))))
+
 ;;;; Test for conditionals.
 
 (deftest iflet (conditionals)
