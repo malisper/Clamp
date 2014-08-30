@@ -34,7 +34,7 @@
 
    ;;; From list.
    :range :firstn :last1 :flat :len< :len> :n-of :drain :split
-   :group :caris :carif
+   :group :caris :carif :consif :conswhen
 
    ;; From macros.
    :w/uniq
