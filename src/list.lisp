@@ -84,3 +84,15 @@
   (if (atom x)
       x
       (car x)))
+
+(def consif (x y)
+  "Cons X and Y if X is non-nil. Otherwise return Y."
+  (if (no x)
+      y
+      (cons x y)))
+
+(def conswhen (f x y)
+  "Cons X and Y only if (F X) is non-nil. Otherwise return Y."
+  (if (funcall f x)
+      (cons x y)
+      y))
