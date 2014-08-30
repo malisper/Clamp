@@ -43,12 +43,15 @@
 
 (def flat (tree)
   "Returns a list of all of the atoms in a tree (not including nil)"
-  (if (null tree)
-        '()
-      (atom tree)
-        (list tree)
-      (append (flat (car tree))
-	      (flat (cdr tree)))))
+  (rec (left tree acc '())
+    (if (null left)
+          acc
+        (atom left)
+          (cons left acc)
+        :else
+          (recur (car left)
+                 (recur (cdr left)
+                        acc)))))
 
 ;;; This are predicates for testing the length of sequences. They may
 ;;; be further optimized, but benchmarks would be needed before then.
