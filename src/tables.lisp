@@ -48,7 +48,6 @@
    appears. The function TEST needs to be able to be passed to table
    for creating a table."
   (ret result (table :test test)
-    (loop for x being the elements of seq
-          do
-          (or2= (gethash x result) 0)
-          (++ (gethash x result)))))
+    (each x seq
+      (or2= (gethash x result) 0)
+      (++ (gethash x result)))))
