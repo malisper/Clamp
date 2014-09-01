@@ -7,7 +7,6 @@
 (in-package :clamp-tests)
 
 (defsuite clamp ())
-
 (defsuite base (clamp))
 (defsuite binding (clamp))
 (defsuite conditionals (clamp))
@@ -19,6 +18,7 @@
 (defsuite print (clamp))
 (defsuite memoize (clamp))
 (defsuite misc (clamp))
+(defsuite tables (clamp))
 
 ;;;; Tests for base.
 
@@ -593,3 +593,62 @@
   (assert-equal '((a a) (a b) (b a) (b b)) (cart #'list '(a b) '(a b)))
   (assert-equal '((a b) (b a)) (cart #'list '(a b) (rem it '(a b))))
   (assert-equal '(1 2 3 4) (cart #'+ '(1 3) '(0 1))))
+
+(deftest keys (tables)
+  (let tab (table)
+    (assert-equal '() (keys tab))
+    (= (gethash 'a tab) 1)
+    (assert-equal '(a) (keys tab))
+    (= (gethash 'b tab) 2)
+    (assert-true (or (equal '(a b) (keys tab))
+                     (equal '(b a) (keys tab))))))
+
+(deftest vals (tables)
+  (let tab (table)
+    (assert-equal '() (vals tab))
+    (= (gethash 'a tab) 1)
+    (assert-equal '(1) (vals tab))
+    (= (gethash 'b tab) 2)
+    (assert-true (or (equal '(1 2) (vals tab))
+                     (equal '(2 1) (vals tab))))))
+
+(deftest listtab (tables)
+  (withs (tab (listtab '((a 1) (b 2)))
+          keys (keys tab)
+          vals (vals tab))
+    (assert-true (or (equal '(a b) keys)
+                     (equal '(b a) keys)))
+    (assert-true (or (equal '(1 2) vals)
+                     (equal '(2 1) vals)))
+    (assert-eql 1 (gethash 'a tab))
+    (assert-eql 2 (gethash 'b tab))))
+
+(deftest tablist (tables)
+  (let alist (tablist (obj a 1 b 2 c 3))
+    (assert-eql 1 (alref alist 'a))
+    (assert-eql 2 (alref alist 'b))
+    (assert-eql 3 (alref alist 'c))))
+
+(deftest obj (tables)
+  (let tab (obj a 1 b 2 c 3)
+    (assert-eql 1 (gethash 'a tab))
+    (assert-eql 2 (gethash 'b tab))
+    (assert-eql 3 (gethash 'c tab))))
+
+(deftest alref (tables)
+  (let alist '((a 1) (b 2) (c 3) (d nil))
+    (assert-eql 1 (alref alist 'a))
+    (assert-eql 2 (alref alist 'b))
+    (assert-eql 3 (alref alist 'c))
+    (assert-eql 4 (aif2 (alref alist 'd)
+                        4
+                        5))
+    (assert-eql 5 (aif2 (alref alist 'e)
+                        4
+                        5))))
+
+(deftest counts (tables)
+  (let tab (counts '(1 2 3 2 1 2 3 1 2))
+    (assert-eql 3 (gethash 1 tab))
+    (assert-eql 4 (gethash 2 tab))
+    (assert-eql 2 (gethash 3 tab))))
