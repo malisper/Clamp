@@ -59,7 +59,7 @@
    :memo :defmemo
 
    ;; From tables.
-   :keys :vals :listtab :tablist :obj :alref :counts
+   :keys :vals :listtab :tablist :obj :alref :counts :commonest
 
    ;; From io.
    :w/infile :w/outfile :w/appendfile :allchars :filechars
