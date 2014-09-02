@@ -43,11 +43,23 @@
   (let pair (assoc key al)
     (values (cadr pair) pair)))
 
-(def counts (seq &optional (test #'iso))
+(def counts (seq &key (test #'iso) (key #'idfn))
   "Returns a table containing how many times every element in SEQ
    appears. The function TEST needs to be able to be passed to table
    for creating a table."
   (ret result (table :test test)
     (each x seq
-      (or2= (gethash x result) 0)
-      (++ (gethash x result)))))
+      (let val (funcall key x)
+        (or2= (gethash val result) 0)
+        (++ (gethash val result))))))
+
+(def commonest (seq &key (test #'iso) (key #'idfn))
+  "Returns the most common element in SEQ and how often it occurs."
+  (with (winner nil n 0)
+    (maphash
+      (fn (k v)
+        (when (> v n)
+          (= winner k
+             n v)))
+      (counts seq :test test :key key))
+    (values winner n)))
