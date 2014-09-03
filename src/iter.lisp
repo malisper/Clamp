@@ -66,3 +66,8 @@
 	   for ,var = ,expr
       	   until (funcall ,gtest ,var)
            do (do ,@body))))
+
+(mac forlen (var seq &body body)
+  "Executes BODY, iterating from 0 to (len seq) (exclusive)."
+  `(up ,var 0 (len ,seq)
+     ,@body))
