@@ -3,7 +3,7 @@
 (in-package :clamp)
 
 ;;;; Special Forms
-(defalias do  progn)
+(defalias do progn)
 (defalias after unwind-protect)
 
 ;;;; Macros
@@ -47,3 +47,5 @@
 ; (defalias rotate rotatef) is there any reason to have rotate and swap?
 (defalias writec write-char)
 (defalias notf complement)
+(defalias macex macroexpand)
+(defalias macex1 macroexpand-1)
