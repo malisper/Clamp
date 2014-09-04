@@ -47,3 +47,7 @@
         else
           collect x into fail
         finally (return (values pass fail))))
+
+(def trues (f xs)
+  "Maps F over XS and returns a list of the non-nil results."
+  (keep #'idfn (map f xs)))
