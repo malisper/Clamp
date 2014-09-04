@@ -176,6 +176,12 @@
 				:key #'car
 				:start 3))))
 
+(deftest trues (hof)
+  (let alist '((a 1) (b 2) (c 3))
+    (assert-equal '((c 3) (a 1))
+                  (trues [assoc _ alist]
+                         '(c d a)))))
+
 ;;;; Tests for list.
 
 (deftest range (list)
@@ -319,6 +325,24 @@
   (assert-false (case 'c a 1 b 2 (t) 3))
   (assert-eql 3 (case t a 1 b 2 (t) 3 t 4)))
 
+(deftest caselet (conditionals)
+  (assert-eql 5
+    (caselet x 10
+      10 5
+      20 30
+      t  x))
+  (assert-eql 30
+    (caselet x 20
+      10 5
+      20 30
+      t x))
+  (assert-eql 50
+    (caselet x 50
+      10 5
+      20 30
+      t x)))
+
+;;;; Tests for print.
 
 (deftest pr (print)
   (assert-equal "hello world 5"
@@ -522,6 +546,17 @@
                 (accum a (fromstring "1 2 3"
                            (whiler x (read :eof t) t
                              (a x))))))
+
+(deftest forlen (iter)
+  (let xs '(1 2 3)
+    (assert-equal (rev xs) (ret result '()
+                             (forlen i xs
+                               (push (elt xs i) result)))))
+  (let seq #(1 2 3)
+    (assert-equal (rev (coerce seq 'list))
+                  (ret result '()
+                    (forlen i seq
+                      (push (elt seq i) result))))))
 
 ;;;; Tests for memoize.
 
