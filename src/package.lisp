@@ -30,7 +30,7 @@
 
    ;;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :case
-   :ccase :ecase
+   :ccase :ecase :caselet
 
    ;;; From list.
    :range :firstn :last1 :flat :len< :len> :n-of :drain :split
