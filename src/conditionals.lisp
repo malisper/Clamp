@@ -77,3 +77,10 @@
   "Equivalent to cl:ecase except there are no parens around each
    clause."
   `(cl:ecase ,keyform ,@(group clauses)))
+
+(mac caselet (var val &rest clauses)
+  "The result of VAL is assigned to VAR and then it is compared
+   against each case clause."
+  `(let ,var ,val
+     (case ,var
+       ,@clauses)))
