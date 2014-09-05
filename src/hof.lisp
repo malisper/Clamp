@@ -51,3 +51,13 @@
 (def trues (f xs)
   "Maps F over XS and returns a list of the non-nil results."
   (keep #'idfn (map f xs)))
+
+(mac mapeach (var xs &body body)
+  "Executes BODY repetitively with each element of XS bound to VAR.
+   Returns a list of the results."
+  `(map (fn (,var) ,@body) ,xs))
+
+(mac mappendeach (var xs &body body)
+  "Executes BODY repetitively with each element of XS bound to VAR.
+   Returns a list of all of the results appended together."
+  `(mappend (fn (,var) ,@body) ,xs))
