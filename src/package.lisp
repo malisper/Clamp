@@ -26,7 +26,7 @@
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos
-   :mappend :partition :trues
+   :mappend :partition :trues :mapeach :mappendeach
 
    ;;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :case
