@@ -47,7 +47,7 @@
    :rfn :afn :self
    
    ;; From misc.
-   :ado :accum :multiple :check :zap :or= :or2= :in :cart
+   :ado :accum :summing :multiple :check :zap :or= :or2= :in :cart
 
    ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry

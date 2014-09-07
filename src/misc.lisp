@@ -15,7 +15,7 @@
            (ado ,@(cdr body)))))
 
 (mac accum (accfn &body body)
-  "Binds ACCFN to a function which will accumulate values. The result
+  "Binds ACCFN to a procedure which will accumulate values. The result
    of accum is all of the elements passed to ACCFN in the same
    order."
   (w/uniq gacc
@@ -23,6 +23,15 @@
        (flet1 ,accfn (arg) (push arg ,gacc)
          ,@body)
        (nrev ,gacc))))
+
+(mac summing (sumfn &body body)
+  "Binds SUMFN to a procudure which will counts every time it is
+   passed a non-nil value. The result of summing is the number of
+   times that procedure is called."
+  (w/uniq gacc
+    `(ret ,gacc 0
+       (flet1 ,sumfn (arg) (when arg (++ ,gacc))
+         ,@body))))
 
 (def multiple (x y)
   "Is X a multiple of Y?"
