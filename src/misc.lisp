@@ -93,3 +93,14 @@
                           (funcall ,f it ,y))
                       ,ys))
              ,xs)))
+
+(def rand-elt (seq)
+  "Returns a random element from SEQ."
+  (elt seq (rand (len seq))))
+
+(mac rand-choice (&rest exprs)
+  "Randomly evaluates one of the expressions in EXPRS."
+  `(case (rand ,(len exprs))
+     ,@(mappend #'list
+                (range 0 (- (len exprs) 1))
+                exprs)))

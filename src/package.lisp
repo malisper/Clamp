@@ -13,7 +13,7 @@
    :def :mac :++ :-- :mvb :mvl :do :do1 :do2 := :is :iso :no :len
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
-   :w/file :swap :writec :notf :macex :macex1
+   :w/file :swap :writec :notf :macex :macex1 :dbind
    
    ;; From base.
    :_ :single :if :fn
@@ -48,6 +48,7 @@
    
    ;; From misc.
    :ado :accum :summing :multiple :check :zap :or= :or2= :in :cart
+   :rand-elt :rand-choice
 
    ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry
