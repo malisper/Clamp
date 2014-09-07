@@ -7,13 +7,13 @@
 ;;;; for optional arguments, ! for keyword arguments, and an improper
 ;;;; argument list is equivalent to one that uses &rest [scheme
 ;;;; style]). One can even use a symbol to represent all of the
-;;;; arguments. For example (new-fn args (reduce #'+ args)) is a
-;;;; procedure which sums its arguments. Even cooler is (new-fn new-fn
-;;;; new-fn) which is equivalent to the list procedure. To use
-;;;; destructuring with optional arguments, they needs to be
-;;;; surrounded by parens, otherwise it is ambigous as to whether (x
-;;;; a) meas that x defaults to the value of a, or this is meant to
-;;;; destructure into variables x and a.
+;;;; arguments. For example (dfn args (reduce #'+ args)) is a
+;;;; procedure which sums its arguments. Even cooler is (dfn dfn dfn)
+;;;; which is equivalent to the list procedure. To use destructuring
+;;;; with optional arguments, they needs to be surrounded by parens,
+;;;; otherwise it is ambigous as to whether (x a) meas that x defaults
+;;;; to the value of a, or this is meant to destructure into variables
+;;;; x and a.
 
 ;;;; Issues
 ;;;; Keyword arguments do not work with destructuring. What would the
@@ -64,13 +64,13 @@
 (def parse-args (args)
   "Parses an entire argslist and returns a new argslist, along with an
    alist of arguments that need to be destructured."
-  (withs (new-args (add-keywords args)
-          pos (pos [mem _ lambda-list-keywords] (add-keywords new-args)))
+  (withs (key-args (add-keywords args)
+          pos (pos [mem _ lambda-list-keywords] key-args))
     (if (null pos)
-        (parse-normal new-args)
-        (mvb (new-args1 alist1) (parse-normal (cut new-args 0 pos))
-          (mvb (new-args2 alist2) (parse-optional (cut new-args (+ pos 1)))
-            (values (append new-args1 (list (elt new-args pos)) new-args2)
+        (parse-normal key-args)
+        (mvb (new-args1 alist1) (parse-normal (cut key-args 0 pos))
+          (mvb (new-args2 alist2) (parse-optional (cut key-args (+ pos 1)))
+            (values (append new-args1 (list (elt key-args pos)) new-args2)
                     (append alist1 alist2)))))))
 
 (def parse-normal (args)
@@ -95,7 +95,7 @@
           collect arg into new-args
         finally (return (values new-args alist))))
 
-(mac new-def (name args &body body)
+(mac ddef (name args &body body)
   "Same as def but allows ?, !, and argument destructuring."
   (mvb (new-args alist) (parse-args args)
     (if (null alist)
@@ -106,7 +106,7 @@
          (dbind ,(map #'cadr alist) (list ,@(map #'car alist))
            ,@body)))))
 
-(mac new-fn (args &body body)
+(mac dfn (args &body body)
   "Same as fn but allows ?, !, and argument destructuring."
   (mvb (new-args alist) (parse-args args)
     (if (null alist)
