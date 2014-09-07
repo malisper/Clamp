@@ -129,16 +129,23 @@
   `(,sym (&body body)
      `(funcall ,',sym ,@body)))
 
+(defgeneric access (obj arg)
+  (:documentation "Allows access into any kind of type."))
+
 (defmethod access ((seq sequence) (n number))
+  "Returns the Nth element of a sequence."
   (elt seq n))
 
 (defmethod access ((seq sequence) (s symbol))
+  "Calls the function named by S on the sequence."
   (funcall s seq))
 
 (defmethod access ((tab hash-table) x)
+  "Returns whatever is stored in TAB under X."
   (gethash x tab))
 
 (defmethod access (object x)
+  "Calls X on OBJECT."
   (funcall x object))
 
 (defssyntax-test access (sym name)
