@@ -74,7 +74,7 @@
                     (append alist1 alist2)))))))
 
 (def parse-normal (args)
-  "This parses normal arguments in an args."
+  "This parses normal arguments in an argslist."
   (loop for arg in args
         for g = (uniq)
         if (consp arg)
