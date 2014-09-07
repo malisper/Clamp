@@ -30,9 +30,9 @@
 
 (mac w/ssyntax (&body body)
   "Allows BODY to use ssyntax."
-  (let syms (keep #'ssyntax (redup (keep #'symbolp (flat (list body)))))
-    `(macrolet ,(map #'ssyntax-macro syms)
-       (symbol-macrolet ,(map #'ssyntax-sym-mac syms)
+  (let syms (keep #'ssyntax (redup (keep #'symbolp (flat body))))
+    `(macrolet ,(trues #'ssyntax-macro syms)
+       (symbol-macrolet ,(trues #'ssyntax-sym-mac syms)
          ,@body))))
 
 (defparameter ssyntax-tests* '()
@@ -71,18 +71,16 @@
 (def ssyntax-sym-mac (sym)
   "Given a symbol that has ssyntax, returns the symbol-macrolet binding
    for it to be transformed into what it is supposed to be."
-  (let test (ssyntax sym)
-    (and test
-      (let sym-mac-fn (gethash (car test) ssyntax-sym-macs*)
-        (funcall sym-mac-fn sym (symbol-name sym))))))
+  (aand (ssyntax sym)
+        (gethash (car it) ssyntax-sym-macs*)
+        (funcall it sym (symbol-name sym))))
 
 (def ssyntax-macro (sym)
   "Given a symbol that has ssyntax, returns the macrolet definition for
    it to be a macro and expand correctly."
-  (let test (ssyntax sym)
-    (and test
-         (let macro-fn (gethash (car test) ssyntax-macros*)
-           (funcall macro-fn sym (symbol-name sym))))))
+  (aand (ssyntax sym)
+        (gethash (car it) ssyntax-macros*)
+        (funcall it sym (symbol-name sym))))
 
 (defssyntax-test notf (sym name)
   (declare (ignore sym))
@@ -130,15 +128,11 @@
      `(funcall ,',sym ,@body)))
 
 (defgeneric access (obj arg)
-  (:documentation "Allows access into any kind of type."))
+  (:documentation "Returns whatever is associated with ARG in OBJ."))
 
 (defmethod access ((seq sequence) (n number))
   "Returns the Nth element of a sequence."
   (elt seq n))
-
-(defmethod access ((seq sequence) (s symbol))
-  "Calls the function named by S on the sequence."
-  (funcall s seq))
 
 (defmethod access ((tab hash-table) x)
   "Returns whatever is stored in TAB under X."
