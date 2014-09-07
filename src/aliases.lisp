@@ -49,3 +49,4 @@
 (defalias notf complement)
 (defalias macex macroexpand)
 (defalias macex1 macroexpand-1)
+(defalias dbind destructuring-bind)

@@ -8,7 +8,7 @@
   (let* ((pparms (pair parms))
 	 (pats (map #'car  pparms))
 	 (vals (map #'cadr pparms)))
-    `(destructuring-bind ,pats (list ,@vals) ,@body)))
+    `(dbind ,pats (list ,@vals) ,@body)))
 
 (mac let (var val &body body)
   "Equivalent to with, except binds only one variable."

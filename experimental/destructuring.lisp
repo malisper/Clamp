@@ -103,7 +103,7 @@
       `(def ,name ,new-args
          ;; The cadr's contain the destructured version, while the car contains
          ;; the variable used instead.
-         (destructuring-bind ,(map #'cadr alist) (list ,@(map #'car alist))
+         (dbind ,(map #'cadr alist) (list ,@(map #'car alist))
            ,@body)))))
 
 (mac new-fn (args &body body)
@@ -112,5 +112,5 @@
     (if (null alist)
         `(fn ,new-args ,@body)
         `(fn ,new-args
-           (destructuring-bind ,(map #'cadr alist) (list ,@(map #'car alist))
+           (dbind ,(map #'cadr alist) (list ,@(map #'car alist))
              ,@body)))))
