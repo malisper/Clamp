@@ -588,6 +588,12 @@
       (upto i 1 10
         (a (* i i))))))
 
+(deftest summing (misc)
+  (assert-eql 5
+              (summing s
+                (each x (range 1 10)
+                  (s (even x))))))
+
 (deftest multiple (misc)
   (assert-true  (multiple 10 5))
   (assert-false (multiple 15 2)))
