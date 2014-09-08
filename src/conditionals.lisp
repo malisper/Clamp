@@ -54,8 +54,11 @@
           (let (t1 c1 . rest) clauses
             `(mvb (,val ,win) ,t1
                (if (or ,val ,win)
-                   (let ,var ,val (declare (ignorable it)) ,c1)
-                   (aif2 ,@rest)))))))
+                   (let ,var ,val
+                     (declare (ignorable ,@(flat var)))
+                     ,c1)
+                   ,(if (cdr rest)
+                        `(iflet2 ,@rest))))))))
 
 (mac aif2 (&rest clauses)
   "Equivalent to aif, but will also execute the corresponding branch
