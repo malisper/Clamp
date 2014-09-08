@@ -275,6 +275,7 @@
 
 (deftest iflet (conditionals)
   (assert-eql 15 (iflet x 5 (+ x 10)))
+  (assert-eql 10 (iflet x nil 5 10))
   (assert-eql 12 (iflet x (find #'even '(1 6 3 7)) (* x 2)))
   (assert-eql 10 (iflet x (find #'even '(1 3 7)) (+ 1 1) (+ 5 5)))
   (assert-equal '(5 10) (iflet (x . y) (cons 5 10) (list x y)))
