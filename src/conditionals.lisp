@@ -63,6 +63,21 @@
    is useful for accessing hashtables."
   `(iflet2 it ,@clauses))
 
+(mac aand2 (&rest exps)
+  "Equivalent to and, but binds the value of the previous expr to 
+   'it' and this considers a non-nil second return value to be true."
+  (if (no exps)
+        t
+      (no (cdr exps))
+        (car exps)
+      :else
+        (w/uniq (val win)
+          `(mvb (,val ,win) ,(car exps)
+             (and (or ,val ,win)
+                  (let it ,val
+                    (declare (ignorable it))
+                    (aand2 ,@(cdr exps))))))))
+
 (mac case (keyform &rest clauses)
   "Equivalent to cl:case except there are no parens around each 
    clause."
