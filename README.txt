@@ -29,6 +29,9 @@ exported.
 
 A lot of code has been taken from both the original arc and anarki.
 
+If you need help loading the asdf package, read this:
+http://common-lisp.net/project/asdf/asdf/Quick-start-summary.html#Quick-start-summary
+
 TODO:
 Write the rest of the utilities from arc.
 Add utilities from On Lisp.
