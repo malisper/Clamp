@@ -2,9 +2,17 @@
 
 (in-package :clamp)
 
+(def newstring (length &optional char)
+  "Creates a newstring of length LENGTH of the character CHAR."
+  (make-string length :initial-element char))
+
 (def whitec (c)
   "Is this character whitespace (a space, newline, tab, or return)?"
   (in c #\space #\newline #\tab #\return))
+
+(def nonwhite (c)
+  "Is this character not a whitespace character?"
+  (no (whitec c)))
 
 (def tokens (str &optional (sep #'whitec))
   "Returns a list of containg all of the parts of str separated by

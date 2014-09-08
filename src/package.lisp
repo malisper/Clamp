@@ -13,7 +13,7 @@
    :def :mac :++ :-- :mvb :mvl :do :do1 :do2 := :is :iso :no :len
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
-   :w/file :swap :writec :notf :macex :macex1 :dbind
+   :w/file :swap :writec :notf :macex :macex1 :dbind :letter :alphadig
    
    ;; From base.
    :_ :single :if :fn
@@ -66,7 +66,7 @@
    :w/infile :w/outfile :w/appendfile :allchars :filechars
 
    ;; From strings.
-   :whitec :tokens
+   :newstring :whitec :nonwhite :tokens :nonwhite
 
    ;; From read.
    :readb :readc :peakc :read :read-line
