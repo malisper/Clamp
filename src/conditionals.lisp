@@ -57,8 +57,8 @@
                    (let ,var ,val
                      (declare (ignorable ,@(flat var)))
                      ,c1)
-                   ,(if (cdr rest)
-                        `(iflet2 ,var ,@rest))))))))
+                   ,(when rest
+                      `(iflet2 ,var ,@rest))))))))
 
 (mac aif2 (&rest clauses)
   "Equivalent to aif, but will also execute the corresponding branch
