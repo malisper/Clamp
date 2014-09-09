@@ -52,3 +52,5 @@
 (defalias dbind destructuring-bind)
 (defalias letter alpha-char-p)
 (defalias alphadig alphanumericp)
+(defalias downcase char-downcase)
+(defalias upcase char-upcase)

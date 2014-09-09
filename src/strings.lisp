@@ -14,6 +14,10 @@
   "Is this character not a whitespace character?"
   (no (whitec c)))
 
+(def punc (c)
+  "Is this character punctuation?"
+  (in c #\. #\, #\; #\: #\! #\?))
+
 (def tokens (str &optional (sep #'whitec))
   "Returns a list of containg all of the parts of str separated by
    using sep (a test)."

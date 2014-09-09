@@ -14,6 +14,7 @@
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :dbind :letter :alphadig
+   :downcase :upcase
    
    ;; From base.
    :_ :single :if :fn
@@ -66,7 +67,7 @@
    :w/infile :w/outfile :w/appendfile :allchars :filechars
 
    ;; From strings.
-   :newstring :whitec :nonwhite :tokens :nonwhite
+   :newstring :whitec :nonwhite :nonwhite :punc :tokens
 
    ;; From read.
    :readb :readc :peakc :read :read-line
