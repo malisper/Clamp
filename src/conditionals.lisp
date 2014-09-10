@@ -2,19 +2,26 @@
 
 (in-package :clamp)
 
-(mac iflet (var expr &body branches)
+(mac iflet (var &body branches)
   "Same as clamp:if but if a predicate is true, the value of predicate 
    is bound to VAR in the corresponding branch."
-  (if branches
-      (w/uniq gv
-	`(let ,gv ,expr
-	   (if ,gv
-	       (let ,var ,gv
-		 (declare (ignorable ,@(flat var)))
-		 ,(car branches))
-	       ,(if (cdr branches)
-		    `(iflet ,var ,@(cdr branches))))))
-      expr))
+  (if (no branches)
+        nil
+      (single branches)
+        (car branches)
+      :else
+        (w/uniq val
+          ;; Since the list has at least two elements, the first one
+          ;; is the test and the second is the expr to evaluate if
+          ;; the test is returns true.
+          (let (test expr . rest) branches
+            ;; A uniq needs to be used in case VAR is dynamically scoped.
+            `(let ,val ,test
+               (if ,val
+                   (let ,var ,val
+                     (declare (ignorable ,@(flat var)))
+                     ,expr)
+                   (iflet ,var ,@rest)))))))
 
 (mac whenlet (var expr &body body)
   "If EXPR returns non-nil, bind that value to VAR and execute body."
@@ -41,24 +48,27 @@
 	   (declare (ignorable it))
 	   (and it (aand ,@(cdr args))))))
 
-(mac iflet2 (var &rest clauses)
+(mac iflet2 (var &rest branches)
   "Equivalent to iflet, but will also execute the corresponding branch
    if the predicate has a second return value which is non-nil. This
    is useful for accessing hashtables."
-  (w/uniq (val win)
-    (if (null clauses)
-          nil
-	(single clauses)
-          (car clauses)
-	:else
-          (let (t1 c1 . rest) clauses
-            `(mvb (,val ,win) ,t1
+    (if (no branches)
+        nil
+      (single branches)
+        (car branches)
+      :else
+        (w/uniq (val win)
+          ;; Since the list has at least two elements, the first one
+          ;; is the test and the second is the expr to evaluate if
+          ;; the test is returns true.
+          (let (test expr . rest) branches
+            ;; A uniq needs to be used in case VAR is dynamically scoped.
+            `(mvb (,val ,win) ,test
                (if (or ,val ,win)
                    (let ,var ,val
                      (declare (ignorable ,@(flat var)))
-                     ,c1)
-                   ,(when rest
-                      `(iflet2 ,var ,@rest))))))))
+                     ,expr)
+                   (iflet2 ,var ,@rest)))))))
 
 (mac aif2 (&rest clauses)
   "Equivalent to aif, but will also execute the corresponding branch

@@ -281,7 +281,8 @@
   (assert-equal '(5 10) (iflet (x . y) (cons 5 10) (list x y)))
   (assert-equal '(5 10)
                 (iflet (x . y) nil 10 (list 5 10) (cons x y)))
-  (assert-false (iflet nil nil nil nil)))
+  (assert-false (iflet nil nil nil nil))
+  (assert-false (iflet x (gethash 'a (obj a nil)) (list x))))
 
 (deftest whenlet (conditionals)
   (assert-false (whenlet x nil 5))
@@ -309,6 +310,17 @@
   (let tab (obj a (obj a 1 b 2) b (obj a 1 b 2))
     (assert-eql 2 (aand (gethash 'a tab) (gethash 'b it)))
     (assert-false (aand (gethash 'c tab) (gethash 'b it)))))
+
+(deftest iflet2 (conditionals)
+  (assert-eql 15 (iflet2 x 5 (+ x 10)))
+  (assert-eql 10 (iflet2 x nil 5 10))
+  (assert-eql 12 (iflet2 x (find #'even '(1 6 3 7)) (* x 2)))
+  (assert-eql 10 (iflet2 x (find #'even '(1 3 7)) (+ 1 1) (+ 5 5)))
+  (assert-equal '(5 10) (iflet2 (x . y) (cons 5 10) (list x y)))
+  (assert-equal '(5 10)
+                (iflet2 (x . y) nil 10 (list 5 10) (cons x y)))
+  (assert-false (iflet2 nil nil nil nil))
+  (assert-equal '(()) (iflet2 x (gethash 'a (obj a nil)) (list x))))
 
 (deftest aif2 (conditionals)
   (assert-false (aif2 nil (+ 5 5)))
