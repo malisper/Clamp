@@ -61,3 +61,13 @@
   "Executes BODY repetitively with each element of XS bound to VAR.
    Returns a list of all of the results appended together."
   `(mappend (fn (,var) ,@body) ,xs))
+
+(def positions (test seq)
+  "Returns a list of all of the positions of elements in SEQ that 
+   pass TEST."
+  ;; The macros 'accum' and 'on' are not defined yet.
+  (loop with f = (testify test)
+        for x being the elements in seq
+        for i from 0
+        if (funcall f x)
+          collect i))
