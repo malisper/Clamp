@@ -23,7 +23,7 @@
    :with :let :ret :flet1 :withs
 
    ;; From print.
-   :pr :prn :w/outstring :tostring :w/instring :fromstring
+   :pr :prn :prf :w/outstring :tostring :w/instring :fromstring
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos :mappend :partition

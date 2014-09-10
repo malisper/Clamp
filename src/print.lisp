@@ -14,6 +14,10 @@
   (do1 (apply #'pr args)
        (terpri)))
 
+(def prf (control-string &rest args)
+  "Equivalent to format but automatically prints to *standard-output*"
+  (apply #'format t control-string args))
+
 (mac w/outstring (var &rest body)
   "Creates a string output stream and binds it to VAR."
   `(with-output-to-string (,var)
