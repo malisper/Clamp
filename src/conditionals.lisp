@@ -13,7 +13,7 @@
         (w/uniq val
           ;; Since the list has at least two elements, the first one
           ;; is the test and the second is the expr to evaluate if
-          ;; the test is returns true.
+          ;; the test returns true.
           (let (test expr . rest) branches
             ;; A uniq needs to be used in case VAR is dynamically scoped.
             `(let ,val ,test
@@ -60,7 +60,7 @@
         (w/uniq (val win)
           ;; Since the list has at least two elements, the first one
           ;; is the test and the second is the expr to evaluate if
-          ;; the test is returns true.
+          ;; the test returns true.
           (let (test expr . rest) branches
             ;; A uniq needs to be used in case VAR is dynamically scoped.
             `(mvb (,val ,win) ,test
