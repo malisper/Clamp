@@ -34,7 +34,7 @@
    :ccase :ecase :caselet
 
    ;;; From list.
-   :range :firstn :last1 :flat :len< :len> :n-of :drain :split
+   :mklist :range :firstn :last1 :flat :len< :len> :n-of :drain :split
    :group :caris :carif :consif :conswhen
 
    ;; From macros.
@@ -52,7 +52,7 @@
    :rand-elt :rand-choice
 
    ;; From fnops.
-   :compose :fif :andf :orf :curry :rcurry
+   :compose :fif :andf :orf :curry :rcurry :flip
 
    ;; From sort.
    :compare :best :bestn :sort

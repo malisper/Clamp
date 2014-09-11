@@ -86,3 +86,8 @@
    returns a function which will call its argument on all of the
    numbers from 1 to 100 and collect the results."
   (fn (&rest args2) (apply f (append args2 args1))))
+
+(def flip (f)
+  "Returns a new procedure which is the same as F but has its
+   arguments in the reverse order."
+  (fn (&rest args) (apply f (rev args))))
