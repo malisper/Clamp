@@ -14,7 +14,7 @@
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :dbind :letter :alphadig
-   :downcase :upcase
+   :downcase :upcase :all
    
    ;; From base.
    :_ :single :if :fn
@@ -29,11 +29,11 @@
    :testify :rem :keep :mem :find :count :pos :mappend :partition
    :trues :mapeach :mappendeach :positions
 
-   ;;; From conditionals.
+;;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :iflet2 :aand2 :case
    :ccase :ecase :caselet
 
-   ;;; From list.
+;;; From list.
    :mklist :range :firstn :last1 :flat :len< :len> :n-of :drain :split
    :group :caris :carif :consif :conswhen
 
@@ -48,8 +48,8 @@
    :rfn :afn :self
    
    ;; From misc.
-   :ado :accum :summing :multiple :check :zap :or= :or2= :in :cart
-   :rand-elt :rand-choice
+   :ado :accum :summing :multiple :check :acheck :zap :or= :or2= :in
+   :cart :rand-elt :rand-choice
 
    ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry :flip

@@ -46,6 +46,14 @@
            ,val
            ,alt))))
 
+(mac acheck (x test &optional alt)
+ "If X passes TEST (not testified) return it, otherwise bind 'it' to
+  the result of X and evaluate ALT."
+ `(let it ,x
+    (if (funcall ,test ,x)
+        it
+        ,alt)))
+
 (mac zap (op place &rest args)
   "Assigns the result of calling OP on the rest of the arguments 
    (including PLACE) to PLACE. For example (zap #'+ x n) is
