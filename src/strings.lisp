@@ -1,5 +1,9 @@
 ;;;; These are utilities for working with strings.
 
+;;;; For most string related operations I suggest using some regex
+;;;; based library. Using such a library removes the purpose of most
+;;;; of the Arc utilities for string searching.
+
 (in-package :clamp)
 
 (def newstring (length &optional char)
