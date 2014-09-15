@@ -14,7 +14,7 @@
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :dbind :letter :alphadig
-   :downcase :upcase :all
+   :downcase :upcase :all :maptable
    
    ;; From base.
    :_ :single :if :fn
@@ -62,6 +62,7 @@
 
    ;; From tables.
    :keys :vals :listtab :tablist :obj :alref :counts :commonest
+   :memtable
 
    ;; From io.
    :w/infile :w/outfile :w/appendfile :allchars :filechars

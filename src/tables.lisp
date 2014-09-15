@@ -63,3 +63,9 @@
              n v)))
       (counts seq :test test :key key))
     (values winner n)))
+
+(def memtable (keys &key (val t) (test #'is))
+  "Creates a table with all of the keys in KEYS having the value VAL."
+  (ret result (table :test test)
+    (each k keys
+      (= (gethash k result) val))))

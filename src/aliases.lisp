@@ -55,3 +55,4 @@
 (defalias downcase char-downcase)
 (defalias upcase char-upcase)
 (defalias all every)
+(defalias maptable maphash)
