@@ -1,6 +1,6 @@
 ;;;; This is an experimental implementation of argument destructuring.
 
-(in-package :clamp)
+(in-package :clamp-experimental)
 
 ;;;; Right now this implements a basic form of argument destructuring
 ;;;; and allows shorter names for the different kinds of arguments (?
