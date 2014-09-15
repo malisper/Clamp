@@ -5,6 +5,9 @@
 (mac ado (&body body)
   "Evaluates each expression with the symbol 'it' bound to the result
    of the previous one. Returns the value of the last expression."
+  ;; The special-form let* cannot be used here because it makes it
+  ;; impossible to declare each 'it' ignorable. So if one expression
+  ;; does not use 'it', a warning would be given.
   (if (null body)
         nil
       (single body)
