@@ -12,4 +12,5 @@
   :components ((:module "experimental"
                 :components ((:file "package")
                              (:file "ssyntax" :depends-on ("package"))
-                             (:file "destructuring" :depends-on ("package"))))))
+                             (:file "destructuring" :depends-on ("package"))
+                             (:file "coerce" :depends-on ("package"))))))
