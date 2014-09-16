@@ -4,7 +4,7 @@
   (:shadow :coerce)
   (:export
    ;; From ssyntax.
-   :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac
+   :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac :sdef
    
    ;; From destructuring.
    :ddef :dfn

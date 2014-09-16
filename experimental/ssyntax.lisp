@@ -159,3 +159,9 @@
   (let pos (pos #\! name)
     `(,sym (access ,(read-from-string (cut name 0 pos))
                    ',(read-from-string (cut name (+ pos 1)))))))
+
+(mac sdef (name args &body body)
+  "Define a procedure which using ssyntax."
+  `(def ,name ,args
+     (w/ssyntax
+       ,@body)))
