@@ -36,12 +36,13 @@
    returning them."
   (apply #'join (apply #'map f xss)))
 
-(def partition (test xs &key (key #'identity) (start 0))
+(def partition (test seq &key (key #'identity) (start 0))
   "Returns two lists, the first one containing all of the elements of
    XS that pass the 'testified' version of test and the second 
    containing all of those that don't."
   (loop with f = (testify test)
-        for x being the elements of (cut xs start)
+        for x in (cut (coerce seq 'list) start)
+       
         if (funcall f (funcall key x))
           collect x into pass
         else
@@ -67,7 +68,7 @@
    pass TEST."
   ;; The macros 'accum' and 'on' are not defined yet.
   (loop with f = (testify test)
-        for x being the elements in seq
+        for x in (coerce seq 'list)
         for i from 0
         if (funcall f x)
           collect i))

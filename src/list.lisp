@@ -23,7 +23,7 @@
 	    ;; Cannot use cut to access the the elements because
             ;; this should not throw an error when the sequence
             ;; is too short.
-	    for x being the elements of seq
+	    for x in (coerce seq 'list)
 	    collect x)))
 
 (def split (seq n)

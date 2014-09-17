@@ -41,12 +41,12 @@
 (mac each (var seq &body body)
  "Evaluates BODY while iterating across SEQ binding each element to
   VAR."
- `(loop for ,var being the elements of ,seq do (do ,@body)))
+ `(loop for ,var in (coerce ,seq 'list) do (do ,@body)))
 
 (mac on (var seq &body body)
   "Equivalent to each but binds the symbol 'index' to the position of
    the current element in SEQ."
-  `(loop for ,var being the elements of ,seq
+  `(loop for ,var in (coerce ,seq 'list)
 	 for index from 0
 	 do (do ,@body)))
 
