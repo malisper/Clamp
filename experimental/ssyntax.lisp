@@ -162,6 +162,5 @@
 
 (mac sdef (name args &body body)
   "Define a procedure which using ssyntax."
-  `(def ,name ,args
-     (w/ssyntax
-       ,@body)))
+  `(w/ssyntax
+     (def ,name ,args ,@body)))
