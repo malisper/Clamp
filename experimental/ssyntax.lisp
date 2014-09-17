@@ -161,6 +161,6 @@
                    ',(read-from-string (cut name (+ pos 1)))))))
 
 (mac sdef (name args &body body)
-  "Define a procedure which using ssyntax."
+  "Define a procedure which uses ssyntax."
   `(w/ssyntax
      (def ,name ,args ,@body)))
