@@ -104,7 +104,7 @@
   (ado (tokens name #\+)
        (map #'intern it)
        (map (fn (f) `#',f) it)
-       `(,sym (compose ,it))))
+       `(,sym (compose ,@it))))
 
 (defssyntax-macro compose (sym name)
   (ado (tokens name #\+)
