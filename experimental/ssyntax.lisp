@@ -101,26 +101,31 @@
        (len> name 2))) ; This removes + and 1+ from being detected.
 
 (defssyntax-sym-mac compose (sym name)
-  (let pos (pos #\+ name)
-    `(,sym (compose #',(intern (cut name 0 pos))
-                    #',(intern (cut name (+ pos 1)))))))
+  (ado (tokens name #\+)
+       (map #'intern it)
+       (map (fn (f) `#',f) it)
+       `(,sym (compose ,it))))
 
 (defssyntax-macro compose (sym name)
-  (let pos (pos #\+ name)
-    `(,sym (&body body)
-       ;; Expand from (x+y ...) to (x (y ...)).
-       `(,',(intern (cut name 0 pos))
-            (,',(intern (cut name (+ pos 1)))
-                ,@body)))))
+  (ado (tokens name #\+)
+       (map #'intern it)
+       `(,sym (&body body)
+          ;; (f+g+h ...) will expand into (f (g (h ...))) therefore
+          ;; we need to work from the back and create a new list
+          ;; containing the fn and the previous expression.
+          (reduce #'list ',(butlast it)
+                  :from-end t
+                  :initial-value `(,',(last1 it) ,@body)))))
 
 (defssyntax-test andf (sym name)
   (declare (ignore sym))
   (find #\& name))
 
 (defssyntax-sym-mac andf (sym name)
-  (let pos (pos #\& name)
-    `(,sym (andf #',(intern (cut name 0 pos))
-                 #',(intern (cut name (+ pos 1)))))))
+  (ado (tokens name #\&)
+       (map #'intern it)
+       (map (fn (f) `#',f) it)
+       `(,sym (andf ,@it))))
 
 (defssyntax-macro andf (sym name)
   (declare (ignore name))
