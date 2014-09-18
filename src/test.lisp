@@ -735,3 +735,9 @@
   (assert-equal '((1 3) 2) (mvl (commonest '((1 2 3) (7 8 3) (1 3))
                                            :test #'iso
                                            :key [rem #'even _]))))
+
+(deftest memtable (tables)
+  (assert-equalp (table) (memtable '()))
+  ;; The macro obj returns a table that uses equalp.
+  (assert-equalp (obj a t b t) (memtable '(a b) :test #'equalp))
+  (assert-equalp (obj a nil b nil) (memtable '(a b) :val nil :test #'equalp)))
