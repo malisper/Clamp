@@ -1,16 +1,19 @@
 (defpackage :clamp-experimental
   (:nicknames :experimental)
   (:use :clamp)
-  (:shadow :coerce)
+  (:shadow :coerce :def :fn)
   (:export
    ;; From ssyntax.
-   :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac :sdef
+   :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac
    
    ;; From destructuring.
-   :ddef :dfn
+   :fn
 
    ;; From coerce.
-   :coerce :defcoerce))
+   :coerce :defcoerce
+
+   ;; From def.
+   :def))
 
 ;;;; There must be someway to export all of the symbols in clamp
 ;;;; except for desired symbols.

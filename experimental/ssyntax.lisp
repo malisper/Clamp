@@ -46,7 +46,7 @@
   "A table of fns used to transform ssyntax macros into regular 
    syntax.")
 
-(def ssyntax (sym)
+(defun ssyntax (sym)
   "Does this contain ssyntax? If it does, this returns the name of
    the kind of ssyntax."
   (find [funcall _ sym (symbol-name sym)]
@@ -68,14 +68,14 @@
   `(= (gethash ',name ssyntax-macros*)
       (fn ,arg ,@body)))
 
-(def ssyntax-sym-mac (sym)
+(defun ssyntax-sym-mac (sym)
   "Given a symbol that has ssyntax, returns the symbol-macrolet binding
    for it to be transformed into what it is supposed to be."
   (aand (ssyntax sym)
         (gethash (car it) ssyntax-sym-macs*)
         (funcall it sym (symbol-name sym))))
 
-(def ssyntax-macro (sym)
+(defun ssyntax-macro (sym)
   "Given a symbol that has ssyntax, returns the macrolet definition for
    it to be a macro and expand correctly."
   (aand (ssyntax sym)
@@ -159,8 +159,3 @@
   (let pos (pos #\! name)
     `(,sym (access ,(read-from-string (cut name 0 pos))
                    ',(read-from-string (cut name (+ pos 1)))))))
-
-(mac sdef (name args &body body)
-  "Define a procedure which uses ssyntax."
-  `(w/ssyntax
-     (def ,name ,args ,@body)))

@@ -7,13 +7,13 @@
 ;;;; for optional arguments, ! for keyword arguments, and an improper
 ;;;; argument list is equivalent to one that uses &rest [scheme
 ;;;; style]). One can even use a symbol to represent all of the
-;;;; arguments. For example (dfn args (reduce #'+ args)) is a
-;;;; procedure which sums its arguments. Even cooler is (dfn dfn dfn)
-;;;; which is equivalent to the list procedure. To use destructuring
-;;;; with optional arguments, they needs to be surrounded by parens,
-;;;; otherwise it is ambigous as to whether (x a) meas that x defaults
-;;;; to the value of a, or this is meant to destructure into variables
-;;;; x and a.
+;;;; arguments. For example (fn args (reduce #'+ args)) is a procedure
+;;;; which sums its arguments. Even cooler is (fn fn fn) which is
+;;;; equivalent to the list procedure. To use destructuring with
+;;;; optional arguments, they needs to be surrounded by parens,
+;;;; otherwise it is ambigous as to whether (x a) meas that x
+;;;; defaults to the value of a, or this is meant to destructure
+;;;; into variables x and a.
 
 ;;;; Issues
 ;;;; Keyword arguments do not work with destructuring. What would the
@@ -24,17 +24,17 @@
 ;;;; argument list ignoring the variable name. Then switching the use
 ;;;; of sublis in add-keywords with subst-list.
 
-(def proper-list (x)
+(defun proper-list (x)
   "Is this a proper list?"
   (or (null x)
       (and (listp x)
            (proper-list (cdr x)))))
 
-(def subst-list (alist xs)
+(defun subst-list (alist xs)
   "Substitutes the corresponding values in ALIST into the list XS."
   (map [aif2 (alref alist _) it _] xs))
 
-(def last-atom (xs)
+(defun last-atom (xs)
   "Returns the last atom of an improper list and everything that
    occurs before it."
   (rec (cur xs acc '())
@@ -42,16 +42,16 @@
         (values cur (rev acc))
         (recur (cdr cur) (cons (car cur) acc)))))
 
-(def add-keywords (args)
+(defun add-keywords (args)
   "Converts symbols such as '?' to their corresponding lambda list
    keyword and adds &rest if the lambda list is not a proper list."
   ;; We first add the &rest if it is needed, then we substitute all
   ;; of the new keywords with the old ones.
-  (sublis '((? &optional)
-            (! &key))
+  (sublis '((? . &optional)
+            (! . &key))
           (add-rest args)))
 
-(def add-rest (args)
+(defun add-rest (args)
   "If this arglist is an improper list, convert it into one that uses
    &rest."
   (check args
@@ -61,7 +61,7 @@
            ;; is in the tail and add a &rest before it.
            (append rest (list '&rest var)))))
 
-(def parse-args (args)
+(defun parse-args (args)
   "Parses an entire argslist and returns a new argslist, along with an
    alist of arguments that need to be destructured."
   (withs (key-args (add-keywords args)
@@ -73,7 +73,7 @@
             (values (append new-args1 (list (elt key-args pos)) new-args2)
                     (append alist1 alist2)))))))
 
-(def parse-normal (args)
+(defun parse-normal (args)
   "This parses normal arguments in an argslist."
   (loop for arg in args
         for g = (uniq)
@@ -84,7 +84,7 @@
           collect arg into new-args
         finally (return (values new-args alist))))
 
-(def parse-optional (args)
+(defun parse-optional (args)
   "This parses the optional and keyword arguments in an args."
   (loop for arg in args
         for g = (uniq)
@@ -95,22 +95,11 @@
           collect arg into new-args
         finally (return (values new-args alist))))
 
-(mac ddef (name args &body body)
-  "Same as def but allows ?, !, and argument destructuring."
+(mac fn (args &body body)
+  "Same as clamp:fn but allows ?, !, and argument destructuring."
   (mvb (new-args alist) (parse-args args)
     (if (null alist)
-      `(def ,name ,new-args ,@body)
-      `(def ,name ,new-args
-         ;; The cadr's contain the destructured version, while the car contains
-         ;; the variable used instead.
-         (dbind ,(map #'cadr alist) (list ,@(map #'car alist))
-           ,@body)))))
-
-(mac dfn (args &body body)
-  "Same as fn but allows ?, !, and argument destructuring."
-  (mvb (new-args alist) (parse-args args)
-    (if (null alist)
-        `(fn ,new-args ,@body)
-        `(fn ,new-args
+        `(lambda ,new-args ,@body)
+        `(lambda ,new-args
            (dbind ,(map #'cadr alist) (list ,@(map #'car alist))
              ,@body)))))
