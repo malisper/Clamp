@@ -91,9 +91,8 @@
   `(,sym (notf #',(intern (cut name 1)))))
 
 (defssyntax-macro notf (sym name)
-  (declare (ignore name))
   `(,sym (&body body)
-     `(funcall ,',sym ,@body)))
+     `(not (,',(intern (cut name 1)) ,@body))))
 
 (defssyntax-test compose (sym name)
   (declare (ignore sym))
