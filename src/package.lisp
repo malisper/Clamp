@@ -14,7 +14,7 @@
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :dbind :letter :alphadig
-   :downcase :upcase :all :maptable
+   :downcase :upcase :all :maptable :inc :dec
    
    ;; From base.
    :_ :single :if :fn

@@ -56,3 +56,5 @@
 (defalias upcase char-upcase)
 (defalias all every)
 (defalias maptable maphash)
+(defalias inc 1+)
+(defalias dec 1-)
