@@ -29,13 +29,13 @@
    :testify :rem :keep :mem :find :count :pos :mappend :partition
    :trues :mapeach :mappendeach :positions
 
-;;; From conditionals.
+   ;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :iflet2 :aand2 :case
    :ccase :ecase :caselet
 
-;;; From list.
-   :mklist :range :firstn :last1 :flat :len< :len> :n-of :drain :split
-   :group :caris :carif :consif :conswhen
+   ;; From list.
+   :mklist :dotted :range :firstn :last1 :flat :len< :len> :n-of
+   :drain :split :group :caris :carif :consif :conswhen
 
    ;; From macros.
    :w/uniq

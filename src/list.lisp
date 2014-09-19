@@ -6,6 +6,12 @@
   "If X is a list, return it. Otherwise return a list containing X."
   (if (listp x) x (list x)))
 
+(def dotted (x)
+  "Is this a dotted list?"
+  (and (consp x)
+       (or (atom (cdr x))
+           (dotted (cdr x)))))
+
 (def range (a b &optional (by 1))
   "Returns a list of numbers from A to B (inclusive) in steps of BY. 
    The argument BY has to be a positive integer."
