@@ -143,17 +143,31 @@
 (defgeneric access (obj arg)
   (:documentation "Returns whatever is associated with ARG in OBJ."))
 
+(defgeneric (setf access) (val obj arg)
+  (:documentation "Sets ARG to be associated with VAL in OBJ."))
+
 (defmethod access ((seq sequence) (n number))
   "Returns the Nth element of a sequence."
   (elt seq n))
+
+(defmethod (setf access) (val (seq sequence) (n number))
+  "Sets the Nth element of SEQ to VAL."
+  (= (elt seq n) val))
 
 (defmethod access ((tab hash-table) x)
   "Returns whatever is stored in TAB under X."
   (gethash x tab))
 
-(defmethod access (object x)
+(defmethod (setf access) (val (tab hash-table) x)
+  "Sets VAL to be stored under X in TAB."
+  (= (gethash x tab) val))
+
+(defmethod access (obj x)
   "Calls X on OBJECT."
-  (funcall x object))
+  (funcall x obj))
+
+;; A setter for the default case would have to lookup the setter
+;; for the given argument.
 
 (defun access-ssyntax (c)
   (in c #\. #\!))
