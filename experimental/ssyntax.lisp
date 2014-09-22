@@ -146,20 +146,23 @@
   "Calls X on OBJECT."
   (funcall x object))
 
+(defun access-ssyntax (c)
+  (in c #\. #\!))
+
 (defssyntax-test access (sym name)
   (declare (ignore sym))
-  (find #\. name))
+  (find #'access-ssyntax name))
 
 (defssyntax-sym-mac access (sym name)
-  (let pos (pos #\. name)
-    `(,sym (access ,(read-from-string (cut name 0 pos))
-                   ,(read-from-string (cut name (+ pos 1)))))))
-
-(defssyntax-test quote-access (sym name)
-  (declare (ignore sym))
-  (find #\! name))
-
-(defssyntax-sym-mac quote-access (sym name)
-  (let pos (pos #\! name)
-    `(,sym (access ,(read-from-string (cut name 0 pos))
-                   ',(read-from-string (cut name (+ pos 1)))))))
+  (withs (ssyntaxes (keep #'access-ssyntax name)
+          (obj . accessors) (map #'read-from-string
+                                 (tokens name #'access-ssyntax)))
+    (ado (map (fn (ss accessor)
+                (if (is ss #\.)
+                    accessor
+                    `',accessor))
+              ssyntaxes
+              accessors)
+         `(,sym ,(reduce (fn (exp accessor) `(access ,exp ,accessor))
+                         it
+                         :initial-value obj)))))
