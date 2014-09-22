@@ -24,7 +24,6 @@
 (defalias iso equalp)
 (defalias no not)
 (defalias len length)
-(defalias map mapcar)
 (defalias isa typep)
 (defalias uniq gensym)
 (defalias even evenp)

@@ -2,6 +2,11 @@
 
 (in-package :clamp)
 
+(def map (f seq &rest seqs)
+  "Maps F over the sequences. The returned sequence will be the same
+   type as SEQ."
+  (apply #'cl:map (type-of seq) f seq seqs))
+
 ;;; This cannot be defined as an alias because then it would expand
 ;;; into #'(fn ..) which is an error.
 (mac fn (args &body body)
