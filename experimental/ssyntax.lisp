@@ -7,22 +7,31 @@
 ;;;; ssyntax, use the defssyntax-test, defssyntax-sym-mac, and
 ;;;; defssyntax-macro.
 
-;;;; The macro defssyntax-test allows you define a function which will
-;;;; test for a specific kind ssyntax. The macro defssyntax-macro
-;;;; allows for the defintion of a function which will calculate a
-;;;; macrolet binding for the ssyntax. The macro will be expanded
-;;;; whenever the ssyntax occurs in the function position of a
-;;;; function call. The macro defssyntax-sym-mac allows for the
-;;;; definition of how to calculate a symbol-macrolet binding for the
-;;;; symbol which will be used whenever the symbol is not in the
-;;;; calling position.
+;;;; The macro defssyntax-test is used to define a predicate which can
+;;;; detect the different versions of ssyntax. The macros
+;;;; defssyntax-sym-mac and defssyntax-macro and used to define
+;;;; procedures which will expand the actual ssyntax. Use
+;;;; defssyntax-sym-mac to define a procedure which will expand any
+;;;; form that is not in the operator position. You must write a
+;;;; procedure which can generate symbol-macrolet binding to be used
+;;;; to expand the ssyntax. Ultimately this winds up being a list with
+;;;; the first element being the symbol (the one that contains
+;;;; ssyntax) and the desired transformation. The macro
+;;;; defssyntax-macro is used to define a procedure which will expand
+;;;; any ssyntax that is in the operator position. To use it, you need
+;;;; to write a procedure which will generate a macro definition
+;;;; (whose name is the symbol which contains the ssyntax) and whose
+;;;; expansion will yield the desired transformation. If you are
+;;;; confused just look at some of the examples below.
 
 ;;;; ISSUES
-;;;; The ssyntax for composition (+) detects procedures such as 1+ and
-;;;; +. To get around this I used a simple hack of testing that the
-;;;; length is greater than two for ssyntax for composition. Also
-;;;; there is no way to specify ssyntax where any of the procedures
-;;;; used in the ssyntax are stored in variables, for example:
+;;;; Using multiple ssyntax in the same symbol will expand in an
+;;;; unpredictable way. Additionally the ssyntax for composition (+)
+;;;; detects procedures such as 1+ and +. To get around this I used a
+;;;; simple hack of testing that the length of the symbol is greater
+;;;; than two for ssyntax for composition. Also there is no way to
+;;;; specify ssyntax where any of the procedures used in the ssyntax
+;;;; are stored in variables, for example:
 
 ;;;; (let f (fn (x) (+ x 10)) (list+f 20))
 
