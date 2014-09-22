@@ -24,9 +24,9 @@
 
 (deftest map (base)
   (assert-equal  '(1 4 9) (map [* _ _] '(1 2 3)))
-  (assert-equalp #(1 4 9) (map [* _ _] #(1 2 3)))
+  (assert-equalp '(1 4 9) (map [* _ _] #(1 2 3)))
   (assert-equal  '(5 7 9) (map #'+ '(1 2 3) #(4 5 6)))
-  (assert-equalp #(5 7 9) (map #'+ #(1 2 3) '(4 5 6))))
+  (assert-equalp '(5 7 9) (map #'+ #(1 2 3) '(4 5 6))))
 
 (deftest literal-fn (base)
   (assert-equal (range 1 10) (map [+ _ 2] (range -1 8))))
