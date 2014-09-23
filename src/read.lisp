@@ -30,3 +30,8 @@
 (def read-line (&key (from *standard-input*) (eof nil eof-p) (recur nil))
   "Same as cl:read-line but uses keyword arguments."
   (cl:read-line from (no eof-p) eof recur))
+
+(def readfile (name)
+  "Reads all of the expressions in the file NAME and returns a list
+   of the results."
+  (w/infile s name (drain (read :from s :eof nil))))

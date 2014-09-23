@@ -8,7 +8,6 @@
                 :components ((:file "package")
                              (:file "defalias" :depends-on ("package"))
                              (:file "aliases"  :depends-on ("defalias"))
-                             (:file "read"     :depends-on ("aliases"))
                              (:file "fns"      :depends-on ("aliases"))
                              (:file "base"     :depends-on ("aliases"))
                              (:file "print"    :depends-on ("aliases" "base"))
@@ -22,6 +21,8 @@
                              (:file "strings"  :depends-on ("misc"))
                              (:file "iter"     :depends-on ("hof"))
                              (:file "list"     :depends-on ("aliases" "macros" "iter"))
+                             (:file "read"     :depends-on ("aliases" "list"))
+                             
                              (:file "sort"     :depends-on ("binding" "list" "iter"))
                              (:file "io"       :depends-on ("iter"))
                              (:file "tables"   :depends-on ("binding" "iter"))))))

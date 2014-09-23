@@ -71,7 +71,7 @@
    :newstring :whitec :nonwhite :nonwhite :punc :tokens
 
    ;; From read.
-   :readb :readc :peakc :read :read-line
+   :readb :readc :peakc :read :read-line :readfile
 
    ;; Symbols to be exported from the common-lisp package. This
    ;; makes it easy to import clamp (which shadows some names) and
