@@ -179,13 +179,12 @@
 (defssyntax-sym-mac access (sym name)
   (withs (ssyntaxes (keep #'access-ssyntax name)
           (obj . accessors) (map #'read-from-string
-                                 (tokens name #'access-ssyntax)))
-    (ado (map (fn (ss accessor)
-                (if (is ss #\.)
-                    accessor
-                    `',accessor))
-              ssyntaxes
-              accessors)
-         `(,sym ,(reduce (fn (exp accessor) `(access ,exp ,accessor))
-                         it
-                         :initial-value obj)))))
+                                 (tokens name #'access-ssyntax))
+          calls (map (fn (ss accessor)
+                       (if (is ss #\.) accessor `',accessor))
+                     ssyntaxes
+                     accessors))
+    `(,sym ,(reduce (fn (exp accessor)
+                      `(access ,exp ,accessor))
+                    calls
+                    :initial-value obj))))
