@@ -65,13 +65,13 @@
    :memtable
 
    ;; From io.
-   :w/infile :w/outfile :w/appendfile :allchars :filechars
+   :w/infile :w/outfile :w/appendfile :allchars :filechars :readfile
 
    ;; From strings.
    :newstring :whitec :nonwhite :nonwhite :punc :tokens
 
    ;; From read.
-   :readb :readc :peakc :read :read-line :readfile
+   :readb :readc :peakc :read :read-line
 
    ;; Symbols to be exported from the common-lisp package. This
    ;; makes it easy to import clamp (which shadows some names) and
