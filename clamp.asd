@@ -10,6 +10,7 @@
                              (:file "aliases"  :depends-on ("defalias"))
                              (:file "fns"      :depends-on ("aliases"))
                              (:file "base"     :depends-on ("aliases"))
+                             (:file "read"     :depends-on ("aliases"))
                              (:file "print"    :depends-on ("aliases" "base"))
                              (:file "hof"      :depends-on ("aliases" "base"))
                              (:file "binding"  :depends-on ("hof"))
@@ -21,8 +22,6 @@
                              (:file "strings"  :depends-on ("misc"))
                              (:file "iter"     :depends-on ("hof"))
                              (:file "list"     :depends-on ("aliases" "macros" "iter"))
-                             (:file "read"     :depends-on ("aliases" "list"))
-                             
                              (:file "sort"     :depends-on ("binding" "list" "iter"))
-                             (:file "io"       :depends-on ("iter"))
+                             (:file "io"       :depends-on ("iter" "read"))
                              (:file "tables"   :depends-on ("binding" "iter"))))))

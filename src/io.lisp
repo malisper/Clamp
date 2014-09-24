@@ -27,3 +27,8 @@
 (def filechars (name)
   "Returns a string of every char in the file NAME."
   (w/infile in name (allchars in)))
+
+(def readfile (name)
+  "Reads all of the expressions in the file NAME and returns a list
+   of the results."
+  (w/infile s name (drain (read :from s :eof nil))))
