@@ -101,5 +101,5 @@
     (if (null alist)
         `(lambda ,new-args ,@body)
         `(lambda ,new-args
-           (dbind ,(map #'cadr alist) (list ,@(map #'car alist))
+           (let ,(map #'cadr alist) (list ,@(map #'car alist))
              ,@body)))))
