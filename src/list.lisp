@@ -107,3 +107,11 @@
 (def consif (x y)
   "Cons X and Y if X is non-nil. Otherwise return Y."
   (conswhen #'idfn x y))
+
+(def cars (seq)
+  "Returns a list of the cars of each list within a given sequence."
+  (map #'car seq))
+
+(def cdrs (seq)
+  "Returns a list of the cdrs of each list within a given sequence."
+  (map #'cdr seq))
