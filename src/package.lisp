@@ -38,7 +38,7 @@
    :drain :split :group :caris :carif :consif :conswhen :cars :cdrs
 
    ;; From macros.
-   :w/uniq
+   :w/uniq :mkstr :symb
 
    ;; From iter.
    :rec :recur :repeat :upto :up :downfrom :down :while :until

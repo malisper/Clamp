@@ -14,7 +14,7 @@
                              (:file "print"    :depends-on ("aliases" "base"))
                              (:file "hof"      :depends-on ("aliases" "base"))
                              (:file "binding"  :depends-on ("hof"))
-                             (:file "macros"   :depends-on ("binding"))
+                             (:file "macros"   :depends-on ("binding" "print"))
                              (:file "conditionals" :depends-on ("macros" "list"))
                              (:file "fnops"    :depends-on ("binding" "base" "conditionals"))
                              (:file "misc"     :depends-on ("macros" "conditionals"))
