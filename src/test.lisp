@@ -277,6 +277,14 @@
   (assert-equal '(2 3)   (conswhen #'even 1 '(2 3)))
   (assert-equal '(1 2 3) (conswhen #'odd  1 '(2 3))))
 
+(deftest cars (list)
+  (assert-equal '() (cars '()))
+  (assert-equal '(1 4 7) (cars '((1 2 3) (4 5 6) (7 8 9)))))
+
+(deftest cdrs (list)
+  (assert-equal '() (cdrs '()))
+  (assert-equal '((2 3) (5 6) (8 9)) (cdrs '((1 2 3) (4 5 6) (7 8 9)))))
+
 ;;;; Test for conditionals.
 
 (deftest iflet (conditionals)
