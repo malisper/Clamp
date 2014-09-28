@@ -3,37 +3,36 @@ Clamp
 
 Common Lisp with Arc Macros and Procedures
 
-Arc is a language which has many features that make it enjoyable to
-program in. At the same time it lacks some of the most basic
-fundamentals of a programming language. It has neither a debugger nor
-a module system. Clamp is an attempt to bring Common Lisp, which has
-many features that Arc lacks (debugger, packages, restarts, etc), up
-to arc's level in succintness and brevity.
+Arc is an amazing programming language because of its brevity and
+succinctness, but at the same time, it lacks some of the most basic
+features of a programming language. It has neither a debugger nor a
+module system. Common Lisp on the other hand has many of the
+fundamentals that Arc lacks and much more (restarts, reader macros,
+etc), but lacks the conciseness of Arc. Clamp is an attempt to bring
+the powerful, but verbose, language of Common Lisp up to the terseness
+of Arc.
 
-Right now Clamp is in its own package which exports not only the
-symbols needed for Clamp, but almost all of the symbols originally
-exported by the Common-Lisp package as well. There are two reasons for
-exporting the Common-Lisp symbols. First of all it allows for symbols
-that are already used in Common-Lisp to be shadowed and replaced with
-an Arc version (ie let). Secondly it makes using the Clamp package
-much easier. Instead of needing to use both Common-Lisp and Clamp and
-handle the conflicting symbol names, one only needs to import Clamp.
+There are currently two parts to Clamp. There is the core of Clamp,
+which implements the utilities of Arc that are easily converted from
+Arc to Common Lisp. The other part is the 'experimental' part. It
+contains features of Arc that are not so easy to copy (ssyntax,
+argument destructuring, etc).
 
-So far a lot of the basic utilities from Arc have been implemented.
-The [...] syntax for literal functions has been implemented as a
-reader macro. Many of the original Common Lisp symbols (if, let, case,
-etc) have been shadowed and replaced. The file package.lisp contains
-the details for which symbols have been shadowed. To see what has been
-implemented so far look at package.lisp and see which symbols are
-exported.
+The package :clamp (which is provided through the system :clamp)
+exports not only the symbols that are new in Clamp, but also exports
+most of the symbols from the :cl package. This is done so that it is
+possible to shadow Common Lisp operators which do different things
+than the Arc operators of the same names. By using Clamp in a package,
+you are automatically using most of the symbols exported by :cl (some,
+such as rplaca, have not been exported because use of them is
+generally considered bad style).
 
-A lot of code has been taken from both the original arc and anarki.
+The package :clamp-experimental (provided by the system :clamp-experimental)
+works a little differently. It only exports the new symbols it
+defines. In order to use both :clamp and :clamp-experimental, you will
+have to use both and then handle the conflicts.
 
-If you need help loading the asdf package, read this:
+A lot of code has been taken from both the original Arc and Anarki.
+
+If you need help loading the ASDF system, read this:
 http://common-lisp.net/project/asdf/asdf/Quick-start-summary.html#Quick-start-summary
-
-TODO:
-Write the rest of the utilities from arc.
-Add utilities from On Lisp.
-Move some more code around and clean up.
-Add type declarations to speed up code.
