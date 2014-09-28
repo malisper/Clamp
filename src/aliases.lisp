@@ -7,16 +7,16 @@
 (defalias do progn)
 
 ;;;; Macros
-(defalias def defun)
-(defalias mac defmacro)
 (defalias ++ incf)
 (defalias -- decf)
-(defalias mvb multiple-value-bind)
-(defalias mvl multiple-value-list)
+(defalias = setf)
+(defalias def defun)
 (defalias do1 prog1)
 (defalias do2 prog2)
-(defalias = setf)
 (defalias errsafe ignore-errors)
+(defalias mac defmacro)
+(defalias mvb multiple-value-bind)
+(defalias mvl multiple-value-list)
 (defalias w/file with-open-file)
 
 ;;;; Functions
