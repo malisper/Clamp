@@ -85,7 +85,7 @@
   (w/uniq (gval gtest)
     `(loop with ,gtest = (testify ,endval)
            for ,gval = ,exp
-           until (funcall ,gtest ,gval)
+           until (call ,gtest ,gval)
            collect ,gval)))
 
 (def caris (x val)
@@ -100,7 +100,7 @@
 
 (def conswhen (f x y)
   "Cons X and Y if (F X) is non-nil. Otherwise return Y."
-  (if (funcall f x)
+  (if (call f x)
       (cons x y)
       y))
 

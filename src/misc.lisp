@@ -45,7 +45,7 @@
    ALT."
   (w/uniq val
     `(let ,val ,x
-       (if (funcall ,test ,val)
+       (if (call ,test ,val)
            ,val
            ,alt))))
 
@@ -53,7 +53,7 @@
  "If X passes TEST (not testified) return it, otherwise bind 'it' to
   the result of X and evaluate ALT."
  `(let it ,x
-    (if (funcall ,test ,x)
+    (if (call ,test ,x)
         it
         ,alt)))
 
@@ -64,7 +64,7 @@
   (mvb (vars forms var set access)
        (get-setf-expansion place)
     `(withs (,@(mappend #'list vars forms)
-             ,(car var) (funcall ,op ,access ,@args))
+             ,(car var) (call ,op ,access ,@args))
        ,set)))
 
 (mac or= (place new)
@@ -101,7 +101,7 @@
   (w/uniq y
     `(mapcan (fn (it) ; It is okay to use mapcan since map conses.
                  (map (fn (,y)
-                          (funcall ,f it ,y))
+                          (call ,f it ,y))
                       ,ys))
              ,xs)))
 

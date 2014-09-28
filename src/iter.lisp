@@ -8,7 +8,7 @@
    passed into recur. This is very similar to loop in clojure,
    but this allows multiple recursive calls."
   (let w (pair withses)
-    `(funcall (rfn recur ,(map #'car w) ,@body) ,@(map #'cadr w))))
+    `(call (rfn recur ,(map #'car w) ,@body) ,@(map #'cadr w))))
 
 (mac repeat (n &body body)
   "Excutes BODY N times."
@@ -64,7 +64,7 @@
   (w/uniq gtest
     `(loop with ,gtest = (testify ,endval)
 	   for ,var = ,expr
-      	   until (funcall ,gtest ,var)
+      	   until (call ,gtest ,var)
            do (do ,@body))))
 
 (mac forlen (var seq &body body)

@@ -73,10 +73,10 @@
 ;;;; Tests for hof.
 
 (deftest testify (hof)
-  (assert-true  (funcall (testify 5) 5))
-  (assert-false (funcall (testify 5) 4))
-  (assert-true  (funcall (testify #'even) 4))
-  (assert-false (funcall (testify #'even) 5)))
+  (assert-true  (call (testify 5) 5))
+  (assert-false (call (testify 5) 4))
+  (assert-true  (call (testify #'even) 4))
+  (assert-false (call (testify #'even) 5)))
 
 (deftest rem (hof)
   (assert-equal '() (rem 5 '()))
@@ -425,8 +425,8 @@
                n
                (+ (fib (- n 1))
                   (fib (- n 2)))))
-     (assert-eql 55 (funcall f 10))
-     (assert-eql 34 (funcall f 9))))
+     (assert-eql 55 (call f 10))
+     (assert-eql 34 (call f 9))))
 
 (deftest afn (fns)
   (let f (afn (n)
@@ -434,46 +434,46 @@
                n
                (+ (self (- n 1))
                   (self (- n 2)))))
-     (assert-eql 55 (funcall f 10))
-     (assert-eql 34 (funcall f 9))))
+     (assert-eql 55 (call f 10))
+     (assert-eql 34 (call f 9))))
 
 ;;;; Tests for fnops.
 
 (deftest compose (fnops)
-  (assert-eql 5 (funcall (compose #'1+ #'length) '(1 2 3 4)))
-  (assert-equal '(5) (funcall (compose #'list #'1-) 6)))
+  (assert-eql 5 (call (compose #'1+ #'length) '(1 2 3 4)))
+  (assert-equal '(5) (call (compose #'list #'1-) 6)))
 
 (deftest fif (fnops)
-  (assert-eql 5 (funcall (fif) 5))
-  (assert-eql 6 (funcall (fif #'odd #'1+ #'1-) 5))
-  (assert-eql 5 (funcall (fif #'odd #'1+ #'1-) 6))
-  (assert-eql 0 (funcall (fif #'plusp #'1+ #'minusp #'1-) 0))
-  (assert-eql 2 (funcall (fif #'plusp #'1+ #'minusp #'1-) 1))
-  (assert-eql -2 (funcall (fif #'plusp #'1+ #'minusp #'1-) -1)))
+  (assert-eql 5 (call (fif) 5))
+  (assert-eql 6 (call (fif #'odd #'1+ #'1-) 5))
+  (assert-eql 5 (call (fif #'odd #'1+ #'1-) 6))
+  (assert-eql 0 (call (fif #'plusp #'1+ #'minusp #'1-) 0))
+  (assert-eql 2 (call (fif #'plusp #'1+ #'minusp #'1-) 1))
+  (assert-eql -2 (call (fif #'plusp #'1+ #'minusp #'1-) -1)))
 
 (deftest andf (fnops)
-  (assert-true  (funcall (andf #'integerp #'even) 4))
-  (assert-false (funcall (andf #'integerp #'even) 3.5))
-  (assert-false (funcall (andf #'integerp #'even) 3))
-  (assert-eql 5 (funcall (andf #'integerp #'even #'1+) 4))
-  (assert-true  (funcall (andf #'> #'multiple) 10 5)))
+  (assert-true  (call (andf #'integerp #'even) 4))
+  (assert-false (call (andf #'integerp #'even) 3.5))
+  (assert-false (call (andf #'integerp #'even) 3))
+  (assert-eql 5 (call (andf #'integerp #'even #'1+) 4))
+  (assert-true  (call (andf #'> #'multiple) 10 5)))
 
 (deftest orf (fnops)
-  (assert-true  (funcall (orf #'even #'plusp) 4))
-  (assert-true  (funcall (orf #'even #'plusp) 3))
-  (assert-true  (funcall (orf #'even #'plusp) -2))
-  (assert-false (funcall (orf #'even #'plusp) -3))
-  (assert-false (funcall (orf #'> #'<) 5 5)))
+  (assert-true  (call (orf #'even #'plusp) 4))
+  (assert-true  (call (orf #'even #'plusp) 3))
+  (assert-true  (call (orf #'even #'plusp) -2))
+  (assert-false (call (orf #'even #'plusp) -3))
+  (assert-false (call (orf #'> #'<) 5 5)))
 
 (deftest curry (fnops)
-  (assert-eql 15 (funcall (curry #'+ 5) 10))
-  (assert-eql 75 (funcall (curry #'+ 5 10 15) 20 25))
-  (assert-eql 55 (funcall (curry #'reduce #'+) (range 1 10))))
+  (assert-eql 15 (call (curry #'+ 5) 10))
+  (assert-eql 75 (call (curry #'+ 5 10 15) 20 25))
+  (assert-eql 55 (call (curry #'reduce #'+) (range 1 10))))
 
 (deftest rcurry (fnops)
-  (assert-eql 15 (funcall (rcurry #'+ 5) 10))
-  (assert-eql 75 (funcall (rcurry #'+ 5 10 15) 20 25))
-  (assert-eql 55 (funcall (rcurry #'reduce (range 1 10)) #'+)))
+  (assert-eql 15 (call (rcurry #'+ 5) 10))
+  (assert-eql 75 (call (rcurry #'+ 5 10 15) 20 25))
+  (assert-eql 55 (call (rcurry #'reduce (range 1 10)) #'+)))
 
 ;;;; Tests for iter.
 

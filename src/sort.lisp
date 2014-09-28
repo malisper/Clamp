@@ -6,7 +6,7 @@
   "Returns a function which compares its arguments score from SCORER
    using COMPARER. Generally should use the :key argument to other
    procedures instead of using compare."
-  (fn (x y) (funcall comparer (funcall scorer x) (funcall scorer y))))
+  (fn (x y) (call comparer (funcall scorer x) (funcall scorer y))))
 
 ;;; It should be easy to modify best so that it works on all
 ;;; sequences as well as lists.
@@ -16,10 +16,10 @@
   (if (no xs)
       nil
       (ret wins (car xs)
-        (let score (funcall key wins)
+        (let score (call key wins)
           (each elt (cdr xs)
-            (let elt-score (funcall key elt)
-              (when (funcall f elt-score score)
+            (let elt-score (call key elt)
+              (when (call f elt-score score)
                 (= wins elt
                    score elt-score))))))))
 

@@ -58,7 +58,7 @@
 (defun ssyntax (sym)
   "Does this contain ssyntax? If it does, this returns the name of
    the kind of ssyntax."
-  (find [funcall _ sym (symbol-name sym)]
+  (find [call _ sym (symbol-name sym)]
         ssyntax-tests* :key #'cadr))
 
 (mac defssyntax-test (kind arg &body body)
@@ -82,14 +82,14 @@
    for it to be transformed into what it is supposed to be."
   (aand (ssyntax sym)
         (gethash (car it) ssyntax-sym-macs*)
-        (funcall it sym (symbol-name sym))))
+        (call it sym (symbol-name sym))))
 
 (defun ssyntax-macro (sym)
   "Given a symbol that has ssyntax, returns the macrolet definition for
    it to be a macro and expand correctly."
   (aand (ssyntax sym)
         (gethash (car it) ssyntax-macros*)
-        (funcall it sym (symbol-name sym))))
+        (call it sym (symbol-name sym))))
 
 (defssyntax-test notf (sym name)
   (declare (ignore sym))
@@ -138,7 +138,7 @@
 (defssyntax-macro andf (sym name)
   (declare (ignore name))
   `(,sym (&body body)
-     `(funcall ,',sym ,@body)))
+     `(call ,',sym ,@body)))
 
 (defgeneric access (obj arg)
   (:documentation "Returns whatever is associated with ARG in OBJ."))
@@ -164,7 +164,7 @@
 
 (defmethod access (obj x)
   "Calls X on OBJECT."
-  (funcall x obj))
+  (call x obj))
 
 ;; A setter for the default case would have to lookup the setter
 ;; for the given argument.

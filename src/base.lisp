@@ -31,7 +31,7 @@
   "Applies F to every two elements of xs and collects the results."
   (cond ((no xs) '())
         ((single xs) (list (funcall f (car xs))))
-        (:else (cons (funcall f (car xs) (cadr xs))
+        (:else (cons (call f (car xs) (cadr xs))
                      (pair (cddr xs) f)))))
 
 (mac if (&rest clauses)

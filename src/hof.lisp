@@ -5,7 +5,7 @@
 (def testify (x &optional (test #'iso))
   "If passed a function, returns it. Otherwise returns a function which
    tests equality for the object passed."
-  (if (functionp x) x [funcall test x _]))
+  (if (functionp x) x [call test x _]))
 
 (def rem (test xs &rest args)
   "Equivalent to remove-if but 'testifies' TEST first."
@@ -43,7 +43,7 @@
   (loop with f = (testify test)
         for x in (cut (coerce seq 'list) start)
        
-        if (funcall f (funcall key x))
+        if (call f (funcall key x))
           collect x into pass
         else
           collect x into fail
@@ -70,5 +70,5 @@
   (loop with f = (testify test)
         for x in (coerce seq 'list)
         for i from 0
-        if (funcall f x)
+        if (call f x)
           collect i))

@@ -13,7 +13,7 @@
       (with (fn1 (last1 fns)
 	     fns (butlast fns))
 	(fn (&rest args)
-	  (reduce #'funcall fns
+	  (reduce #'call fns
 		  :from-end t
 		  :initial-value (apply fn1 args))))
       #'identity))

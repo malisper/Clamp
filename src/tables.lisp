@@ -49,7 +49,7 @@
    for creating a table."
   (ret result (table :test test)
     (each x seq
-      (let val (funcall key x)
+      (let val (call key x)
         (or2= (gethash val result) 0)
         (++ (gethash val result))))))
 
