@@ -79,7 +79,7 @@
   (fn (&rest args2) (apply f (append args1 args2))))
 
 (def rcurry (f &rest args1)
-  "Curries F from the right with the other arguments. For exmaple
+  "Curries F from the right with the other arguments. For example
    
    (rcurry #'map (range 1 100))
 
