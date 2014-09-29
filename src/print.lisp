@@ -35,3 +35,14 @@
 (mac fromstring (string &body body)
   "Makes the input from *standard-input* read from STRING."
   `(w/instring *standard-input* ,string ,@body))
+
+(mac tofile (name &body body)
+  "Redirects *standard-output* to the file NAME.
+   WARNING: supersedes the file."
+  `(w/outfile *standard-input* ,name
+     ,@body))
+
+(mac fromfile (name &body body)
+  "Makes the input from *standard-input* read from the file NAME."
+  `(w/infile *standard-input* ,name
+     ,@body))
