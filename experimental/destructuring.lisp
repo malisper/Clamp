@@ -26,9 +26,7 @@
 
 (defun proper-list (x)
   "Is this a proper list?"
-  (or (null x)
-      (and (listp x)
-           (proper-list (cdr x)))))
+  (and (listp x) (not (dotted x))))
 
 (defun subst-list (alist xs)
   "Substitutes the corresponding values in ALIST into the list XS."
