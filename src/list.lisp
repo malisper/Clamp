@@ -9,7 +9,7 @@
 (def dotted (x)
   "Is this a dotted list?"
   (if (atom x)
-      '()
+      nil
       (and (cdr x)
            (or (atom (cdr x))
                (dotted (cdr x))))))
