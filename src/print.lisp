@@ -39,7 +39,7 @@
 (mac tofile (name &body body)
   "Redirects *standard-output* to the file NAME.
    WARNING: supersedes the file."
-  `(w/outfile *standard-input* ,name
+  `(w/outfile *standard-output* ,name
      ,@body))
 
 (mac fromfile (name &body body)
