@@ -8,9 +8,11 @@
 
 (def dotted (x)
   "Is this a dotted list?"
-  (and (consp x)
-       (or (atom (cdr x))
-           (dotted (cdr x)))))
+  (if (atom x)
+      '()
+      (and (cdr x)
+           (or (atom (cdr x))
+               (dotted (cdr x))))))
 
 (def range (a b &optional (by 1))
   "Returns a list of numbers from A to B (inclusive) in steps of BY. 

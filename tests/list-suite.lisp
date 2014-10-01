@@ -2,6 +2,11 @@
 
 (defsuite list (clamp))
 
+(deftest dotted (list)
+  (assert-false (dotted '()))
+  (assert-true  (dotted '(1 2 . 3)))
+  (assert-false (dotted '(1 2 3))))
+
 (deftest range (list)
   (assert-equal '(1 2 3 4 5) (range 1 5))
   (assert-equal '(5) (range 5 5))
