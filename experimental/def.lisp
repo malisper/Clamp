@@ -1,7 +1,7 @@
 (in-package :experimental)
 
 (mac def (name args &body body)
-  "Same as clamp:defun but allows ?, !, and argument destrucuring."
+  "Same as clamp:def but allows ?, !, and argument destrucuring."
   `(w/ssyntax
     ;; The arguments list has to be expanded manually. Otherwise
     ;; symbols such as ! would be considered ssyntax. The alternative
