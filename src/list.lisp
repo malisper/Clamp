@@ -17,7 +17,9 @@
    The argument BY has to be a positive integer."
   ;; The loop macro generates code that is more efficent than what
   ;; should be written by hand
-  (loop for i from a to b by by collect i))
+  (if (< a b)
+      (loop for i from a to b by by collect i)
+      (loop for i downfrom a to b by by collect i)))
 
 (def firstn (n seq)
   "Returns a list of the first N elements of the sequence SEQ or a
