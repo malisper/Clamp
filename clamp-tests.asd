@@ -1,6 +1,6 @@
 (defsystem "clamp-tests"
   :description "tests for clamp"
-  :depends-on ("clunit" "clamp")
+  :depends-on ("clunit" "clamp" "clamp-experimental")
   :serial t
   :components ((:module "tests"
                         :components ((:file "clamp-suite")
@@ -15,4 +15,7 @@
                                      (:file "print-suite")
                                      (:file "memoize-suite")
                                      (:file "misc-suite")
-                                     (:file "tables-suite")))))
+                                     (:file "tables-suite")
+
+                                     (:file "clamp-experimental-suite")
+                                     (:file "destructuring-suite")))))
