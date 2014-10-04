@@ -18,4 +18,5 @@
                                      (:file "tables-suite")
 
                                      (:file "clamp-experimental-suite")
-                                     (:file "destructuring-suite")))))
+                                     (:file "destructuring-suite")
+                                     (:file "coerce-suite")))))
