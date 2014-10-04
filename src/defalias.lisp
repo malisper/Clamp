@@ -31,7 +31,10 @@
        (setf (symbol-function ',new)
              (symbol-function ',old)
              (documentation ',new 'function)
-             ,(or doc `(documentation ',old 'function))))))
+             ,(or doc `(documentation ',old 'function)))
+       ;; Define a compiler macro which expands into old.
+       (define-compiler-macro ,new (&rest args)
+         `(,',old ,@args)))))
 
 (defun make-special-macro (new old)
   "Generates the code to create a macro NEW which expands into a use 

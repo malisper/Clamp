@@ -17,6 +17,7 @@
 (defalias mac defmacro)
 (defalias mvb multiple-value-bind)
 (defalias mvl multiple-value-list)
+(defalias swap rotatef)
 (defalias w/file with-open-file)
 
 ;;;; Functions
@@ -51,7 +52,6 @@
 (defalias redup remove-duplicates)
 (defalias rev reverse)
 ; (defalias rotate rotatef) is there any reason to have rotate and swap?
-(defalias swap rotatef)
 (defalias table make-hash-table)
 (defalias trunc truncate)
 (defalias uniq gensym)
