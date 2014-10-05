@@ -21,11 +21,11 @@
   "Binds ACCFN to a procedure which will accumulate values. The result
    of accum is all of the elements passed to ACCFN in the same
    order."
-  (w/uniq gacc
-    `(let ,gacc '()
-       (flet1 ,accfn (arg) (push arg ,gacc)
-         ,@body)
-       (nrev ,gacc))))
+  (w/uniq (ghead gtail)
+    `(withs (,ghead (list nil) ,gtail ,ghead)
+       (flet1 ,accfn (arg) (= ,gtail (= (cdr ,gtail) (list arg)))
+         ,@body
+         (cdr ,ghead)))))
 
 (mac summing (sumfn &body body)
   "Binds SUMFN to a procudure which will counts every time it is
