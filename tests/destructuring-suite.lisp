@@ -11,4 +11,11 @@
     (assert-equal '(1) (call f '((1)))))
   (let f (fn ((a b) (c . d) e) (list a b c d e))
     (assert-equal '(1 2 3 4 5) (call f '(1 2) '(3 . 4) 5))
-    (assert-equal '(1 2 3 (4 5) 6) (call f '(1 2) '(3 4 5) 6))))
+    (assert-equal '(1 2 3 (4 5) 6) (call f '(1 2) '(3 4 5) 6)))
+  (let f (fn (a b c . d) (list a b c d))
+    (assert-equal '(1 2 3 (4 5)) (call f 1 2 3 4 5))))
+
+(deftest optional (clamp-experimental)
+  (let f (fn (a (b c) &optional ((d e) '(1 2))) (list a b c d e))
+    (assert-equal '(1 2 3 1 2) (call f 1 '(2 3)))
+    (assert-equal '(1 2 3 4 5) (call f 1 '(2 3) '(4 5)))))
