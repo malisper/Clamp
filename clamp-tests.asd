@@ -19,4 +19,5 @@
 
                                      (:file "clamp-experimental-suite")
                                      (:file "destructuring-suite")
-                                     (:file "coerce-suite")))))
+                                     (:file "coerce-suite")
+                                     (:file "ssyntax-suite")))))
