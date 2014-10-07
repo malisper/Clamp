@@ -19,4 +19,13 @@
     (assert-false (integerp&plusp 5.5))
     (assert-false (integerp&plusp -5))
     (assert-true  (integerp&plusp 4))
-    (assert-equal '(nil nil nil t) (map integerp&even '(-5.5 5.5 -5 4)))))
+    (assert-equal '(nil nil nil t) (map integerp&even '(-5.5 5.5 -5 4)))
+    (assert-true  (integerp&plusp&even 6))
+    (assert-false (integerp&plusp&even 5.5))
+    (assert-false (integerp&plusp&even -4))))
+
+(deftest compose (clamp-experimental)
+  (w/ssyntax
+    (assert-equal '((5 . 10)) (list+cons 5 10))
+    (assert-equal '(6)        (list+inc 5))
+    (assert-equal '(((1)))    (list+list+list 1))))
