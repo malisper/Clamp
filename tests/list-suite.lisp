@@ -7,6 +7,11 @@
   (assert-true  (dotted '(1 2 . 3)))
   (assert-false (dotted '(1 2 3))))
 
+(deftest proper (list)
+  (assert-true  (proper '()))
+  (assert-false (proper '(1 2 . 3)))
+  (assert-true  (proper '(1 2 3))))
+
 (deftest range (list)
   (assert-equal '(1 2 3 4 5) (range 1 5))
   (assert-equal '(5) (range 5 5))

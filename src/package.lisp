@@ -35,8 +35,9 @@
    :ccase :ecase :caselet
 
    ;; From list.
-   :mklist :dotted :range :firstn :last1 :flat :len< :len> :n-of
-   :drain :split :group :caris :carif :consif :conswhen :cars :cdrs
+   :mklist :dotted :proper :range :firstn :last1 :flat :len< :len>
+   :n-of :drain :split :group :caris :carif :consif :conswhen :cars
+   :cdrs
 
    ;; From macros.
    :w/uniq :mkstr :symb

@@ -24,10 +24,6 @@
 ;;;; argument list ignoring the variable name. Then switching the use
 ;;;; of sublis in add-keywords with subst-list.
 
-(defun proper-list (x)
-  "Is this a proper list?"
-  (and (listp x) (not (dotted x))))
-
 (defun subst-list (alist xs)
   "Substitutes the corresponding values in ALIST into the list XS."
   (map [aif2 (alref alist _) it _] xs))
@@ -53,7 +49,7 @@
   "If this arglist is an improper list, convert it into one that uses
    &rest."
   (check args
-         #'proper-list
+         #'proper
          (mvb (var rest) (last-atom args)
            ;; If this is not a proper list, we want to take whatever
            ;; is in the tail and add a &rest before it.

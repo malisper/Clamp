@@ -8,11 +8,17 @@
 
 (def dotted (x)
   "Is this a dotted list?"
-  (if (atom x)
-      nil
-      (and (cdr x)
-           (or (atom (cdr x))
-               (dotted (cdr x))))))
+  (and (listp x)
+       (rec (rest x)
+         (if (null rest)
+             nil
+             (or (atom rest)
+                 (recur (cdr rest)))))))
+
+(def proper (x)
+  "Is this a proper list?"
+  (and (listp x)
+       (not (dotted x))))
 
 (def range (a b &optional (by 1))
   "Returns a list of numbers from A to B (inclusive) in steps of BY. 
