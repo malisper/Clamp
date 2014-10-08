@@ -45,7 +45,7 @@
 
 (def counts (seq &key (test #'iso) (key #'idfn))
   "Returns a table containing how many times every element in SEQ
-   appears. The function TEST needs to be able to be passed to table
+   appears. The procedure TEST needs to be able to be passed to table
    for creating a table."
   (ret result (table :test test)
     (each x seq

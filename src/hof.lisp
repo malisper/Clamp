@@ -3,8 +3,8 @@
 (in-package :clamp)
 
 (def testify (x &optional (test #'iso))
-  "If passed a function, returns it. Otherwise returns a function which
-   tests equality for the object passed."
+  "If passed a procedure, returns it. Otherwise returns a function
+   which tests equality for the object passed."
   (if (functionp x) x [call test x _]))
 
 (def rem (test xs &rest args)

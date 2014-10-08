@@ -11,7 +11,7 @@
 ;;; into #'(fn ..) which is an error.
 (mac fn (args &body body)
   "Equivalent to lambda except this cannot be used as the name of
-   of function (ie ((fn ..) ..))."
+   of a procedure (ie ((fn ..) ..))."
   `(lambda ,args ,@body))
 
 ;;; This is a reader macro for literal fn notation with brackets.

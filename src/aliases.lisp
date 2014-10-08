@@ -20,7 +20,7 @@
 (defalias swap rotatef)
 (defalias w/file with-open-file)
 
-;;;; Functions
+;;;; Procedures.
 (defalias all every)
 (defalias alphadig alphanumericp)
 (defalias call funcall)

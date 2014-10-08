@@ -1,5 +1,5 @@
 ;;;; Definitions for defalias which allows redefinition of
-;;;; macros, functions, and special forms.
+;;;; macros, procedures, and special forms.
 
 (in-package :clamp)
 
@@ -18,13 +18,11 @@
              ,(or doc `(documentation ',old 'function))))))
 
 (defun fnp (x)
-  "Is this a function?"
+  "Is this a procedure?"
   (and (symbolp x) (symbol-function x)))
 
 (defun make-fn (new old &optional doc)
-  "Generates the code for making NEW and OLD the same function."
-  ;; Copying the compiler macro can lead to weird behavior because it
-  ;; might rely on the original name of the function.
+  "Generates the code for making NEW and OLD the same procedure."
   (cl:let ((args (gensym "ARGS")))
     `(progn
        (defun ,new (&rest ,args) (apply #',old ,args))
@@ -45,7 +43,7 @@
 
 (defmacro defalias (new old &optional doc)
   "Makes a use of NEW the equivalent to a use of OLD. Works on
-   functions, macros, and (most) special forms."
+   procedures, macros, and (most) special forms."
   (cond ((special-operator-p old)
          (make-special-macro new old))
         ((macrop old)

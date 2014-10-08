@@ -20,7 +20,7 @@
   `(let ,var ,val ,@body ,var))
 
 (mac flet1 (name args fbody &body body)
-  "Equivalent to flet, but only for one function definition."
+  "Equivalent to flet, but only for one procedure definition."
   `(flet ((,name ,args ,fbody)) ,@body))
 
 (mac withs (parms &body body)
