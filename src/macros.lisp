@@ -10,11 +10,11 @@
              ,@body)
       `(let ,names (uniq (symbol-name ',names)) ,@body)))
 
-(defun mkstr (&rest args)
+(def mkstr (&rest args)
   "Returns the string representing all of the arguments."
   (tostring
     (apply #'pr args)))
 
-(defun symb (&rest args)
+(def symb (&rest args)
   "Returns a symbol representing all of the arguments."
   (values (intern (apply #'mkstr args))))
