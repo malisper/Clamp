@@ -3,9 +3,8 @@
 (defpackage :clamp
   (:nicknames :clamp)
   (:use :common-lisp)
-  (:shadow :do :map :if :case := :ccase :ecase
-	   :rem :let :find :count :sort
-	   :++ :read :read-line)
+  (:shadow :do :map :if :case := :ccase :ecase :typecase :rem :let
+           :find :count :sort :++ :read :read-line)
   (:export
    ;; From defalias.
    :defalias
@@ -32,7 +31,7 @@
 
    ;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :iflet2 :aand2 :case
-   :ccase :ecase :caselet
+   :ccase :ecase :caselet :typecase
 
    ;; From list.
    :mklist :dotted :proper :range :firstn :last1 :flat :len< :len>

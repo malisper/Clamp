@@ -112,3 +112,8 @@
   `(let ,var ,val
      (case ,var
        ,@clauses)))
+
+(mac typecase (keyform &rest clauses)
+  "Equivalent to cl:typecase but does not require parens around each
+   clause."
+  `(cl:typecase ,keyform ,@(group clauses)))
