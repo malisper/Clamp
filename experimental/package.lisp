@@ -7,7 +7,7 @@
    :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac
    
    ;; From destructuring.
-   :fn
+   :fn :! :?
 
    ;; From coerce.
    :coerce :defcoerce
