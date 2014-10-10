@@ -2,7 +2,7 @@
   (:use :clunit :clamp :clamp-experimental)
   (:nicknames :experimental-tests)
   (:shadowing-import-from :clamp-experimental
-     :def :mac :fn :coerce))
+     :def :defmemo :mac :fn :coerce))
 
 (in-package :clamp-experimental-tests)
 
