@@ -1,7 +1,7 @@
 (defpackage :clamp-experimental
   (:nicknames :experimental)
   (:use :clamp)
-  (:shadow :coerce :def :fn :mac)
+  (:shadow :coerce :def :fn :mac :defmemo)
   (:export
    ;; From ssyntax.
    :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac
@@ -13,7 +13,7 @@
    :coerce :defcoerce
 
    ;; From def.
-   :def :mac))
+   :def :defmemo :mac))
 
 ;;;; There must be someway to export all of the symbols in clamp
 ;;;; except for desired symbols.
