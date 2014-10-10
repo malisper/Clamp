@@ -37,7 +37,7 @@
 
 ;;;; will look for the function f, not the variable.
 
-(mac w/ssyntax (&body body)
+(defmacro w/ssyntax (&body body)
   "Allows BODY to use ssyntax."
   (let syms (keep #'ssyntax (redup (keep #'symbolp (flat body))))
     `(macrolet ,(trues #'ssyntax-macro syms)
@@ -61,18 +61,18 @@
   (find [call _ sym (symbol-name sym)]
         ssyntax-tests* :key #'cadr))
 
-(mac defssyntax-test (kind arg &body body)
+(defmacro defssyntax-test (kind arg &body body)
   "Defines a new test to detect ssyntax of the kind KIND."
   `(push (list ',kind (fn ,arg ,@body))
          ssyntax-tests*))
 
-(mac defssyntax-sym-mac (kind arg &body body)
+(defmacro defssyntax-sym-mac (kind arg &body body)
   "Defines how to get the symbol-macrolet binding for this kind of 
    ssyntax."
   `(= (gethash ',kind ssyntax-sym-macs*)
       (fn ,arg ,@body)))
 
-(mac defssyntax-macro (name arg &body body)
+(defmacro defssyntax-macro (name arg &body body)
   "Defines how to get the macrolet binding for this kind of ssyntax."
   `(= (gethash ',name ssyntax-macros*)
       (fn ,arg ,@body)))

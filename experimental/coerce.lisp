@@ -9,7 +9,7 @@
   "Default to cl:coerce."
   (cl:coerce obj to))
 
-(mac defcoerce (from to args &body body)
+(defmacro defcoerce (from to args &body body)
   "Defines a coercer from type FROM to type TO. ARGS is a list of
    arguments needed for the coercion, so far only one argument is
    supported."

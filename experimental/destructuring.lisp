@@ -89,7 +89,7 @@
           collect arg into new-args
         finally (return (values new-args alist))))
 
-(mac fn (args &body body)
+(defmacro fn (args &body body)
   "Same as clamp:fn but allows ?, !, and argument destructuring."
   (mvb (new-args alist) (parse-args args)
     (if (null alist)
