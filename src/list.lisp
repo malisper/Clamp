@@ -24,7 +24,7 @@
   "Returns a list of numbers from A to B (inclusive) in steps of BY. 
    The argument BY has to be a positive integer."
   ;; The loop macro generates code that is more efficent than what
-  ;; should be written by hand
+  ;; should be written by hand.
   (if (< a b)
       (loop for i from a to b by by collect i)
       (loop for i downfrom a to b by by collect i)))
