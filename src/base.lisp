@@ -37,9 +37,10 @@
 (mac if (&rest clauses)
   "Equivalent to cond, but does not require parens parens around each
    individual clause."
-  ;; SBCL deduces that the value of the cond can be nil when there
-  ;; only a return value for the else clause. Because of this the
-  ;; else clause needs to be explicit about that last value.
+  ;; For some reason, SBCL deduces that the value of the cond can be 
+  ;; nil when there is only a return value for the else clause of a 
+  ;; cond (cond .. (x)). Because of this the else clause is explicit 
+  ;; about the last value so that SBCL doesn't freak out.
   (cl:if (even (len clauses))
     `(cond ,@(pair clauses))
     `(cond ,@(pair (butlast clauses)) ,(cons t (last clauses))))) 
