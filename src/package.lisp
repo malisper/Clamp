@@ -69,7 +69,8 @@
    :w/infile :w/outfile :w/appendfile :allchars :filechars :readfile
 
    ;; From strings.
-   :newstring :whitec :nonwhite :nonwhite :punc :tokens
+   :newstring :whitec :nonwhite :nonwhite :punc :tokens :upcase
+   :downcase
 
    ;; From read.
    :readb :readc :peakc :read :read-line

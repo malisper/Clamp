@@ -28,7 +28,6 @@
 (defalias cut subseq)
 (defalias dec 1-)
 (defalias dedup delete-duplicates)
-(defalias downcase char-downcase)
 (defalias even evenp)
 (defalias idfn identity)
 (defalias inc 1+)
@@ -55,5 +54,4 @@
 (defalias table make-hash-table)
 (defalias trunc truncate)
 (defalias uniq gensym)
-(defalias upcase char-upcase)
 (defalias writec write-char)

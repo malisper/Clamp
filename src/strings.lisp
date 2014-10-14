@@ -33,3 +33,16 @@
           unless (is 0 (len substr))
             collect substr
           while next)))
+
+(def upcase (x)
+  "Converts a string or a char to uppercase."
+  (typecase x
+    string    (string-upcase x)
+    character (char-upcase   x)))
+
+(def downcase (x)
+  "Converts a string or a char to lowercase."
+  (typecase x
+    string    (string-downcase x)
+    character (char-downcase   x)))
+
