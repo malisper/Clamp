@@ -38,11 +38,13 @@
   "Converts a string or a char to uppercase."
   (typecase x
     string    (string-upcase x)
-    character (char-upcase   x)))
+    character (char-upcase   x)
+    symbol    (intern (upcase (symbol-name x)))))
 
 (def downcase (x)
   "Converts a string or a char to lowercase."
   (typecase x
     string    (string-downcase x)
-    character (char-downcase   x)))
+    character (char-downcase   x)
+    symbol    (intern (downcase (symbol-name x)))))
 
