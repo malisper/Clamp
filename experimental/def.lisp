@@ -1,6 +1,6 @@
 (in-package :experimental)
 
-(defmacro defexperimental (old new)
+(defmacro defexperimental (new old)
   "Defines a definition special form, NEW, which is the same as the
    definition special form, OLD, except it allows for ssyntax,
    and the new argument lists."
