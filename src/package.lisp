@@ -4,7 +4,7 @@
   (:nicknames :clamp)
   (:use :common-lisp)
   (:shadow :do :map :if :case := :ccase :ecase :typecase :rem :let
-           :find :count :sort :++ :read :read-line)
+           :find :count :sort :++ :read :read-line :get)
   (:export
    ;; From defalias.
    :defalias
@@ -36,7 +36,7 @@
    ;; From list.
    :mklist :dotted :proper :range :firstn :last1 :flat :len< :len>
    :n-of :drain :split :group :caris :carif :consif :conswhen :cars
-   :cdrs
+   :cdrs :get
 
    ;; From macros.
    :w/uniq :mkstr :symb

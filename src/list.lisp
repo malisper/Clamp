@@ -125,3 +125,34 @@
 (def cdrs (seq)
   "Returns a list of the cdrs of each list within a given sequence."
   (map #'cdr seq))
+
+(defgeneric get (obj arg)
+  (:documentation "Returns whatever is associated with ARG in OBJ."))
+
+(defgeneric (setf get) (val obj arg)
+  (:documentation "Sets ARG to be associated with VAL in OBJ."))
+
+(defmethod get ((seq sequence) (n number))
+  "Returns the Nth element of a sequence."
+  (elt seq n))
+
+(defmethod (setf get) (val (seq sequence) (n number))
+  "Sets the Nth element of SEQ to VAL."
+  (= (elt seq n) val))
+
+(defmethod get ((tab hash-table) x)
+  "Returns whatever is stored in TAB under X."
+  (gethash x tab))
+
+(defmethod (setf get) (val (tab hash-table) x)
+  "Sets VAL to be stored under X in TAB."
+  (= (gethash x tab) val))
+
+(defmethod get (obj x)
+  "Calls X on OBJECT."
+  (call x obj))
+
+;; A setter for the default case would have to lookup the setter
+;; for the given argument.
+
+
