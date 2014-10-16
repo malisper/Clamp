@@ -46,3 +46,8 @@
   "Makes the input from *standard-input* read from the file NAME."
   `(w/infile *standard-input* ,name
      ,@body))
+
+(def sp (&optional (n 1))
+  "Prints the given number of spaces."
+  (loop repeat n
+        do (pr " ")))

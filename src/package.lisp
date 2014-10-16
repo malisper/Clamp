@@ -23,7 +23,7 @@
 
    ;; From print.
    :pr :prn :prf :w/outstring :tostring :w/instring :fromstring
-   :tofile :fromfile
+   :tofile :fromfile :sp
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos :mappend :partition
