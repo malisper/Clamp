@@ -70,7 +70,7 @@
 
    ;; From strings.
    :newstring :whitec :nonwhite :nonwhite :punc :tokens :upcase
-   :downcase
+   :downcase :headmatch :begins
 
    ;; From read.
    :readb :readc :peakc :read :read-line

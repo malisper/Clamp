@@ -51,3 +51,14 @@
     character (char-downcase   x)
     symbol    (intern (downcase (symbol-name x)))))
 
+(def headmatch (pat seq &optional (start 0))
+  "Does SEQ, starting from START, match PAT?"
+  (loop for i from 0 below (len pat)
+        for j from start
+        always (is (elt pat i) (elt seq j))))
+
+(def begins (seq pat &optional (start 0))
+  "Equivalent to headmatch, but SEQ and PAT are reversed. Also this
+   tests whether SEQ is long enough first."
+  (unless (> (len pat) (- (len seq) start))
+    (headmatch pat seq start)))
