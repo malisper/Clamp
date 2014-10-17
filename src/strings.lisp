@@ -8,7 +8,10 @@
 
 (def newstring (length &optional char)
   "Creates a newstring of length LENGTH of the character CHAR."
-  (make-string length :initial-element char))
+  ;; The value nil can't be passed as the initial-element.
+  (if char
+      (make-string length :initial-element char)
+      (make-string length)))
 
 (def whitec (c)
   "Is this character whitespace (a space, newline, tab, or return)?"
