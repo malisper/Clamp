@@ -98,22 +98,30 @@
 
 (mac ccase (keyform &rest clauses)
   "Equivalent to cl:ccase except there are no parens around each
-   clause."
+   clause.
+   WARNING: do not use :else as the default case, that means to
+   test for the symbol :else. Instead you have to use t."
   `(cl:ccase ,keyform ,@(group clauses)))
 
 (mac ecase (keyform &rest clauses)
   "Equivalent to cl:ecase except there are no parens around each
-   clause."
+   clause.
+   WARNING: do not use :else as the default case, that means to
+   test for the symbol :else. Instead you have to use t."
   `(cl:ecase ,keyform ,@(group clauses)))
 
 (mac caselet (var val &rest clauses)
   "The result of VAL is assigned to VAR and then it is compared
-   against each case clause."
+   against each case clause.
+   WARNING: do not use :else as the default case, that means to
+   test for the symbol :else. Instead you have to use t."
   `(let ,var ,val
      (case ,var
        ,@clauses)))
 
 (mac typecase (keyform &rest clauses)
   "Equivalent to cl:typecase but does not require parens around each
-   clause."
+   clause.
+   WARNING: do not use :else as the default case, that means to
+   test for the symbol :else. Instead you have to use t."
   `(cl:typecase ,keyform ,@(group clauses)))
