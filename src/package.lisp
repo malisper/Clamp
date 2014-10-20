@@ -53,7 +53,7 @@
    :rand-choice
 
    ;; From setforms.
-   :zap :or= :or2=
+   :setforms :zap :or= :or2=
 
    ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry :flip
