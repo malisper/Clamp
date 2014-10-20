@@ -15,6 +15,7 @@
                                      (:file "print-suite")
                                      (:file "memoize-suite")
                                      (:file "misc-suite")
+                                     (:file "setforms-suite")
                                      (:file "tables-suite")
 
                                      (:file "clamp-experimental-suite")

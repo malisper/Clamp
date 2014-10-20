@@ -49,8 +49,11 @@
    :rfn :afn :self
    
    ;; From misc.
-   :ado :accum :summing :multiple :check :acheck :zap :or= :or2= :in
-   :cart :rand-elt :rand-choice
+   :ado :accum :summing :multiple :check :acheck :in :cart :rand-elt
+   :rand-choice
+
+   ;; From setforms.
+   :zap :or= :or2=
 
    ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry :flip

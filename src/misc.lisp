@@ -57,36 +57,6 @@
         it
         ,alt)))
 
-(mac zap (op place &rest args)
-  "Assigns the result of calling OP on the rest of the arguments 
-   (including PLACE) to PLACE. For example (zap #'+ x n) is
-   equivalent to (incf x n)."
-  (mvb (vars forms var set access)
-       (get-setf-expansion place)
-    `(withs (,@(mappend #'list vars forms)
-             ,(car var) (call ,op ,access ,@args))
-       ,set)))
-
-(mac or= (place new)
-  "If PLACE is nil, assign the result of evaluating NEW there.
-   Otherwise returns whatever value was already in PLACE and does not
-   evaluate NEW."
-  (mvb (vars forms var set access)
-       (get-setf-expansion place)
-    `(withs (,@(mappend #'list vars forms) ,(car var) (or ,access ,new))
-       ,set)))
-
-(mac or2= (place new)
-  "Equivalent to or= but will not carry through with the assignment 
-   if accessing PLACE has a second return value which is non-nil."
-  (mvb (vars forms var set access)
-       (get-setf-expansion place)
-    (w/uniq (val win)
-      `(withs (,@(mappend #'list vars forms))
-         (mvb (,val ,win) ,access
-           (let ,(car var) (if (or ,val ,win) ,val ,new)
-             ,set))))))
-
 (mac in (x &rest choices)
   "Returns t if X is one of the results of evaluating every CHOICE
    (lazily)."

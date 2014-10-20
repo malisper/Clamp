@@ -18,10 +18,14 @@
                              (:file "conditionals" :depends-on ("macros" "list"))
                              (:file "fnops"    :depends-on ("binding" "base" "conditionals"))
                              (:file "misc"     :depends-on ("macros" "conditionals"))
-                             (:file "memoize"  :depends-on ("misc"))
+                             (:file "setforms" :depends-on ("binding" "macros"))
+                             (:file "memoize"  :depends-on ("setforms"))
                              (:file "strings"  :depends-on ("misc"))
                              (:file "iter"     :depends-on ("hof"))
                              (:file "list"     :depends-on ("aliases" "macros" "iter" "base"))
                              (:file "sort"     :depends-on ("binding" "list" "iter"))
                              (:file "io"       :depends-on ("iter" "read"))
                              (:file "tables"   :depends-on ("binding" "iter"))))))
+
+
+

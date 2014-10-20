@@ -32,28 +32,6 @@
   (assert-eql 5  (check 5 #'odd  10))
   (assert-eql 10 (check 5 #'even 10)))
 
-(deftest zap (misc)
-  (assert-eql 100 (ret x 10 (zap [* _ _] x)))
-  (assert-equal (range 1 10)
-    (ret x (range 1 5)
-      (zap #'append x (range 6 10)))))
-
-(deftest or= (misc)
-  (let x nil
-    (assert-eql 5 (or= x 5))
-    (assert-eql 5 (or= x 7)))
-  ;; This is for the problem or2= is supposed to fix.
-  (let tab (table)
-    (assert-eql nil (or= (gethash 'a tab) nil))
-    (assert-eql 5   (or= (gethash 'a tab) 5))))
-
-(deftest or2= (misc)
-  (let tab (table)
-    (assert-eql 5   (or2= (gethash 'a tab) 5))
-    (assert-eql 5   (or2= (gethash 'a tab) 7))
-    (assert-eql nil (or2= (gethash 'b tab) nil))
-    (assert-eql nil (or2= (gethash 'b tab) 5))))
-
 (deftest in (misc)
   (assert-true  (in (+ 1 1) 1 2 3))
   (assert-false (in (+ 1 1) 1 3))
