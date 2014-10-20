@@ -32,6 +32,9 @@ works a little differently. It only exports the new symbols it
 defines. In order to use both :clamp and :clamp-experimental, you will
 have to use both and then handle the conflicts.
 
+If you want to execute the tests, you need the clunit testing
+framework which is available through Quicklisp.
+
 A lot of code has been taken from both the original Arc and Anarki.
 
 If you need help loading the ASDF system, read this:
