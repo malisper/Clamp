@@ -15,13 +15,15 @@
   (assert-equal '(5 29 5) (rem #'even '(2 5 29 5 28)))
   (assert-equal '() (rem #'even '(2 12 16 4)))
   (assert-equal '(13 5 7) (rem #'even '(13 5 7)))
+  (assert-equal '(3 6 12) (rem 20 '(3 25 6 30 12) :test #'<))
   ;; Same tests but with vectors instead.
   (assert-equalp #() (rem 5 #()))
   (assert-equalp #() (rem #'even #()))
   (assert-equalp #(1 2 8 2) (rem 5 #(1 5 2 8 2 5)))
   (assert-equalp #(5 29 5) (rem #'even #(2 5 29 5 28)))
   (assert-equalp #() (rem #'even #(2 12 16 4)))
-  (assert-equalp #(13 5 7) (rem #'even #(13 5 7))))
+  (assert-equalp #(13 5 7) (rem #'even #(13 5 7)))
+  (assert-equalp #(3 6 12) (rem 20 #(3 25 6 30 12) :test #'<)))
 
 (deftest keep (hof)
   (assert-equal '() (keep 7 '()))
@@ -29,12 +31,14 @@
   (assert-equal '(2 8 2 4) (keep #'even '(1 2 8 2 3 4)))
   (assert-equal '() (keep #'even '(5 7 3)))
   (assert-equal '(2 12 72 6) (keep #'even '(2 12 72 6)))
+  (assert-equal '(25 30) (keep 20 '(3 25 6 30 12) :test #'<))
   ;; Same tests but for vectors.
   (assert-equalp #() (keep 7 #()))
   (assert-equalp #() (keep #'even #()))
   (assert-equalp #(2 8 2 4) (keep #'even #(1 2 8 2 3 4)))
   (assert-equalp #() (keep #'even #(5 7 3)))
-  (assert-equalp #(2 12 72 6) (keep #'even #(2 12 72 6))))
+  (assert-equalp #(2 12 72 6) (keep #'even #(2 12 72 6)))
+  (assert-equalp #(25 30) (keep 20 #(3 25 6 30 12) :test #'<)))
 
 ;;; Member does not work on vectors (what is the tail of a vector?).
 (deftest mem (hof)
@@ -42,7 +46,8 @@
   (assert-false (mem #'even '()))
   (assert-false (mem 3 '(1 29 32 5)))
   (assert-equal '(5 3 2) (mem 5 '(1 6 3 5 3 2)))
-  (assert-equal '(2 3) (mem #'even '(1 9 2 3))))
+  (assert-equal '(2 3) (mem #'even '(1 9 2 3)))
+  (assert-equal '(5 6) (mem 4 '(1 2 3 4 5 6) :test #'<)))
 
 (deftest find (hof)
   (assert-false (find 5 '()))
@@ -50,12 +55,14 @@
   (assert-false (find 5 '(2 9 1 2 7 3)))
   (assert-eql 5 (find 5 '(1 3 5 2 9 3)))
   (assert-eql 2 (find #'even '(1 3 5 2 9 3 4 6 7)))
+  (assert-eql 5 (find 4 '(1 2 3 4 5 6) :test #'<))
   ;; Same tests but for vectors.
   (assert-false (find 5 #()))
   (assert-false (find #'even #()))
   (assert-false (find 5 #(2 9 1 2 7 3)))
   (assert-eql 5 (find 5 #(1 3 5 2 9 3)))
-  (assert-eql 2 (find #'even #(1 3 5 2 9 3 4 6 7))))
+  (assert-eql 2 (find #'even #(1 3 5 2 9 3 4 6 7)))
+  (assert-eql 5 (find 4 #(1 2 3 4 5 6) :test #'<)))
 
 (deftest count (hof)
   (assert-eql 0 (count 2 '()))
@@ -63,12 +70,14 @@
   (assert-eql 0 (count #'even '(1 3 71 21)))
   (assert-eql 3 (count 5 '(1 5 3 2 5 7 5)))
   (assert-eql 4 (count #'even '(1 6 3 2 2 4)))
+  (assert-eql 3 (count 3 '(1 2 5 3 2 4) :test #'>))
   ;; Same tests but for vectors.
   (assert-eql 0 (count 2 #()))
   (assert-eql 0 (count #'even #()))
   (assert-eql 0 (count #'even #(1 3 71 21)))
   (assert-eql 3 (count 5 #(1 5 3 2 5 7 5)))
-  (assert-eql 4 (count #'even #(1 6 3 2 2 4))))
+  (assert-eql 4 (count #'even #(1 6 3 2 2 4)))
+  (assert-eql 3 (count 3 #(1 2 5 3 2 4) :test #'>)))
 
 (deftest pos (hof)
   (assert-false (pos 2 '()))
@@ -76,12 +85,14 @@
   (assert-false (pos #'even '(123 45 3 7)))
   (assert-eql 2 (pos 5 '(1 3 5 3 2 5)))
   (assert-eql 3 (pos #'even '(1 7 3 2 5 7 4 2)))
+  (assert-eql 4 (pos 4 '(1 2 3 4 5 6) :test #'<))
   ;; Same tests but for vectors.
   (assert-false (pos 2 #()))
   (assert-false (pos #'even #()))
   (assert-false (pos #'even #(123 45 3 7)))
   (assert-eql 2 (pos 5 #(1 3 5 3 2 5)))
-  (assert-eql 3 (pos #'even #(1 7 3 2 5 7 4 2))))
+  (assert-eql 3 (pos #'even #(1 7 3 2 5 7 4 2)))
+  (assert-eql 4 (pos 4 #(1 2 3 4 5 6) :test #'<)))
 
 (deftest mappend (hof)
   (assert-equal '() (mappend #'identity '()))

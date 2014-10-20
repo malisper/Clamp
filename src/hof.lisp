@@ -7,29 +7,29 @@
    which tests equality for the object passed."
   (if (functionp x) x [call test x _]))
 
-(def rem (test xs &rest args)
+(def rem (f xs  &rest args &key (test #'iso) &allow-other-keys)
   "Equivalent to remove-if but 'testifies' TEST first."
-  (apply #'remove-if (testify test) xs args))
+  (apply #'remove-if (testify f test) xs :allow-other-keys t args))
 
-(def keep (test xs &rest args)
+(def keep (f xs &rest args &key (test #'iso) &allow-other-keys)
   "Equivalent to remove-if-not but 'testifies' TEST first."
-  (apply #'remove-if-not (testify test) xs args))
+  (apply #'remove-if-not (testify f test) xs :allow-other-keys t args))
 
-(def mem (test xs &rest args)
+(def mem (f xs &rest args &key (test #'iso) &allow-other-keys)
   "Equivalent to member-if but 'testifies' TEST first."
-  (apply #'member-if (testify test) xs args))
+  (apply #'member-if (testify f test) xs :allow-other-keys t args))
 
-(def find (test xs &rest args)
+(def find (f xs &rest args &key (test #'iso) &allow-other-keys)
   "Equivalent to find-if but 'testifies' TEST first."
-  (apply #'find-if (testify test) xs args))
+  (apply #'find-if (testify f test) xs :allow-other-keys t args))
 
-(def count (test xs &rest args)
+(def count (f xs &rest args &key (test #'iso) &allow-other-keys)
   "Equivalent to count-if but 'testifies' TEST first."
-  (apply #'count-if (testify test) xs args))
+  (apply #'count-if (testify f test) xs :allow-other-keys t args))
 
-(def pos (test xs &rest args)
+(def pos (f xs &rest args &key (test #'iso) &allow-other-keys)
   "Equivalent to position-if but 'testifies' TEST first."
-  (apply #'position-if (testify test) xs args))
+  (apply #'position-if (testify f test) xs :allow-other-keys t args))
 
 (def mappend (f &rest xss)
   "Equivalent to map but appends the results instead of just
@@ -42,7 +42,6 @@
    containing all of those that don't."
   (loop with f = (testify test)
         for x in (cut (coerce seq 'list) start)
-       
         if (call f (funcall key x))
           collect x into pass
         else
