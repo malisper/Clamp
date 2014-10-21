@@ -32,3 +32,15 @@
   "Reads all of the expressions in the file NAME and returns a list
    of the results."
   (w/infile s name (drain (read :from s :eof nil))))
+
+(def readfile1 (name)
+  "Reads a single expression by the file NAME."
+  (w/infile s name (read :from s)))
+
+(def writefile (val file)
+  "Writes VAL to FILE."
+  ;; For some reason the Arc version moves the file to a temporary
+  ;; version first then renames it.
+  (w/outfile s file
+    (prin1 val s))
+  val)

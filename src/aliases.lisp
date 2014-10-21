@@ -23,6 +23,7 @@
 ;;;; Procedures.
 (defalias all every)
 (defalias alphadig alphanumericp)
+(defalias bound boundp)
 (defalias call funcall)
 (defalias const constantly)
 (defalias cut subseq)
@@ -47,6 +48,7 @@
 (defalias nrev nreverse)
 (defalias odd oddp)
 (defalias outstring make-string-output-stream)
+(defalias file-exists probe-file)
 (defalias rand random)
 (defalias redup remove-duplicates)
 (defalias rev reverse)

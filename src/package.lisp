@@ -13,7 +13,7 @@
    :map :isa :uniq :even :odd :redup :dedup :table :rand :trunc :join
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :letter :alphadig
-   :upcase :all :maptable :inc :dec :call
+   :upcase :all :maptable :inc :dec :call :probe-file :bound
    
    ;; From base.
    :_ :single :if :fn
@@ -70,6 +70,7 @@
 
    ;; From io.
    :w/infile :w/outfile :w/appendfile :allchars :filechars :readfile
+   :readfile1 :writefile
 
    ;; From strings.
    :newstring :whitec :nonwhite :nonwhite :punc :tokens :upcase
@@ -77,6 +78,9 @@
 
    ;; From read.
    :readb :readc :peakc :read :read-line
+
+   ;; From disk.
+   :savers* :fromdisk :diskvar :todisk
 
    ;; Symbols to be exported from the common-lisp package. This
    ;; makes it easy to import clamp (which shadows some names) and
