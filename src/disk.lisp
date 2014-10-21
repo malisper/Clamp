@@ -11,7 +11,7 @@
     `(defvar ,var (do1 (iflet ,gf (file-exists ,file)
                               (call ,load ,gf)
                               ,init)
-                    (= (gethash savers* ',var)
+                    (= (gethash ',var savers*)
                        (fn (,gv)
                          (call ,save ,gv ,file)))))))
 
@@ -21,7 +21,7 @@
 
 (mac todisk (var &optional (expr var))
   "Saves the value of VAR according to its value in savers*."
-  `(call (gethash savers* ',var)
+  `(call (gethash ',var savers*)
          ,(if (is var expr)
               var
               `(= ,var ,expr))))
