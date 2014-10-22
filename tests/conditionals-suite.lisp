@@ -93,3 +93,13 @@
       10 5
       20 30
       t x)))
+
+(deftest typecase (clamp)
+  (assert-true
+      (typecase 5
+        number  t
+        t       nil))
+  (assert-false
+      (typecase nil
+        number t
+        t      nil)))
