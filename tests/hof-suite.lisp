@@ -16,6 +16,9 @@
   (assert-equal '() (rem #'even '(2 12 16 4)))
   (assert-equal '(13 5 7) (rem #'even '(13 5 7)))
   (assert-equal '(3 6 12) (rem 20 '(3 25 6 30 12) :test #'<))
+  (assert-equal '(1 2 3 5) (rem #'even '(1 2 3 4 5) :start 3))
+  (assert-equal '(35 3 40 6 12) (rem 20 '(35 3 40 25 6 30 12)
+                                     :start 3 :test #'<))
   ;; Same tests but with vectors instead.
   (assert-equalp #() (rem 5 #()))
   (assert-equalp #() (rem #'even #()))
@@ -23,7 +26,10 @@
   (assert-equalp #(5 29 5) (rem #'even #(2 5 29 5 28)))
   (assert-equalp #() (rem #'even #(2 12 16 4)))
   (assert-equalp #(13 5 7) (rem #'even #(13 5 7)))
-  (assert-equalp #(3 6 12) (rem 20 #(3 25 6 30 12) :test #'<)))
+  (assert-equalp #(3 6 12) (rem 20 #(3 25 6 30 12) :test #'<))
+  (assert-equalp #(1 2 3 5) (rem #'even #(1 2 3 4 5) :start 3))
+  (assert-equalp #(35 3 40 6 12) (rem 20 #(35 3 40 25 6 30 12)
+                                      :start 3 :test #'<)))
 
 (deftest keep (hof)
   (assert-equal '() (keep 7 '()))
@@ -32,13 +38,19 @@
   (assert-equal '() (keep #'even '(5 7 3)))
   (assert-equal '(2 12 72 6) (keep #'even '(2 12 72 6)))
   (assert-equal '(25 30) (keep 20 '(3 25 6 30 12) :test #'<))
+  (assert-equal '(1 2 3 8 2 4) (keep #'even '(1 2 3 8 5 2 4 1) :start 3))
+  (assert-equal '(1 25 3 8 2 4) (keep 9 '(1 25 3 30 25 8 2 15 4)
+                                      :test #'> :start 3))
   ;; Same tests but for vectors.
   (assert-equalp #() (keep 7 #()))
   (assert-equalp #() (keep #'even #()))
   (assert-equalp #(2 8 2 4) (keep #'even #(1 2 8 2 3 4)))
   (assert-equalp #() (keep #'even #(5 7 3)))
   (assert-equalp #(2 12 72 6) (keep #'even #(2 12 72 6)))
-  (assert-equalp #(25 30) (keep 20 #(3 25 6 30 12) :test #'<)))
+  (assert-equalp #(25 30) (keep 20 #(3 25 6 30 12) :test #'<))
+  (assert-equalp #(1 2 3 8 2 4) (keep #'even #(1 2 3 8 5 2 4 1) :start 3))
+  (assert-equalp #(1 25 3 8 2 4) (keep 9 #(1 25 3 30 25 8 2 15 4)
+                                      :test #'> :start 3)))
 
 ;;; Member does not work on vectors (what is the tail of a vector?).
 (deftest mem (hof)
