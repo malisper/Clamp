@@ -51,7 +51,7 @@
 	 do (do ,@body)))
 
 (mac whilet (var test &body body)
-  "Executes BODY until test returns nil. The value of TEST is bound
+  "Executes BODY until TEST returns nil. The value of TEST is bound
    to VAR on each iteration."
   `(loop for ,var = ,test
 	 while ,var

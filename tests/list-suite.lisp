@@ -2,7 +2,7 @@
 
 (defsuite list (clamp))
 
-(deftest mklist (clamp)
+(deftest mklist (list)
   (assert-equal '(5) (mklist 5))
   (assert-equal '(1 2 3) (mklist '(1 2 3))))
 
@@ -114,7 +114,7 @@
   (assert-equal '() (cdrs '()))
   (assert-equal '((2 3) (5 6) (8 9)) (cdrs '((1 2 3) (4 5 6) (7 8 9)))))
 
-(deftest get (clamp)
+(deftest get (list)
   (assert-eql 1 (get '(1 2 3) 0))
   (assert-eql 2 (get '(1 2 3) 1))
   (assert-eql 3 (get '(1 2 3) 2))

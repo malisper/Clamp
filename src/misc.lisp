@@ -53,7 +53,7 @@
  "If X passes TEST (not testified) return it, otherwise bind 'it' to
   the result of X and evaluate ALT."
  `(let it ,x
-    (if (call ,test ,x)
+    (if (call ,test it)
         it
         ,alt)))
 
