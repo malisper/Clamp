@@ -91,7 +91,7 @@
 
 (mac drain (exp &optional (endval nil))
   "Repeatedly evaluates EXP until it passes the testified version of
-   ENDVAL. Then return a list of the results."
+   ENDVAL. Then returns a list of the results."
   (w/uniq (gval gtest)
     `(loop with ,gtest = (testify ,endval)
            for ,gval = ,exp
@@ -154,5 +154,3 @@
 
 ;; A setter for the default case would have to lookup the setter
 ;; for the given argument.
-
-
