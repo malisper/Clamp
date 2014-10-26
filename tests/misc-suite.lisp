@@ -32,6 +32,10 @@
   (assert-eql 5  (check 5 #'odd  10))
   (assert-eql 10 (check 5 #'even 10)))
 
+(deftest acheck (misc)
+  (assert-eql 20 (acheck 20 #'even (+ it 5)))
+  (assert-eql 25 (acheck 20 #'odd  (+ it 5))))
+
 (deftest in (misc)
   (assert-true  (in (+ 1 1) 1 2 3))
   (assert-false (in (+ 1 1) 1 3))

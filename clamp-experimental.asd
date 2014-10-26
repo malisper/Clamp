@@ -13,5 +13,6 @@
                 :components ((:file "package")
                              (:file "destructuring" :depends-on ("package"))
                              (:file "ssyntax" :depends-on ("package" "destructuring"))
+                             (:file "ssyntax-defs" :depends-on ("ssyntax"))
                              (:file "coerce" :depends-on ("package"))
                              (:file "def" :depends-on ("ssyntax" "destructuring"))))))

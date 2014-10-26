@@ -39,7 +39,7 @@
    :cdrs :get
 
    ;; From macros.
-   :w/uniq :mkstr :symb
+   :w/uniq :mkstr :symb :check-len
 
    ;; From iter.
    :rec :recur :repeat :upto :up :downfrom :down :while :until

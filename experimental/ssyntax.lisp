@@ -24,6 +24,11 @@
 ;;;; expansion will yield the desired transformation. If you are
 ;;;; confused just look at some of the examples below.
 
+;;;; A procedure defined using any of the above methods must take in
+;;;; two arguments. The first one will be the symbol that potentially
+;;;; contains ssyntax. The second argument (provided for convenience)
+;;;; is a string of the name of the symbol.
+
 ;;;; ISSUES
 ;;;; Using multiple ssyntax in the same symbol will expand in an
 ;;;; unpredictable way. Additionally the ssyntax for composition (+)
@@ -61,21 +66,28 @@
   (find [call _ sym (symbol-name sym)]
         ssyntax-tests* :key #'cadr))
 
-(defmacro defssyntax-test (kind arg &body body)
-  "Defines a new test to detect ssyntax of the kind KIND."
-  `(push (list ',kind (fn ,arg ,@body))
+(defparameter *errstr* "Wrong number of arguments in definition for ~
+                        ~A in ~2&~A~2&~A supplied, ~A~@[ to ~A~] ~
+                        expected.")
+
+(defmacro defssyntax-test (&whole form name args &body body)
+  "Defines a new test to detect ssyntax of the kind NAME."
+  (check-len name form args 2 :str *errstr*)
+  `(push (list ',name (fn ,args ,@body))
          ssyntax-tests*))
 
-(defmacro defssyntax-sym-mac (kind arg &body body)
-  "Defines how to get the symbol-macrolet binding for this kind of 
-   ssyntax."
-  `(= (gethash ',kind ssyntax-sym-macs*)
-      (fn ,arg ,@body)))
+(defmacro defssyntax-sym-mac (&whole form name args &body body)
+  "Defines how to get the symbol-macrolet binding for the NAME kind 
+   of ssyntax."
+  (check-len name form args 2 :str *errstr*)
+  `(= (gethash ',name ssyntax-sym-macs*)
+      (fn ,args ,@body)))
 
-(defmacro defssyntax-macro (name arg &body body)
+(defmacro defssyntax-macro (&whole form name args &body body)
   "Defines how to get the macrolet binding for this kind of ssyntax."
+  (check-len name form args 2 :str *errstr*)
   `(= (gethash ',name ssyntax-macros*)
-      (fn ,arg ,@body)))
+      (fn ,args ,@body)))
 
 (defun ssyntax-sym-mac (sym)
   "Given a symbol that has ssyntax, returns the symbol-macrolet binding
@@ -90,72 +102,3 @@
   (aand (ssyntax sym)
         (gethash (car it) ssyntax-macros*)
         (call it sym (symbol-name sym))))
-
-(defssyntax-test notf (sym name)
-  (declare (ignore sym))
-  (and (len> name 1)
-       (char= #\~ (char name 0))))
-
-(defssyntax-sym-mac notf (sym name)
-  `(,sym (notf #',(intern (cut name 1)))))
-
-(defssyntax-macro notf (sym name)
-  `(,sym (&body body)
-     `(not (,',(intern (cut name 1)) ,@body))))
-
-(defssyntax-test compose (sym name)
-  (declare (ignore sym))
-  (and (pos #\+ name)
-       (len> name 2))) ; This removes + and 1+ from being detected.
-
-(defssyntax-sym-mac compose (sym name)
-  (ado (tokens name #\+)
-       (map #'intern it)
-       (map (fn (f) `#',f) it)
-       `(,sym (compose ,@it))))
-
-(defssyntax-macro compose (sym name)
-  (ado (tokens name #\+)
-       (map #'intern it)
-       `(,sym (&body body)
-          ;; (f+g+h ...) will expand into (f (g (h ...))) therefore
-          ;; we need to work from the back and create a new list
-          ;; containing the fn and the previous expression.
-          (reduce #'list ',(butlast it)
-                  :from-end t
-                  :initial-value `(,',(last1 it) ,@body)))))
-
-(defssyntax-test andf (sym name)
-  (declare (ignore sym))
-  (find #\& name))
-
-(defssyntax-sym-mac andf (sym name)
-  (ado (tokens name #\&)
-       (map #'intern it)
-       (map (fn (f) `#',f) it)
-       `(,sym (andf ,@it))))
-
-(defssyntax-macro andf (sym name)
-  (declare (ignore name))
-  `(,sym (&body body)
-     `(call ,',sym ,@body)))
-
-(defun get-ssyntax (c)
-  (in c #\. #\!))
-
-(defssyntax-test get (sym name)
-  (declare (ignore sym))
-  (find #'get-ssyntax name))
-
-(defssyntax-sym-mac get (sym name)
-  (withs (ssyntaxes (keep #'get-ssyntax name)
-          (obj . accessors) (map #'read-from-string
-                                 (tokens name #'get-ssyntax))
-          calls (map (fn (ss accessor)
-                       (if (is ss #\.) accessor `',accessor))
-                     ssyntaxes
-                     accessors))
-    `(,sym ,(reduce (fn (exp accessor)
-                      `(get ,exp ,accessor))
-                    calls
-                    :initial-value obj))))
