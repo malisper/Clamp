@@ -16,6 +16,10 @@
   ;; This use of tostring is just so the output is not visible.
   (tostring (assert-eql 5 (prn (+ 1 4) (+ 3 7)))))
 
+(deftest prf (print)
+  (assert-equalp "hello world five" (tostring (prf "hello world ~R" 5)))
+  (assert-equalp "1, 2, 3" (tostring (prf "~A, ~A, ~A" 1 2 3))))
+
 (deftest w/outstring (print)
   (assert-equal "Hello World 3" (w/outstring stream
 				  (princ "Hello " stream)
@@ -37,3 +41,7 @@
   (assert-eq 'hello (fromstring "Hello World" (read)))
   (assert-equal "Hello World" (fromstring "Hello World" (read-line)))
   (assert-eql 123 (fromstring "123" (parse-integer (read-line)))))
+
+(deftest sp (print)
+  (assert-equalp " " (tostring (sp)))
+  (assert-equalp "   " (tostring (sp 3))))
