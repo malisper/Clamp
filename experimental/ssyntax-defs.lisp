@@ -52,6 +52,7 @@
      `(call ,',sym ,@body)))
 
 (defun get-ssyntax (c)
+  "Is this ssyntax for get?"
   (in c #\. #\!))
 
 (defssyntax-test get (sym name)
