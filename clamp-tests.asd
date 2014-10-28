@@ -18,6 +18,7 @@
                                      (:file "setforms-suite")
                                      (:file "tables-suite")
                                      (:file "strings-suite")
+                                     (:file "sort-suite")
 
                                      (:file "clamp-experimental-suite")
                                      (:file "destructuring-suite")
