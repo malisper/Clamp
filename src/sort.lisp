@@ -23,10 +23,10 @@
                 (= wins elt
                    score elt-score))))))))
 
-(def bestn (n f seq)
+(def bestn (n f seq &optional (key #'identity))
   "Returns a list containg the first N elements of SEQ if it was 
    sorted using the procedure F."
-  (firstn n (sort f seq)))
+  (firstn n (sort f seq key)))
 
 (def nsort (comparer sequence &optional (key #'identity))
   "Destructively sorts SEQUENCE using COMPARER."
