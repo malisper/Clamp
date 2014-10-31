@@ -61,31 +61,31 @@
    syntax.")
 
 (defun ssyntax (sym)
-  "Does this contain ssyntax? If it does, this returns the name of
-   the kind of ssyntax."
+  "Does this contain ssyntax? If it does, the return value is the
+   name of the kind of ssyntax."
   (find [call _ sym (symbol-name sym)]
         ssyntax-tests* :key #'cadr))
 
-(defparameter *errstr* "Wrong number of arguments in definition for ~
+(defparameter errstr* "Wrong number of arguments in definition for ~
                         ~A in ~2&~A~2&~A supplied, ~A~@[ to ~A~] ~
                         expected.")
 
 (defmacro defssyntax-test (&whole form name args &body body)
   "Defines a new test to detect ssyntax of the kind NAME."
-  (check-len name form args 2 :str *errstr*)
+  (check-len name form args 2 :str errstr*)
   `(push (list ',name (fn ,args ,@body))
          ssyntax-tests*))
 
 (defmacro defssyntax-sym-mac (&whole form name args &body body)
   "Defines how to get the symbol-macrolet binding for the NAME kind 
    of ssyntax."
-  (check-len name form args 2 :str *errstr*)
+  (check-len name form args 2 :str errstr*)
   `(= (gethash ',name ssyntax-sym-macs*)
       (fn ,args ,@body)))
 
 (defmacro defssyntax-macro (&whole form name args &body body)
   "Defines how to get the macrolet binding for this kind of ssyntax."
-  (check-len name form args 2 :str *errstr*)
+  (check-len name form args 2 :str errstr*)
   `(= (gethash ',name ssyntax-macros*)
       (fn ,args ,@body)))
 
