@@ -34,6 +34,26 @@
   (assert-false (punc #\a))
   (assert-false (punc #\&)))
 
+(deftest tokens (strings)
+  (assert-equalp '("abc" "def" "ghi") (tokens "abc def ghi"))
+  (assert-equalp '("abc" "def" "ghi")
+      (tokens (tostring (prf "abc~%def~%ghi~%"))
+              #\newline)))
+
+(deftest upcase (strings)
+  (assert-eql #\A (upcase #\a))
+  (assert-eql #\A (upcase #\A))
+  (assert-eql #\0 (upcase #\0))
+  (assert-equal "HELLO" (upcase "HeLLo"))
+  (assert-eql 'hello (upcase '|hello|)))
+
+(deftest downcase (strings)
+  (assert-eql #\a (downcase #\A))
+  (assert-eql #\a (downcase #\a))
+  (assert-eql #\0 (downcase #\0))
+  (assert-equal "hello" (downcase "HeLLo"))
+  (assert-eql '|hello| (downcase 'hello)))
+
 (deftest headmatch (strings)
   (assert-true  (headmatch "abc" "abcde"))
   (assert-false (headmatch "abc" "bcde"))
