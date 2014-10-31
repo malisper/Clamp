@@ -33,3 +33,15 @@
   (assert-true  (punc #\?))
   (assert-false (punc #\a))
   (assert-false (punc #\&)))
+
+(deftest headmatch (strings)
+  (assert-true  (headmatch "abc" "abcde"))
+  (assert-false (headmatch "abc" "bcde"))
+  (assert-true  (headmatch "abc" "0abcde" 1))
+  (assert-false (headmatch "abc" "abcde" 1)))
+
+(deftest begins (strings)
+  (assert-true  (begins "abcde" "abc"))
+  (assert-false (begins "bcde" "abc"))
+  (assert-true  (begins "0abcde" "abc" 1))
+  (assert-false (begins "abcde" "abc" 1)))
