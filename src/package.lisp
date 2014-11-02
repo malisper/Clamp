@@ -77,7 +77,7 @@
    :downcase :headmatch :begins
 
    ;; From read.
-   :readb :readc :peakc :read :read-line
+   :readb :readc :peekc :read :read-line
 
    ;; From disk.
    :savers* :fromdisk :diskvar :todisk
