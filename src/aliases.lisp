@@ -11,6 +11,7 @@
 (defalias -- decf)
 (defalias = setf)
 (defalias def defun)
+(defalias digit digit-char-p)
 (defalias do1 prog1)
 (defalias do2 prog2)
 (defalias errsafe ignore-errors)
