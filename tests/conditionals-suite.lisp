@@ -77,6 +77,15 @@
   (assert-false (case 'c a 1 b 2 (t) 3))
   (assert-eql 3 (case t a 1 b 2 (t) 3 t 4)))
 
+;; The macros ecase and ccase don't accept a default clause.
+(deftest ecase (conditionals)
+  (assert-eql 1 (ecase 'a a 1 b 2))
+  (assert-eql 1 (ecase 'b (a b) 1 c 2)))
+
+(deftest ccase (conditionals)
+  (assert-eql 1 (ccase 'a a 1 b 2))
+  (assert-eql 1 (ccase 'b (a b) 1 c 2)))
+
 (deftest caselet (conditionals)
   (assert-eql 5
     (caselet x 10
