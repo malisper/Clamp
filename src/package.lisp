@@ -42,8 +42,8 @@
    :w/uniq :mkstr :symb :check-len
 
    ;; From iter.
-   :rec :recur :repeat :upto :up :downfrom :down :while :until
-   :each :on :index :whilet :whiler :forlen
+   :rec :recur :repeat :upto :up :downto :down :while :until :each
+   :on :index :whilet :whiler :forlen
 
    ;; From fns.
    :rfn :afn :self

@@ -45,10 +45,10 @@
   (assert-eql  45 (ret result 0 (down i 10 1 (++ result i))))
   (assert-eql  20 (ret result 0 (down i 6 1 (++ result i) (++ result)))))
 
-(deftest downfrom (iter)
-  (assert-equal (rev (range 1 10)) (accum a (downfrom i 10 1 (a i))))
-  (assert-eql   55 (ret result 0 (downfrom i 10 1 (++ result i))))
-  (assert-eql   20 (ret result 0 (downfrom i 5 1 (++ result i) (++ result)))))
+(deftest downto (iter)
+  (assert-equal (rev (range 1 10)) (accum a (downto i 10 1 (a i))))
+  (assert-eql   55 (ret result 0 (downto i 10 1 (++ result i))))
+  (assert-eql   20 (ret result 0 (downto i 5 1 (++ result i) (++ result)))))
 
 (deftest while (iter)
   (assert-equal '(t t t) (accum a
