@@ -22,13 +22,13 @@
   "Evaluates BODY iterating from A up to B inclusive."
   `(loop for ,var from ,a upto ,b do (do ,@body)))
 
-(mac downto (var a b &body body)
+(mac downfrom (var a b &body body)
   "Evaluates BODY iterating from A down to B inclusive."
-  `(loop for ,var from ,a downto ,b do (do ,@body)))
+  `(loop for ,var downfrom ,a to ,b do (do ,@body)))
 
 (mac down (var a b &body body)
   "Evaluates BODY iterating from A (exclusive) to B (inclusive)."
-  `(downto ,var (- ,a 1) ,b ,@body))
+  `(downfrom ,var (- ,a 1) ,b ,@body))
 
 (mac while (test &body body)
   "Repeatedly evaluates BODY while TEST returns true."
