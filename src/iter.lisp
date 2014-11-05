@@ -22,6 +22,8 @@
   "Evaluates BODY iterating from A up to B inclusive."
   `(loop for ,var from ,a upto ,b do (do ,@body)))
 
+;; The name downfrom is a better name then downto because it includes
+;; the higher number (the from) as opposed to down which does not.
 (mac downfrom (var a b &body body)
   "Evaluates BODY iterating from A down to B inclusive."
   `(loop for ,var downfrom ,a to ,b do (do ,@body)))
