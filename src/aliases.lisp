@@ -53,7 +53,6 @@
 (defalias rand random)
 (defalias redup remove-duplicates)
 (defalias rev reverse)
-; (defalias rotate rotatef) is there any reason to have rotate and swap?
 (defalias table make-hash-table)
 (defalias trunc truncate)
 (defalias uniq gensym)
