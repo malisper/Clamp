@@ -35,3 +35,10 @@
 (def sort (comparer sequence &optional (key #'identity))
   "Non-destructively sorts SEQUENCE using COMPARER."
   (nsort comparer (copy-seq sequence) key))
+
+(def med (fn seq &optional key)
+  "Returns the median of a sequence. The median is the middle element
+   when the list is sorted using FN. If the list contains an even
+   number of elements, the middle element that comes first is 
+   returned."
+  (elt (sort fn seq key) (dec (ceiling (len seq) 2))))

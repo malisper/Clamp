@@ -59,7 +59,7 @@
    :compose :fif :andf :orf :curry :rcurry :flip
 
    ;; From sort.
-   :compare :best :bestn :sort :nsort
+   :compare :best :bestn :sort :nsort :med
 
    ;; From memoize.
    :memo :defmemo
