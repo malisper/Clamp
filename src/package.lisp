@@ -14,6 +14,7 @@
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :letter :alphadig
    :upcase :all :maptable :inc :dec :call :probe-file :bound :digit
+   :err
    
    ;; From base.
    :_ :single :if :fn
