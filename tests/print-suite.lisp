@@ -20,6 +20,10 @@
   (assert-equalp "hello world five" (tostring (prf "hello world ~R" 5)))
   (assert-equalp "1, 2, 3" (tostring (prf "~A, ~A, ~A" 1 2 3))))
 
+(deftest prs (print)
+  (assert-equalp "1 2 3 4 5" (tostring (prs 1 2 3 4 5)))
+  (assert-equalp "hello 5"   (tostring (prs "hello" (+ 2 3)))))
+
 (deftest w/outstring (print)
   (assert-equal "Hello World 3" (w/outstring stream
 				  (princ "Hello " stream)

@@ -22,7 +22,7 @@
    :with :let :ret :flet1 :withs
 
    ;; From print.
-   :pr :prn :prf :w/outstring :tostring :w/instring :fromstring
+   :pr :prn :prf :prs :w/outstring :tostring :w/instring :fromstring
    :tofile :fromfile :sp
 
    ;; From hof.

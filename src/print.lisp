@@ -18,6 +18,12 @@
   "Equivalent to format but automatically prints to *standard-output*"
   (apply #'format t control-string args))
 
+(def prs (&rest args)
+  "Prints the arguments seperated by spaces and returns the arguments
+   as a list."
+  (prf "~{~A~^ ~}" args)
+  args)
+
 (mac w/outstring (var &rest body)
   "Creates a string output stream and binds it to VAR."
   `(with-output-to-string (,var)
