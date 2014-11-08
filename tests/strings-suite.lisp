@@ -65,3 +65,7 @@
   (assert-false (begins "bcde" "abc"))
   (assert-true  (begins "0abcde" "abc" 1))
   (assert-false (begins "abcde" "abc" 1)))
+
+(deftest ellipsize (strings)
+  (assert-equalp "hello..." (ellipsize "hello world" 5))
+  (assert-equalp "hello" (ellipsize "hello" 5)))

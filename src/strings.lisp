@@ -62,3 +62,10 @@
    tests whether SEQ is long enough first."
   (unless (> (len pat) (- (len seq) start))
     (headmatch pat seq start)))
+
+(def ellipsize (str &optional (limit 80))
+  "If the length of STR is greater than LIMIT, take the first LIMIT
+   characters and append '...' to them."
+  (if (<= (len str) limit)
+      str
+      (mkstr (cut str 0 limit) "...")))

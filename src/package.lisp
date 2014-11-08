@@ -75,7 +75,7 @@
 
    ;; From strings.
    :newstring :whitec :nonwhite :nonwhite :punc :tokens :upcase
-   :downcase :headmatch :begins
+   :downcase :headmatch :begins :ellipsize
 
    ;; From read.
    :readb :readc :peekc :read :read-line
