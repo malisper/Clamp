@@ -15,7 +15,7 @@
        (terpri)))
 
 (def prf (control-string &rest args)
-  "Equivalent to format but automatically prints to *standard-output*"
+  "Equivalent to format but automatically prints to *standard-output*."
   (apply #'format t control-string args))
 
 (def prs (&rest args)
