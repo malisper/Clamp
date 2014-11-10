@@ -134,3 +134,15 @@
     (assert-eql 3 (get tab 'a)))
   (assert-eql 1 (get '(1 2 3) 'car))
   (assert-equal '(2 3) (get '(1 2 3) 'cdr)))
+
+(deftest trav (list)
+  (assert-equal '(1 2 3 4) (accum a (trav '(4 3 2 1) [recur (cdr _)]
+                                                     [a (car _)])))
+  (assert-equal '(1 2 3 4 5 6) (trav '(((1) 2) (3) (4 (5) 6))
+                                     [if (null _)
+                                           '()
+                                         (atom _)
+                                           (list _)
+                                         :else
+                                           (append (recur (car _))
+                                                   (recur (cdr _)))])))

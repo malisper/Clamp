@@ -154,3 +154,12 @@
 
 ;; A setter for the default case would have to lookup the setter
 ;; for the given argument.
+
+(mac trav (x &rest fs)
+  "Traverse X, calling fs in sequence. The symbol 'recur' is bound to
+   a procedure which can be used to recursively traverse the object.
+   The return value is nil."
+  (w/uniq g
+    `(rec (,g ,x)
+       (when ,g
+         ,@(map (fn (f) `(call ,f ,g)) fs)))))
