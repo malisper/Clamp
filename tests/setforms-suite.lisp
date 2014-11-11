@@ -23,3 +23,19 @@
     (assert-eql 5   (or2= (gethash 'a tab) 7))
     (assert-eql nil (or2= (gethash 'b tab) nil))
     (assert-eql nil (or2= (gethash 'b tab) 5))))
+
+(deftest set (setforms)
+  (let x nil
+    (set x)
+    (assert-true x))
+  (with (x 5 y (list 1 2 3))
+    (set x (car y) (cadr y))
+    (assert-equal '(t t t 3) (cons x y))))
+
+(deftest wipe (setforms)
+  (let x nil
+    (wipe x)
+    (assert-false x))
+  (with (x 5 y (list 1 2 3))
+    (wipe x (car y) (cadr y))
+    (assert-equal '(nil nil nil 3) (cons x y))))

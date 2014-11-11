@@ -4,7 +4,7 @@
   (:nicknames :clamp)
   (:use :common-lisp)
   (:shadow :do :map :if :case := :ccase :ecase :typecase :rem :let
-           :find :count :sort :++ :read :read-line :get)
+           :find :count :sort :++ :read :read-line :get :set)
   (:export
    ;; From defalias.
    :defalias
@@ -54,7 +54,7 @@
    :rand-choice
 
    ;; From setforms.
-   :setforms :zap :or= :or2=
+   :setforms :zap :or= :or2= :set :wipe
 
    ;; From fnops.
    :compose :fif :andf :orf :curry :rcurry :flip

@@ -37,3 +37,11 @@
       `(withs ,vars
          (mvb (,val ,win) ,access
            (,set (if (or ,val ,win) ,val ,new)))))))
+
+(mac set (&rest args)
+  "Sets every one of its arguments to t."
+  `(do ,@(map (fn (a) `(= ,a t)) args)))
+
+(mac wipe (&rest args)
+  "Sets every one of its arguments to nil."
+  `(do ,@(map (fn (a) `(= ,a nil)) args)))
