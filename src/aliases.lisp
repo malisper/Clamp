@@ -35,6 +35,7 @@
 (defalias idfn identity)
 (defalias inc 1+)
 (defalias inside get-output-stream-string)
+(defalias inst make-instance)
 (defalias instring make-string-input-stream)
 (defalias is eql)
 (defalias isa typep)
