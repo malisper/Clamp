@@ -46,3 +46,12 @@
   (assert-equal '((a a) (a b) (b a) (b b)) (cart #'list '(a b) '(a b)))
   (assert-equal '((a b) (b a)) (cart #'list '(a b) (rem it '(a b))))
   (assert-equal '(1 2 3 4) (cart #'+ '(1 3) '(0 1))))
+
+(deftest point (misc)
+  (assert-eql 10 (point val
+                   (loop for i from 2 to 100 by 2
+                         if (multiple i 5)
+                           do (val i))))
+  (assert-eql 10 (point val
+                   (map (fif [multiple _ 5] #'val)
+                        (range 2 100 2)))))

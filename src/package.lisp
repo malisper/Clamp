@@ -51,7 +51,7 @@
    
    ;; From misc.
    :ado :accum :summing :multiple :check :acheck :in :cart :rand-elt
-   :rand-choice
+   :rand-choice :point
 
    ;; From setforms.
    :setforms :zap :or= :or2= :set :wipe

@@ -85,3 +85,13 @@
      ,@(mappend #'list
                 (range 0 (- (len exprs) 1))
                 exprs)))
+
+(mac point (name &body body)
+  "Defines a procedure which when called on a value, the value of 
+   this expression will immediately become that value. The procedure
+   will only return up the stack, it is not the same as a 
+   continuation."
+  (w/uniq here
+    `(block ,here
+       (flet1 ,name (arg) (return-from ,here arg)
+         ,@body))))
