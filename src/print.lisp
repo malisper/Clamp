@@ -57,3 +57,20 @@
   "Prints the given number of spaces."
   (loop repeat n
         do (pr " ")))
+
+(defparameter bar* " | " "The character used for w/bars.")
+
+(mac w/bars (&rest exps)
+  "Executes each expression in EXPS and outputs the combined output
+   of each one with bar* in between each expression."
+  ;; The macro w/uniq is not defined until the macros file which is
+  ;; loaded after print.
+  (with (out (gensym) needbars (gensym))
+    `(let ,needbars nil
+       (do ,@(mapeach e exps
+               `(let ,out (tostring ,e)
+                  (unless (iso ,out "")
+                    (if ,needbars
+                      (pr bar* ,out)
+                      (do (= ,needbars t)
+                          (pr ,out))))))))))

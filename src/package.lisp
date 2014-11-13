@@ -24,7 +24,7 @@
 
    ;; From print.
    :pr :prn :prf :prs :w/outstring :tostring :w/instring :fromstring
-   :tofile :fromfile :sp
+   :tofile :fromfile :sp :bar* :w/bars
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos :mappend :partition

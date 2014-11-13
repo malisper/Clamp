@@ -49,3 +49,10 @@
 (deftest sp (print)
   (assert-equalp " " (tostring (sp)))
   (assert-equalp "   " (tostring (sp 3))))
+
+(deftest w/bars (print)
+  (assert-equalp "a | b | c" (tostring (w/bars (pr "a") (pr "b") (pr "c"))))
+  (assert-equalp "b | c" (tostring (w/bars (pr) (pr "b") (pr "c"))))
+  (assert-equalp "a|b|c" (let bar* "|"
+                           (tostring
+                             (w/bars (pr "a") (pr "b") (pr "c"))))))
