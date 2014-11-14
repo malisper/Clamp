@@ -57,9 +57,9 @@
       (cons (apply with (firstn by xs))
 	    (group (nthcdr by xs) :by by :with with))))
 
-(def last1 (xs)
+(def last (xs)
   "Returns the last element of XS. Not the last cons pair."
-  (car (last xs)))
+  (car (lastcons xs)))
 
 (def flat (tree)
   "Returns a list of all of the atoms in a tree (not including nil)"

@@ -42,6 +42,7 @@
 (defalias isa typep)
 (defalias iso equalp)
 (defalias join append)
+(defalias lastcons cl:last)
 (defalias len length)
 (defalias letter alpha-char-p)
 (defalias macex macroexpand)

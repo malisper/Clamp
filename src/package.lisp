@@ -4,7 +4,8 @@
   (:nicknames :clamp)
   (:use :common-lisp)
   (:shadow :do :map :if :case := :ccase :ecase :typecase :rem :let
-           :find :count :sort :++ :read :read-line :get :set)
+           :find :count :sort :++ :read :read-line :get :set
+           :last)
   (:export
    ;; From defalias.
    :defalias
@@ -14,7 +15,7 @@
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :letter :alphadig
    :upcase :all :maptable :inc :dec :call :probe-file :bound :digit
-   :err
+   :err :lastcons
    
    ;; From base.
    :_ :single :if :fn
@@ -35,7 +36,7 @@
    :ccase :ecase :caselet :typecase
 
    ;; From list.
-   :mklist :dotted :proper :range :firstn :last1 :flat :len< :len>
+   :mklist :dotted :proper :range :firstn :last :flat :len< :len>
    :n-of :drain :split :group :caris :carif :consif :conswhen :cars
    :cdrs :get :trav
 
@@ -178,7 +179,7 @@
    :internal-time-units-per-second :intersection :invalid-method-error
    :invoke-debugger :invoke-restart :invoke-restart-interactively :isqrt
    :keyword :keywordp :labels :lambda :lambda-list-keywords
-   :lambda-parameters-limit :last :lcm :ldb :ldb-test :ldiff
+   :lambda-parameters-limit :lcm :ldb :ldb-test :ldiff
    :least-negative-double-float :least-negative-long-float
    :least-negative-normalized-double-float
    :least-negative-normalized-long-float :least-negative-normalized-short-float

@@ -43,4 +43,4 @@
   ;; about the last value so that SBCL doesn't freak out.
   (cl:if (even (len clauses))
     `(cond ,@(pair clauses))
-    `(cond ,@(pair (butlast clauses)) ,(cons t (last clauses))))) 
+    `(cond ,@(pair (butlast clauses)) ,(cons t (lastcons clauses))))) 

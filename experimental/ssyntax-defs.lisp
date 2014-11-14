@@ -34,7 +34,7 @@
           ;; containing the fn and the previous expression.
           (reduce #'list ',(butlast it)
                   :from-end t
-                  :initial-value `(,',(last1 it) ,@body)))))
+                  :initial-value `(,',(last it) ,@body)))))
 
 (defssyntax-test andf (sym name)
   (declare (ignore sym))

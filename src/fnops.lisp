@@ -10,7 +10,7 @@
    will return a procedure which returns one plus the length of a 
    list."
   (if fns
-      (with (fn1 (last1 fns)
+      (with (fn1 (last fns)
 	     fns (butlast fns))
 	(fn (&rest args)
 	  (reduce #'call fns

@@ -53,9 +53,9 @@
   (assert-equal '(6 9) (group (range 1 5) :by 3 :with #'+))
   (assert-equal '(3 7 11) (group (range 1 6) :with #'+)))
 
-(deftest last1 (list)
-  (assert-eql 10 (last1 (range 1 10)))
-  (assert-eql 'c (last1 '(a b c))))
+(deftest last (list)
+  (assert-eql 10 (last (range 1 10)))
+  (assert-eql 'c (last '(a b c))))
 
 (deftest flat (list)
   (assert-equal (range 1 5) (flat '(((1) 2) (3 4) 5)))
