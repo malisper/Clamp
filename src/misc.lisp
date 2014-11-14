@@ -95,3 +95,8 @@
     `(block ,here
        (flet1 ,name (arg) (return-from ,here arg)
          ,@body))))
+
+(mac time10 (expr)
+  "Evaluates an expression 10 times and prints information about how
+   long it takes to execute."
+  `(time (repeat 10 ,expr)))
