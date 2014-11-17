@@ -52,7 +52,7 @@
    
    ;; From misc.
    :ado :accum :summing :multiple :check :acheck :in :cart :rand-elt
-   :rand-choice :point :time10
+   :rand-choice :point :time10 :defs
 
    ;; From setforms.
    :setforms :zap :or= :or2= :set :wipe
