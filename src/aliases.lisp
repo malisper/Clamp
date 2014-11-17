@@ -14,6 +14,7 @@
 (defalias digit digit-char-p)
 (defalias do1 prog1)
 (defalias do2 prog2)
+(defalias doc documentation)
 (defalias err error)
 (defalias errsafe ignore-errors)
 (defalias mac defmacro)
