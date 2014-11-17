@@ -15,7 +15,7 @@
    :cut :rev :nrev :const :idfn :outstring :inside :instring :errsafe
    :w/file :swap :writec :notf :macex :macex1 :letter :alphadig
    :upcase :all :maptable :inc :dec :call :probe-file :bound :digit
-   :err :lastcons :doc
+   :err :lastcons :doc :seconds
    
    ;; From base.
    :_ :single :if :fn
@@ -26,6 +26,9 @@
    ;; From print.
    :pr :prn :prf :prs :w/outstring :tostring :w/instring :fromstring
    :tofile :fromfile :sp :bar* :w/bars
+
+   ;; From time.
+   :since :minutes-since :hours-since :days-since
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos :mappend :partition

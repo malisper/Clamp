@@ -11,6 +11,7 @@
                              (:file "fns"      :depends-on ("aliases"))
                              (:file "base"     :depends-on ("aliases"))
                              (:file "read"     :depends-on ("aliases"))
+                             (:file "time"     :depends-on ("aliases"))
                              (:file "hof"      :depends-on ("aliases" "base"))
                              (:file "binding"  :depends-on ("hof"))
                              (:file "print"    :depends-on ("aliases" "base" "binding" "hof"))

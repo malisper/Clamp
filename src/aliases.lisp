@@ -59,6 +59,7 @@
 (defalias rand random)
 (defalias redup remove-duplicates)
 (defalias rev reverse)
+(defalias seconds get-universal-time)
 (defalias table make-hash-table)
 (defalias trunc truncate)
 (defalias uniq gensym)
