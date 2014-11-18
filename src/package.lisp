@@ -28,7 +28,7 @@
    :tofile :fromfile :sp :bar* :w/bars
 
    ;; From time.
-   :since :minutes-since :hours-since :days-since
+   :since :minutes-since :hours-since :days-since :jtime :time10
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos :mappend :partition
@@ -55,7 +55,7 @@
    
    ;; From misc.
    :ado :accum :summing :multiple :check :acheck :in :cart :rand-elt
-   :rand-choice :point :time10 :defs :jtime
+   :rand-choice :point :defs
 
    ;; From setforms.
    :setforms :zap :or= :or2= :set :wipe

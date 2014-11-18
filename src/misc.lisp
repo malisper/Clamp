@@ -96,15 +96,6 @@
        (flet1 ,name (arg) (return-from ,here arg)
          ,@body))))
 
-(mac time10 (expr)
-  "Evaluates an expression 10 times and prints information about how
-   long it takes to execute."
-  `(time (repeat 10 ,expr)))
-
-(mac jtime (expr)
-  "Equivalent to time but always returns the keyword ':ok'."
-  `(do1 ':ok (time ,expr)))
-
 (mac defs (&body args)
   "Defines multiple procedures all in the same form."
   `(do ,@(mapeach proc (group args :by 3)
