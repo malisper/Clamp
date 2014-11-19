@@ -55,3 +55,25 @@
   (assert-eql 10 (point val
                    (map (fif [multiple _ 5] #'val)
                         (range 2 100 2)))))
+
+(deftest roundup (misc)
+  (assert-eql 5 (roundup 4.6))
+  (assert-eql 5 (roundup 5.4))
+  (assert-eql 5 (roundup 4.5))
+  (assert-eql 6 (roundup 5.5))
+  (assert-eql -5 (roundup -4.6))
+  (assert-eql -5 (roundup -5.4))
+  (assert-eql -5 (roundup -4.5))
+  (assert-eql -6 (roundup -5.5)))
+
+
+(deftest nearest (misc)
+  (assert-eql 5 (nearest 4.5 1))
+  (assert-eql 5 (nearest 5.4 1))
+  (assert-eql 6 (nearest 5.5 1))
+  (assert-eql 6 (nearest 4.5 3))
+  (assert-eql 3 (nearest 4.4 3))
+  ;; I need to rewrite this test since floats are inexact when doing
+  ;; math with them.
+  ;; (assert-eql 3.14 (nearest 3.14159265 .01))
+  )

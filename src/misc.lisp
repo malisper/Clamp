@@ -100,3 +100,18 @@
   "Defines multiple procedures all in the same form."
   `(do ,@(mapeach proc (group args :by 3)
            `(def ,@proc))))
+
+(def roundup (n)
+  "Rounds the argument to the nearest number. Rounds halves away from
+   zero."
+  (mvb (base rem) (trunc n)
+    (if (>= (abs rem) 1/2)
+        (if (positive n)
+            (inc base)
+            (dec base))
+        base)))
+
+(def nearest (n quantum)
+  "Rounds N to the closest multiple of QUANTUM. Halves are rounded 
+   way from zero."
+  (* (roundup (/ n quantum)) quantum))
