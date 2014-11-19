@@ -29,6 +29,7 @@
 
    ;; From time.
    :since :minutes-since :hours-since :days-since :jtime :time10
+   :date :datestring
 
    ;; From hof.
    :testify :rem :keep :mem :find :count :pos :mappend :partition
