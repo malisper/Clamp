@@ -146,3 +146,8 @@
                                          :else
                                            (append (recur (car _))
                                                    (recur (cdr _)))])))
+
+(deftest intersperse (list)
+  (assert-equal '() (intersperse 0 ()))
+  (assert-equal '(1) (intersperse 0 '(1)))
+  (assert-equal '(1 0 2 0 3 0 4 0 5) (intersperse 0 (range 1 5))))

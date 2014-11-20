@@ -163,3 +163,11 @@
     `(rec (,g ,x)
        (when ,g
          ,@(map (fn (f) `(call ,f ,g)) fs)))))
+
+(def intersperse (x ys)
+  "Returns a list with the element X in between every element in YS."
+  (and ys
+       (cons (car ys)
+             (loop for y in (cdr ys)
+                   collect x
+                   collect y))))
