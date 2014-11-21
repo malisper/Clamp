@@ -64,8 +64,8 @@
 ;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 (defmacro once-only ((&rest names) &body body)
-  (let ((gensyms (loop for n in names collect (gensym (string n)))))
-    `(let (,@(loop for g in gensyms collect `(,g (gensym))))
-      `(let (,,@(loop for g in gensyms for n in names collect ``(,,g ,,n)))
-        ,(let (,@(loop for n in names for g in gensyms collect `(,n ,g)))
+  (cl:let ((gensyms (loop for n in names collect (gensym (string n)))))
+    `(cl:let (,@(loop for g in gensyms collect `(,g (gensym))))
+      `(cl:let (,,@(loop for g in gensyms for n in names collect ``(,,g ,,n)))
+        ,(cl:let (,@(loop for n in names for g in gensyms collect `(,n ,g)))
            ,@body)))))
