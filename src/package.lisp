@@ -45,7 +45,7 @@
    :cdrs :get :trav :intersperse
 
    ;; From macros.
-   :w/uniq :mkstr :symb :check-len
+   :w/uniq :mkstr :symb :check-len :once-only
 
    ;; From iter.
    :rec :recur :repeat :upto :up :downfrom :down :while :until
