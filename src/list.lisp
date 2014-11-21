@@ -73,7 +73,7 @@
                  (recur (cdr left)
                         acc)))))
 
-;;; This are predicates for testing the length of sequences. They may
+;;; These are predicates for testing the length of sequences. They may
 ;;; be further optimized, but benchmarks would be needed before then.
 
 (def len< (seq n)
@@ -85,7 +85,7 @@
   (> (len seq) n))
 
 (mac n-of (n exp)
-  "Returns a list of calling EXP, N times."
+  "Returns a list containing the results of evaluating EXP, N times."
   ;; Loop generates faster code than what I would write by hand.
   `(loop repeat ,n collect ,exp))
 
