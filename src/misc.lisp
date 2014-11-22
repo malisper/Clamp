@@ -115,3 +115,13 @@
   "Rounds N to the closest multiple of QUANTUM. Halves are rounded 
    way from zero."
   (* (roundup (/ n quantum)) quantum))
+
+;; The procedure before cannot be defined in hof because it uses orf
+;; which is defined in fnops.
+
+(def before (x y seq)
+  "Does X occur before Y in SEQ? The values passed in for X and Y are
+   testified, so they can be either objects or predicates."
+  (with (xtest (testify x) ytest (testify y))
+    (aand (find (orf xtest ytest) seq)
+          (call xtest it))))

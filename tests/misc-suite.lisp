@@ -66,7 +66,6 @@
   (assert-eql -5 (roundup -4.5))
   (assert-eql -6 (roundup -5.5)))
 
-
 (deftest nearest (misc)
   (assert-eql 5 (nearest 4.5 1))
   (assert-eql 5 (nearest 5.4 1))
@@ -77,3 +76,19 @@
   ;; math with them.
   ;; (assert-eql 3.14 (nearest 3.14159265 .01))
   )
+
+(deftest before (misc)
+  (let xs '(1 2 3 4 5)
+    (assert-true  (before 1 2 xs))
+    (assert-true  (before 4 5 xs))
+    (assert-true  (before 5 6 xs))
+    (assert-false (before 6 7 xs))
+    (assert-false (before 2 1 xs))
+    (assert-false (before 5 4 xs))
+    (assert-false (before 6 5 xs))
+    (assert-true  (before #'odd #'even xs))
+    (assert-false (before #'even #'odd xs))
+    (assert-true  (before [multiple _ 3] [multiple _ 4] xs))
+    (assert-false (before [multiple _ 4] [multiple _ 3] xs))
+    (assert-true  (before [multiple _ 3] 4 xs))
+    (assert-false (before 4 [multiple _ 3] xs))))

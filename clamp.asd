@@ -23,7 +23,7 @@
                              (:file "strings"  :depends-on ("misc"))
                              (:file "iter"     :depends-on ("hof" "macros"))
                              (:file "list"     :depends-on ("aliases" "macros" "iter" "base"))
-                             (:file "misc"     :depends-on ("macros" "conditionals" "iter" "list" "hof"))
+                             (:file "misc"     :depends-on ("macros" "conditionals" "iter" "list" "hof" "fnops"))
                              (:file "sort"     :depends-on ("binding" "list" "iter"))
                              (:file "io"       :depends-on ("iter" "read"))
                              (:file "tables"   :depends-on ("binding" "iter"))
