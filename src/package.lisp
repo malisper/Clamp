@@ -83,10 +83,13 @@
    :downcase :headmatch :begins :ellipsize
 
    ;; From read.
-   :readb :readc :peekc :read :read-line
+   :readb :readc :peekc :read :read-line :readall
 
    ;; From disk.
    :savers* :fromdisk :diskvar :todisk
+
+   ;; From code.
+   :codelines :codeflat :tokcount
 
    ;; Symbols to be exported from the common-lisp package. This
    ;; makes it easy to import clamp (which shadows some names) and
@@ -170,7 +173,7 @@
    :fmakunbound :force-output :format :formatter :fourth :fresh-line
    :fround :ftruncate :ftype :funcall :function :function-keywords
    :function-lambda-expression :functionp :gcd :generic-function :gensym
-   :gentemp :get :get-decoded-time :get-dispatch-macro-character
+   :gentemp #|:get|# :get-decoded-time :get-dispatch-macro-character
    :get-internal-real-time :get-internal-run-time :get-macro-character
    :get-output-stream-string :get-properties :get-setf-expansion
    :get-universal-time :getf :gethash :go :graphic-char-p :handler-bind
@@ -250,7 +253,7 @@
    :restart-case :restart-name :return :return-from :revappend :reverse
    :room :rotatef :round :row-major-aref #|:rplaca|# #|:rplacd|# :safety
    :satisfies :sbit :scale-float :schar :search :second :sequence
-   :serious-condition :set :set-difference :set-dispatch-macro-character
+   :serious-condition #|:set|# :set-difference :set-dispatch-macro-character
    :set-exclusive-or :set-macro-character :set-pprint-dispatch
    :set-syntax-from-char :setf #|:setq|# :seventh :shadow :shadowing-import
    :shared-initialize :shiftf :short-float :short-float-epsilon

@@ -30,3 +30,12 @@
 (def read-line (&key (from *standard-input*) (eof nil eof-p) (recur nil))
   "Same as cl:read-line but uses keyword arguments."
   (cl:read-line from (no eof-p) eof recur))
+
+(def readall (&key (from *standard-input*) (eof nil) (recur nil))
+  "Reads every expression from FROM, which can be either a string or
+   an input stream. Will stop when either the eof file is reached or a
+   value equivalent to EOF is read in."
+  (loop with in = (if (isa from 'string) (instring from) from)
+        for exp = (read :from in :eof eof :recur recur)
+        until (is exp eof)
+        collect exp))

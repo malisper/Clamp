@@ -27,4 +27,5 @@
                              (:file "sort"     :depends-on ("binding" "list" "iter"))
                              (:file "io"       :depends-on ("iter" "read"))
                              (:file "tables"   :depends-on ("binding" "iter"))
-                             (:file "disk"     :depends-on ("macros" "conditionals" "io"))))))
+                             (:file "disk"     :depends-on ("macros" "conditionals" "io"))
+                             (:file "code"     :depends-on ("iter" "hof" "misc" "read" "io"))))))
