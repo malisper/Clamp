@@ -103,7 +103,7 @@
       20 30
       t x)))
 
-(deftest typecase (clamp)
+(deftest typecase (conditionals)
   (assert-true
       (typecase 5
         number  t
@@ -112,3 +112,27 @@
       (typecase nil
         number t
         t      nil)))
+
+(deftest switchlet (conditionals)
+  (assert-eql 1
+              (switchlet x 10
+                (+ 5 10) (- x 10)
+                (+ 5 5)  (- x 9)))
+  (assert-eql 400
+              (with (x 10 y 10)
+                (switchlet z (+ x y)
+                  (- x y) z
+                  (= x 15) 19
+                  (+ x 5) (* z z)))))
+
+(deftest switch (conditionals)
+  (assert-eql 1
+              (switch 10
+                (+ 5 10) 2
+                (+ 5 5)  1))
+  (assert-eql 400
+              (with (x 10 y 10)
+                (switch (+ x y)
+                  (- x y)  0
+                  (= x 15) 19
+                  (+ x 5)  400))))

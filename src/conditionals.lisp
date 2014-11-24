@@ -125,3 +125,22 @@
    WARNING: do not use :else as the default case, that means to
    test for the symbol :else. Instead you have to use t."
   `(cl:typecase ,keyform ,@(group clauses)))
+
+(mac switchlet (var expr &rest cases)
+  "Similar to caselet, except the expressions being compared against
+   are evaluated (lazily)."
+  `(let ,var ,expr
+     ,(rec (args cases)
+        (if (no args)
+              '()
+            (single args)
+              (car args)
+            :else
+              `(if (is ,var ,(car args))
+                   ,(cadr args)
+                   ,(recur (cddr args)))))))
+
+(mac switch (expr . cases)
+  "Similar to case except the expressions being compared against are
+   evaluated (lazily)."
+  `(switchlet ,(uniq) ,expr ,@cases))
