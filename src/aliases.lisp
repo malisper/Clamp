@@ -57,6 +57,7 @@
 (defalias outstring make-string-output-stream)
 (defalias positive plusp)
 (defalias rand random)
+(defalias readstring1 read-from-string)
 (defalias redup remove-duplicates)
 (defalias rev reverse)
 (defalias seconds get-universal-time)
