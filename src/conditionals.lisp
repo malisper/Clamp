@@ -48,6 +48,21 @@
 	   (declare (ignorable it))
 	   (and it (aand ,@(cdr args))))))
 
+(mac or2 (&rest args)
+  "Equivalent to or, but considers something to be true if either its
+   first value is true, or its second. The first two values of the
+   first thing considered true will be returned."
+  (if (no args)
+        nil
+      (single args)
+        (car args)
+      :else
+        (w/uniq (val win)
+          `(mvb (,val ,win) ,(car args)
+             (if (or ,val ,win)
+                 (values ,val ,win)
+                 (or2 ,@(cdr args)))))))
+
 (mac iflet2 (var &rest branches)
   "Equivalent to iflet, but will also execute the corresponding branch
    if the predicate has a second return value which is non-nil. This

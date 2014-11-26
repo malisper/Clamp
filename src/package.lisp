@@ -37,7 +37,7 @@
 
    ;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :iflet2 :aand2 :case
-   :ccase :ecase :caselet :typecase :switchlet :switch
+   :ccase :ecase :caselet :typecase :switchlet :switch :or2
 
    ;; From list.
    :mklist :dotted :proper :range :firstn :last :flat :len< :len>

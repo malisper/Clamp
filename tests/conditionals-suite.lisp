@@ -41,6 +41,11 @@
     (assert-false (aand (gethash 'd tab) (gethash 'b it)))
     (assert-false (aand (gethash 'c tab) (list it)))))
 
+(deftest or2 (conditionals)
+  (let tab (obj a nil b t)
+    (assert-equal '(nil t) (mvl (or2 (gethash 'x tab) (gethash 'a tab))))
+    (assert-eql   10       (or2 (gethash 'x tab) 10))))
+
 (deftest aand2 (conditionals)
   (assert-false (aand2 nil))
   (assert-false (aand2 t nil))
