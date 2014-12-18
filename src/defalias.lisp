@@ -25,11 +25,11 @@
   "Generates the code for making NEW and OLD the same procedure."
   (cl:let ((args (gensym "ARGS")))
     `(progn
-       (defun ,new (&rest ,args) (apply #',old ,args))
-       (setf (symbol-function ',new)
-             (symbol-function ',old)
-             (documentation ',new 'function)
-             ,(or doc `(documentation ',old 'function)))
+       (eval-when (:compile-toplevel :load-toplevel :execute)
+         (setf (symbol-function ',new)
+               (symbol-function ',old)
+               (documentation ',new 'function)
+               ,(or doc `(documentation ',old 'function))))
        ;; Define a compiler macro which expands into old.
        (define-compiler-macro ,new (&rest args)
          `(,',old ,@args)))))

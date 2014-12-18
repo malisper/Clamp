@@ -10,10 +10,8 @@
 
 (mac defmemo (name args &body body)
   "Defines a memoized procedure."
-  (let fn-body `(memo (fn ,args (block ,name ,@body)))
-    (w/uniq args
-      `(do (defun ,name (&rest ,args) (apply ,fn-body ,args))
-           (= (symbol-function ',name) ,fn-body)
-           ,(when (stringp (car body))
-              `(= (documentation ',name 'function) ,(car body)))
-           ',name))))
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (= (symbol-function ',name) (memo (fn ,args (block ,name ,@body))))
+     ,(when (stringp (car body))
+            `(= (documentation ',name 'function) ,(car body)))
+     ',name))
