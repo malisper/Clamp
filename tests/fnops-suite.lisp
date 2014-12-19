@@ -38,7 +38,7 @@
   (assert-eql 75 (call (rcurry #'+ 5 10 15) 20 25))
   (assert-eql 55 (call (rcurry #'reduce (range 1 10)) #'+)))
 
-(deftest flip (clamp)
+(deftest flip (fnops)
   (assert-equal '(1 2 3) (call (flip #'cons) '(2 3) 1))
   (assert-equal '(3 2 1) (reduce (flip #'cons) '(1 2 3)
                                  :initial-value '())))
