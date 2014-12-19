@@ -10,8 +10,7 @@
 (defun make-macro (new old &optional doc)
   "Generates the code for making the macros NEW and OLD equivalent."
   (cl:let ((rest (gensym "REST")))
-    `(progn
-       (defmacro ,new (&rest ,rest) `(,',old ,@,rest))
+    `(eval-when (:compile-toplevel :load-toplevel :execute)
        (setf (macro-function ',new)
              (macro-function ',old)
              (documentation ',new 'function)
