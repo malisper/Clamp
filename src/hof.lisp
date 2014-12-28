@@ -2,6 +2,11 @@
 
 (in-package :clamp)
 
+(def mapv (f seq &rest seqs)
+  "Map a procedure over the given sequences and return a vector
+   containing the results."
+  (apply #'cl:map 'vector f seq seqs))
+
 (def testify (x &optional (test #'iso))
   "If passed a procedure, returns it. Otherwise returns a function
    which tests equality for the object passed."

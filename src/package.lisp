@@ -32,8 +32,8 @@
    :date :datestring
 
    ;; From hof.
-   :testify :rem :keep :mem :find :count :pos :mappend :partition
-   :trues :mapeach :mappendeach :positions
+   :mapv :testify :rem :keep :mem :find :count :pos :mappend
+   :partition :trues :mapeach :mappendeach :positions
 
    ;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :iflet2 :aand2 :case
