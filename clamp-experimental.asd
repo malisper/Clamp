@@ -15,4 +15,5 @@
                              (:file "ssyntax" :depends-on ("package" "destructuring"))
                              (:file "ssyntax-defs" :depends-on ("ssyntax"))
                              (:file "coerce" :depends-on ("package"))
+                             (:file "lisp1" :depends-on ("package"))
                              (:file "def" :depends-on ("ssyntax" "destructuring"))))))

@@ -12,6 +12,9 @@
    ;; From coerce.
    :coerce :defcoerce
 
+   ;; From lisp1.
+   :w/lisp1
+
    ;; From def.
    :def :defmemo :mac))
 
