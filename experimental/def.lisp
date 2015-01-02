@@ -9,7 +9,7 @@
         ,(mvb (new-args alist) (parse-args args)
            (if (null alist)
                `(,',old ,name ,new-args ,@body)
-               `(,',old ,name ,new-args ,@body
+               `(,',old ,name ,new-args
                   (let ,(map #'cadr alist) (list ,@(map #'car alist))
                     ,@body)))))))
 
