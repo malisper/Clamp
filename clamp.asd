@@ -28,4 +28,5 @@
                              (:file "io"       :depends-on ("iter" "read"))
                              (:file "tables"   :depends-on ("binding" "iter"))
                              (:file "disk"     :depends-on ("macros" "conditionals" "io"))
-                             (:file "code"     :depends-on ("iter" "hof" "misc" "read" "io"))))))
+                             (:file "code"     :depends-on ("iter" "hof" "misc" "read" "io"))
+			     (:file "deftem"   :depends-on ("binding" "list" "hof" "macros" "print"))))))
