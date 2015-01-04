@@ -33,6 +33,6 @@
 	    ,(tostring (prf "Print an object of type ~(~A~)." name))
 	    (print-unreadable-object (obj stream :type t)
 	      (with-slots ,slot-names obj
-		(format stream "~{:~A ~A~^ ~}"
+		(format stream "~{:~A ~S~^ ~}"
 		        (list ,@(mappendeach n slot-names `(',n ,n)))))))
           ',name)))
