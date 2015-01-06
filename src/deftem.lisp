@@ -10,7 +10,8 @@
 	  options (if (listp name-and-options) (cdr name-and-options) '())
 	  constructor-name (or2 (alref options :constructor) (symb 'make- name))
 	  predicate-name (or2 (alref options :predicate) (symb name '-p))
-	  conc-name (or2 (alref options :conc-name) (symb name '-)))
+	  conc-name (or2 (alref options :conc-name) (symb name '-))
+          printer-name (alref options :print-object))
     `(do (defclass ,name ()
 	   ,(mapeach s slots
 	      (let (slot-name &optional initform) (mklist s)
@@ -31,8 +32,10 @@
 	  
 	  (defmethod print-object ((obj ,name) stream)
 	    ,(tostring (prf "Print an object of type ~(~A~)." name))
-	    (print-unreadable-object (obj stream :type t)
-	      (with-slots ,slot-names obj
-		(format stream "~{:~A ~S~^ ~}"
-		        (list ,@(mappendeach n slot-names `(',n ,n)))))))
+	    ,(if printer-name
+                 `(call #',printer-name obj stream)
+                 `(print-unreadable-object (obj stream :type t)
+                    (with-slots ,slot-names obj
+                      (format stream "~{:~A ~S~^ ~}"
+                              (list ,@(mappendeach n slot-names `(',n ,n))))))))
           ',name)))
