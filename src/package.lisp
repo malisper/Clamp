@@ -16,7 +16,7 @@
    :w/file :swap :writec :notf :macex :macex1 :letter :alphadig
    :upcase :all :maptable :inc :dec :call :probe-file :bound :digit
    :err :lastcons :doc :seconds :inst :readstring1 :negative :positive
-   
+
    ;; From base.
    :_ :single :if :fn
 
@@ -53,7 +53,7 @@
 
    ;; From fns.
    :rfn :afn :self
-   
+
    ;; From misc.
    :ado :accum :summing :multiple :check :acheck :in :cart :rand-elt
    :rand-choice :point :defs :roundup :nearest :before
@@ -90,6 +90,9 @@
 
    ;; From code.
    :codelines :codeflat :tokcount
+
+   ;; From deftem.
+   :deftem
 
    ;; Symbols to be exported from the common-lisp package. This
    ;; makes it easy to import clamp (which shadows some names) and
