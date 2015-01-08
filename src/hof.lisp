@@ -43,7 +43,7 @@
 
 (def partition (test seq &key (key #'identity) (start 0))
   "Returns two lists, the first one containing all of the elements of
-   XS that pass the 'testified' version of test and the second 
+   XS that pass the 'testified' version of test and the second
    containing all of those that don't."
   (loop with f = (testify test)
         for x in (cut (coerce seq 'list) start)
@@ -59,16 +59,17 @@
 
 (mac mapeach (var xs &body body)
   "Executes BODY repetitively with each element of XS bound to VAR.
-   Returns a list of the results."
-  `(map (fn (,var) ,@body) ,xs))
+   Returns a list of the results. VAR can be a destructuring list."
+  `(loop for ,var in ,xs collect (do ,@body)))
 
 (mac mappendeach (var xs &body body)
   "Executes BODY repetitively with each element of XS bound to VAR.
-   Returns a list of all of the results appended together."
-  `(mappend (fn (,var) ,@body) ,xs))
+   Returns a list of all of the results appended together. VAR can be
+   a destructuring list."
+  `(loop for ,var in ,xs append (do ,@body)))
 
 (def positions (test seq)
-  "Returns a list of all of the positions of elements in SEQ that 
+  "Returns a list of all of the positions of elements in SEQ that
    pass TEST."
   ;; The macros 'accum' and 'on' are not defined yet.
   (loop with f = (testify test)
