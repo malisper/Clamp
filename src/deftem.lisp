@@ -4,6 +4,9 @@
 
 (in-package :clamp)
 
+(defgeneric print-slots (obj stream)
+  (:documentation "Print all of the slots of this class."))
+
 (mac deftem (name-and-options &rest slots)
   (withs (slot-names (map #'carif slots)
 	  name (carif name-and-options)
@@ -19,6 +22,7 @@
 		`(,slot-name :accessor ,(if conc-name (symb conc-name slot-name) slot-name)
 			     :initarg  ,(intern (mkstr slot-name) :keyword)
 			     :initform ,initform))))
+
 	 ,(when predicate-name
 	    `(def ,predicate-name (object)
 	       ,(tostring (prf "Is OBJECT of type ~(~A~)?" name))
@@ -26,17 +30,31 @@
 
          ,(when constructor-name
 	    (w/uniq args
-	      `(def ,constructor-name (&rest ,args &key ,@slot-names)
+	      `(def ,constructor-name (&rest ,args &key ,@slot-names &allow-other-keys)
 		 ,(tostring (prf "Create an object of type ~(~A~)." name))
 		 (declare (ignore ,@slot-names))
 		 (apply #'make-instance ',name ,args))))
 
-	  (defmethod print-object ((obj ,name) stream)
-	    ,(tostring (prf "Print an object of type ~(~A~)." name))
-	    ,(if printer-name
-                 `(call #',printer-name obj stream)
-                 `(print-unreadable-object (obj stream :type t)
-                    (with-slots ,slot-names obj
-                      (format stream "~{:~A ~S~^ ~}"
-                              (list ,@(mappendeach n slot-names `(',n ,n))))))))
-          ',name)))
+         ;; If there are any superclasses make this an after method.
+         ;; Otherwise make it a primary method.
+         (defmethod print-slots ,@(if direct-superclasses (list :after) '())
+                                ((obj ,name) stream)
+           (with-slots ,slot-names obj
+             ;; Print a space to begin with if there are superclasses
+             ;; who will print their slots before this.
+             (format stream "~:[~; ~]~{:~A ~S~^ ~}"
+                     ',direct-superclasses
+                     (list ,@(mappendeach n slot-names `(',n ,n))))))
+
+         ;; Use the default print-object for this class unless it
+         ;; either specifies it's own or does not have any
+         ;; superclasses to inherit one from.
+         ,(when (or printer-name (no direct-superclasses))
+            `(defmethod print-object ((obj ,name) stream)
+               ,(tostring (prf "Print an object of type ~(~A~)." name))
+               ,(if printer-name
+                    `(call #',printer-name obj stream)
+                    `(print-unreadable-object (obj stream :type t)
+                       (print-slots obj stream)))))
+
+         ',name)))
