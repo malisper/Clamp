@@ -7,6 +7,19 @@
 (defgeneric print-slots (obj stream)
   (:documentation "Print all of the slots of this class."))
 
+(defclass template () ()
+  (:documentation "The template base class."))
+
+(defmethod print-slots ((tem template) stream)
+  "Do nothing. This just defines the primary method."
+  (declare (ignore tem stream))
+  nil)
+
+(defmethod print-object ((tem template) stream)
+  "Print the template by printing all of the slots."
+  (print-unreadable-object (tem stream :type t)
+    (print-slots tem stream)))
+
 (mac deftem (name-and-options &rest slots)
   (withs (slot-names (map #'carif slots)
 	  name (carif name-and-options)
@@ -16,7 +29,7 @@
 	  conc-name (or2 (alref options :conc-name) (symb name '-))
           printer-name (alref options :print-object)
           direct-superclasses (cdr (assoc :include options)))
-    `(do (defclass ,name ,direct-superclasses
+    `(do (defclass ,name (,@direct-superclasses template)
 	   ,(mapeach s slots
 	      (let (slot-name &optional initform) (mklist s)
 		`(,slot-name :accessor ,(if conc-name (symb conc-name slot-name) slot-name)
@@ -35,10 +48,8 @@
 		 (declare (ignore ,@slot-names))
 		 (apply #'make-instance ',name ,args))))
 
-         ;; If there are any superclasses make this an after method.
-         ;; Otherwise make it a primary method.
-         (defmethod print-slots ,@(if direct-superclasses (list :after) '())
-                                ((obj ,name) stream)
+         (defmethod print-slots :after ((obj ,name) stream)
+           ,(tostring (prf "Print the values of the slots that belong ~ to a ~(~A~)." name))
            (with-slots ,slot-names obj
              ;; Print a space to begin with if there are superclasses
              ;; who will print their slots before this.
@@ -46,15 +57,9 @@
                      ',direct-superclasses
                      (list ,@(mappendeach n slot-names `(',n ,n))))))
 
-         ;; Use the default print-object for this class unless it
-         ;; either specifies it's own or does not have any
-         ;; superclasses to inherit one from.
-         ,(when (or printer-name (no direct-superclasses))
-            `(defmethod print-object ((obj ,name) stream)
-               ,(tostring (prf "Print an object of type ~(~A~)." name))
-               ,(if printer-name
-                    `(call #',printer-name obj stream)
-                    `(print-unreadable-object (obj stream :type t)
-                       (print-slots obj stream)))))
+         ,(when printer-name
+           `(defmethod print-object ((obj ,name) stream)
+              ,(tostring (prf "Print an object of type ~(~A~)." name))
+              (call #',printer-name obj stream)))
 
          ',name)))
