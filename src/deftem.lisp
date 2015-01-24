@@ -4,19 +4,15 @@
 
 (in-package :clamp)
 
-(defgeneric print-slots (obj stream)
-  (:documentation "Print all of the values of the slots of this object."))
-
 (defclass template () ()
   (:documentation "The template base class."))
 
-;; There is the separate method print-slots so that it is possible to
-;; define after methods for it and completely overide the
-;; print-object method at the same time.
-(defmethod print-slots ((tem template) stream)
-  "Do nothing. This just defines the primary method."
-  (declare (ignore tem stream))
-  nil)
+(defgeneric print-slots (obj stream)
+  (:documentation "Print all of the values of the slots of an object.")
+  (:method ((tem template) stream)
+    "The primary method for templates does nothing. Classes are
+    expected to define after methods on this to print their slots."
+    nil))
 
 (defmethod print-object ((tem template) stream)
   "Print the template by printing all of the slots and their values."
@@ -52,7 +48,7 @@
 		 (apply #'make-instance ',name ,args))))
 
          (defmethod print-slots :after ((obj ,name) stream)
-           ,(tostring (prf "Print the values of the slots that belong ~ to a ~(~A~)." name))
+           ,(tostring (prf "Print the values of the slots that belong to a ~(~A~)." name))
            (with-slots ,slot-names obj
              ;; Print a space to begin with if there are superclasses
              ;; who will print their slots before this.
