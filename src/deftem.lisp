@@ -20,6 +20,7 @@
     (print-slots tem stream)))
 
 (mac deftem (name-and-options &rest slots)
+  "Define a class with a syntax similar to that of defstruct."
   (withs (slot-names (map #'carif slots)
 	  name (carif name-and-options)
 	  options (if (listp name-and-options) (cdr name-and-options) '())
