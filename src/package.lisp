@@ -21,7 +21,7 @@
    :_ :single :if :fn
 
    ;; From binding.
-   :with :let :ret :flet1 :withs
+   :with :let :ret :rets :rets1 :flet1 :withs
 
    ;; From print.
    :pr :prn :prf :prs :w/outstring :tostring :w/instring :fromstring

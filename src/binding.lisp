@@ -19,6 +19,20 @@
    final value of VAR."
   `(let ,var ,val ,@body ,var))
 
+;; I need to figure out a better name for this since the name makes it
+;; seem like withs but it behaves like with.
+(mac rets (parms &body body)
+  "Same as with, but returns the values of all of the variables."
+  `(with ,parms
+     ,@body
+     (values ,@(map #'car (pair parms)))))
+
+(mac rets1 (parms &body body)
+  "Same as rets but only returns the value of the first variable."
+  `(with ,parms
+     ,@body
+     ,(car parms)))
+
 (mac flet1 (name args fbody &body body)
   "Equivalent to flet, but only for one procedure definition."
   `(flet ((,name ,args ,fbody)) ,@body))
