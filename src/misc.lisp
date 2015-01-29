@@ -41,7 +41,7 @@
   (zerop (mod x y)))
 
 (mac check (x test &optional alt)
-  "If X passes TEST (not testified) return it, otherwise evaluate 
+  "If X passes TEST (not testified) return it, otherwise evaluate
    ALT."
   (w/uniq val
     `(let ,val ,x
@@ -87,9 +87,9 @@
                 exprs)))
 
 (mac point (name &body body)
-  "Defines a procedure which when called on a value, the value of 
+  "Defines a procedure which when called on a value, the value of
    this expression will immediately become that value. The procedure
-   will only return up the stack, it is not the same as a 
+   will only return up the stack, it is not the same as a
    continuation."
   (w/uniq here
     `(block ,here
@@ -112,11 +112,11 @@
         base)))
 
 (def nearest (n quantum)
-  "Rounds N to the closest multiple of QUANTUM. Halves are rounded 
+  "Rounds N to the closest multiple of QUANTUM. Halves are rounded
    way from zero."
   (* (roundup (/ n quantum)) quantum))
 
-;; The procedure before cannot be defined in hof because it uses orf
+;; The procedure 'before' cannot be defined in hof because it uses orf
 ;; which is defined in fnops.
 
 (def before (x y seq)
@@ -125,3 +125,9 @@
   (with (xtest (testify x) ytest (testify y))
     (aand (find (orf xtest ytest) seq)
           (call xtest it))))
+
+(def calln (n f x)
+  "Calls the function F, N times on X."
+  (if (is n 0)
+      x
+      (calln (dec n) f (call f x))))
