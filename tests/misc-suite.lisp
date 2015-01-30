@@ -92,3 +92,9 @@
     (assert-false (before [multiple _ 4] [multiple _ 3] xs))
     (assert-true  (before [multiple _ 3] 4 xs))
     (assert-false (before 4 [multiple _ 3] xs))))
+
+(deftest calln (misc)
+  (assert-eql 2 (calln 0 [* _ _] 2))
+  (assert-eql 4 (calln 1 [* _ _] 2))
+  (assert-eql 16 (calln 2 [* _ _] 2))
+  (assert-eql 32 (calln 3 [* _ _] 2)))
