@@ -17,6 +17,14 @@
   (assert-eql 15 (ret x 5 (incf x 10) nil))
   (assert-equal '(a b) (ret x '() (push 'b x) (push 'a x) nil)))
 
+(deftest rets (binding)
+  (assert-equal '() (mvl (rets () 10)))
+  (assert-equal '(5 10) (mvl (rets (x 0 y 0) (++ x 5) (++ y 10)))))
+
+(deftest rets1 (binding)
+  (assert-equal '(nil) (mvl (rets1 () 10)))
+  (assert-equal '(5) (mvl (rets1 (x 0 y 0) (++ x 5) (++ y 10)))))
+
 (deftest flet1 (binding)
   (assert-expands (flet ((a (x y z) b))) (flet1 a (x y z) b)))
 

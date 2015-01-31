@@ -97,4 +97,4 @@
   (assert-eql 2 (calln 0 [* _ _] 2))
   (assert-eql 4 (calln 1 [* _ _] 2))
   (assert-eql 16 (calln 2 [* _ _] 2))
-  (assert-eql 32 (calln 3 [* _ _] 2)))
+  (assert-eql 256 (calln 3 [* _ _] 2)))

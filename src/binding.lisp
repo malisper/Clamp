@@ -29,9 +29,7 @@
 
 (mac rets1 (parms &body body)
   "Same as rets but only returns the value of the first variable."
-  `(with ,parms
-     ,@body
-     ,(car parms)))
+  `(values (rets ,parms ,@body)))
 
 (mac flet1 (name args fbody &body body)
   "Equivalent to flet, but only for one procedure definition."
