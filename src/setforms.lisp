@@ -13,26 +13,26 @@
             access
             `(lambda ,var ,set))))
 
-(mac zap (op place &rest args)
-  "Assigns the result of calling OP on the rest of the arguments 
+(mac zap (op place &rest args &environment env)
+  "Assigns the result of calling OP on the rest of the arguments
    (including PLACE) to PLACE. For example (zap #'+ x n) is
    equivalent to (incf x n)."
-  (mvb (vars access set) (setforms place)
+  (mvb (vars access set) (setforms place env)
     `(withs ,vars
        (,set (call ,op ,access ,@args)))))
 
-(mac or= (place new)
+(mac or= (place new &environment env)
   "If PLACE is nil, assign the result of evaluating NEW there.
    Otherwise returns whatever value was already in PLACE and does not
    evaluate NEW."
-  (mvb (vars access set) (setforms place)
+  (mvb (vars access set) (setforms place env)
     `(withs ,vars
        (,set (or ,access ,new)))))
 
-(mac or2= (place new)
-  "Equivalent to or= but will not carry through with the assignment 
+(mac or2= (place new &environment env)
+  "Equivalent to or= but will not carry through with the assignment
    if accessing PLACE has a second return value which is non-nil."
-  (mvb (vars access set) (setforms place)
+  (mvb (vars access set) (setforms place env)
     (w/uniq (val win)
       `(withs ,vars
          (mvb (,val ,win) ,access
