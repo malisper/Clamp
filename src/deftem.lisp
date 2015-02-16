@@ -20,7 +20,8 @@
 (defmethod print-object ((tem template) stream)
   "Print the template by printing all of the slots and their values."
   (print-unreadable-object (tem stream :type t)
-    (print-slots tem stream)))
+    (print-slots tem stream))
+  tem)
 
 (mac deftem (name-and-options &rest slots)
   "Define a class with a syntax similar to that of defstruct."
