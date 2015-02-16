@@ -9,7 +9,13 @@
 
 (defgeneric print-slots (obj stream)
   (:documentation "Print all of the values of the slots of an object.")
-  (:method-combination progn :most-specific-last))
+  (:method-combination progn :most-specific-last)
+  (:method :around (obj stream)
+    (pprint-logical-block (stream nil)
+      (pprint-indent :current 0 stream)
+      ;; The arguments need to be passed explicitly since stream is
+      ;; rebound due to pprint-logical-block.
+      (call-next-method obj stream))))
 
 (defmethod print-object ((tem template) stream)
   "Print the template by printing all of the slots and their values."
@@ -50,7 +56,7 @@
            (with-slots ,slot-names obj
              ;; Print a space to begin with if there are superclasses
              ;; who will print their slots before this.
-             (format stream "~:[~; ~]~{:~A ~S~^ ~}"
+             (format stream "~:[~; ~_~]~{:~A ~S~^ ~_~}"
                      ',direct-superclasses
                      (list ,@(mappendeach n slot-names `(',n ,n))))))
 
