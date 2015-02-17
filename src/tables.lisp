@@ -38,10 +38,12 @@
 			 (pair args)))
 	    :test #'iso))
 
-(def alref (al key)
-  "Returns the value of KEY in the alist AL."
+(def alref (al key &optional (cdr nil))
+  "Returns the value of KEY in the alist AL. If CDR is t, the value
+   is stored in the cdr. Otherwise it is assumed it is stored in the
+   cadr."
   (let pair (assoc key al)
-    (values (cadr pair) pair)))
+    (values (if cdr (cdr pair) (cadr pair)) pair)))
 
 (def counts (seq &key (test #'iso) (key #'idfn))
   "Returns a table containing how many times every element in SEQ

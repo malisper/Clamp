@@ -32,7 +32,7 @@
 	  predicate-name (or2 (alref options :predicate) (symb name '-p))
 	  conc-name (or2 (alref options :conc-name) (symb name '-))
           printer-name (alref options :print-object)
-          direct-superclasses (cdr (assoc :include options)))
+          direct-superclasses (alref options :include t))
     `(do (defclass ,name (,@direct-superclasses template)
 	   ,(mapeach s slots
 	      (let (slot-name &optional initform) (mklist s)
