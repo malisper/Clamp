@@ -53,7 +53,10 @@
                         5))
     (assert-eql 5 (aif2 (alref alist 'e)
                         4
-                        5))))
+                        5))
+    (assert-equal '(1) (alref alist 'a t))
+    (assert-equal '(2) (alref alist 'b t))
+    (assert-equal '(3) (alref alist 'c t))))
 
 (deftest counts (tables)
   (let tab (counts '(1 2 3 2 1 2 3 1 2))
