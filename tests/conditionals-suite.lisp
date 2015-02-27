@@ -88,8 +88,8 @@
   (assert-eql 1 (ecase 'b (a b) 1 c 2)))
 
 (deftest ccase (conditionals)
-  (assert-eql 1 (ccase 'a a 1 b 2))
-  (assert-eql 1 (ccase 'b (a b) 1 c 2)))
+  (assert-eql 1 (let x 'a (ccase x a 1 b 2)))
+  (assert-eql 1 (let x 'b (ccase x (a b) 1 c 2))))
 
 (deftest caselet (conditionals)
   (assert-eql 5

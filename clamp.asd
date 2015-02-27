@@ -4,6 +4,7 @@
   :description "Common Lisp with Arc Macros and Procedures"
   :version "0.3"
   :author "malisper"
+  :in-order-to ((test-op (test-op :clamp-tests)))
   :components ((:module "src"
                 :components ((:file "package")
                              (:file "defalias" :depends-on ("package"))
