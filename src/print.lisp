@@ -3,7 +3,7 @@
 (in-package :clamp)
 
 (def pr (&rest args)
-  "Prints all of its arguments to *standard-output* in a human 
+  "Prints all of its arguments to *standard-output* in a human
    readable format."
   (map #'princ args)
   (car args))
@@ -23,6 +23,11 @@
    as a list."
   (prf "~{~A~^ ~}" args)
   args)
+
+(def prns (&rest args)
+  "The same as prs, but prints a newline at the end."
+  (do1 (apply #'prs args)
+       (terpri)))
 
 (mac w/outstring (var &rest body)
   "Creates a string output stream and binds it to VAR."
