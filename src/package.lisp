@@ -24,7 +24,7 @@
    :with :let :ret :rets :rets1 :flet1 :withs
 
    ;; From print.
-   :pr :prn :prf :prs :w/outstring :tostring :w/instring :fromstring
+   :pr :prn :prf :prs :prns :w/outstring :tostring :w/instring :fromstring
    :tofile :fromfile :sp :bar* :w/bars
 
    ;; From time.
