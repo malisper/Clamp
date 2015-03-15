@@ -132,11 +132,11 @@
 (defgeneric (setf get) (val obj arg)
   (:documentation "Sets ARG to be associated with VAL in OBJ."))
 
-(defmethod get ((seq sequence) (n number))
+(defmethod get ((seq sequence) (n integer))
   "Returns the Nth element of a sequence."
   (elt seq n))
 
-(defmethod (setf get) (val (seq sequence) (n number))
+(defmethod (setf get) (val (seq sequence) (n integer))
   "Sets the Nth element of SEQ to VAL."
   (= (elt seq n) val))
 
@@ -147,6 +147,19 @@
 (defmethod (setf get) (val (tab hash-table) x)
   "Sets VAL to be stored under X in TAB."
   (= (gethash x tab) val))
+
+(defmethod get ((a array) (index integer))
+  "If A is a vector, return the corresponding element. Otherwise
+   return a displaced array that acts like the subarray."
+  (if (vectorp a)
+      (call-next-method)
+      (withs ((rows . rest) (array-dimensions a)
+	      size (reduce #'* rest))
+	(assert (< index rows) (index)
+		"Index ~A out of bounds for array with dimension size ~A" index rows)
+	(make-array size
+		    :displaced-to a
+		    :displaced-index-offset (* index size)))))
 
 (defmethod get (obj x)
   "Calls X on OBJECT."
