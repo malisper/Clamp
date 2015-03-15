@@ -165,11 +165,13 @@
   "Calls X on OBJECT."
   (call x obj))
 
-;; A setter for the default case would have to lookup the setter
-;; for the given argument.
+(defmethod (setf get) (val obj x)
+  "Calls (setf X) on val and obj. This may or may not work depending
+   on how the setter for X was defined."
+  (call (fdefinition `(setf ,x)) val obj))
 
 (mac trav (x &rest fs)
-  "Traverse X, calling fs in sequence. The symbol 'recur' is bound to
+  "Traverse X, calling FS in sequence. The symbol 'recur' is bound to
    a procedure which can be used to recursively traverse the object.
    The return value is nil."
   (w/uniq g
