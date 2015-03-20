@@ -45,4 +45,8 @@
       (let x 'a
         (assert-equalp (obj c 1 d 2) tab.x))
       (assert-eql 2 tab!a!d)
-      (assert-eql 3 tab!b!e))))
+      (assert-eql 3 tab!b!e))
+    (let array #2a ((1 2) (3 4))
+      (assert-equalp #(1 2) array.0)
+      (assert-equalp #(3 4) array.1)
+      (assert-equalp 3 array.1.0))))

@@ -132,11 +132,11 @@
 (defgeneric (setf get) (val obj arg)
   (:documentation "Sets ARG to be associated with VAL in OBJ."))
 
-(defmethod get ((seq sequence) (n number))
+(defmethod get ((seq sequence) (n integer))
   "Returns the Nth element of a sequence."
   (elt seq n))
 
-(defmethod (setf get) (val (seq sequence) (n number))
+(defmethod (setf get) (val (seq sequence) (n integer))
   "Sets the Nth element of SEQ to VAL."
   (= (elt seq n) val))
 
@@ -148,15 +148,30 @@
   "Sets VAL to be stored under X in TAB."
   (= (gethash x tab) val))
 
+(defmethod get ((a array) (index integer))
+  "If A is a vector, return the corresponding element. Otherwise
+   return a displaced array that acts like the subarray."
+  (if (vectorp a)
+      (call-next-method)
+      (withs ((rows . rest) (array-dimensions a)
+	      size (reduce #'* rest))
+	(assert (< index rows) (index)
+		"Index ~A out of bounds for array with dimension size ~A" index rows)
+	(make-array size
+		    :displaced-to a
+		    :displaced-index-offset (* index size)))))
+
 (defmethod get (obj x)
   "Calls X on OBJECT."
   (call x obj))
 
-;; A setter for the default case would have to lookup the setter
-;; for the given argument.
+(defmethod (setf get) (val obj x)
+  "Calls (setf X) on val and obj. This may or may not work depending
+   on how the setter for X was defined."
+  (call (fdefinition `(setf ,x)) val obj))
 
 (mac trav (x &rest fs)
-  "Traverse X, calling fs in sequence. The symbol 'recur' is bound to
+  "Traverse X, calling FS in sequence. The symbol 'recur' is bound to
    a procedure which can be used to recursively traverse the object.
    The return value is nil."
   (w/uniq g

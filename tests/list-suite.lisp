@@ -133,7 +133,11 @@
     (= (get tab 'a) 3)
     (assert-eql 3 (get tab 'a)))
   (assert-eql 1 (get '(1 2 3) 'car))
-  (assert-equal '(2 3) (get '(1 2 3) 'cdr)))
+  (assert-equal '(2 3) (get '(1 2 3) 'cdr))
+  (let array #2a ((1 2) (3 4))
+    (assert-equalp #(1 2) (get array 0))
+    (assert-equalp #(3 4) (get array 1))
+    (assert-eql 3 (get (get array 1) 0))))
 
 (deftest trav (list)
   (assert-equal '(1 2 3 4) (accum a (trav '(4 3 2 1) [recur (cdr _)]
