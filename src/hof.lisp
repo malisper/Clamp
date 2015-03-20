@@ -57,6 +57,11 @@
   "Maps F over XS and returns a list of the non-nil results."
   (keep #'idfn (map f xs)))
 
+(mac hofeach (f var xs &body body)
+  "Wrap BODY in a anonymous function with argument VAR and call the
+   higher order function F with that function and XS as arguments."
+  `(call ,f (fn (,var) ,@body) ,xs))
+
 (mac mapeach (var xs &body body)
   "Executes BODY repetitively with each element of XS bound to VAR.
    Returns a list of the results. VAR can be a destructuring list."

@@ -33,7 +33,7 @@
 
    ;; From hof.
    :mapv :testify :rem :keep :mem :find :count :pos :mappend
-   :partition :trues :mapeach :mappendeach :positions
+   :partition :trues :mapeach :mappendeach :positions :hofeach
 
    ;; From conditionals.
    :iflet :whenlet :aif :it :awhen :aand :aif2 :iflet2 :aand2 :case
