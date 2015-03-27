@@ -13,7 +13,7 @@
 
 (defmethod print-object ((tem template) stream)
   "Print the template by printing all of the slots and their values."
-  (pprint-logical-block (stream (get-slots tem))
+  (pprint-logical-block (stream (flat (redup (get-slots tem) :key #'car)))
     (print-unreadable-object (tem stream :type t)
       (pprint-indent :current 0 stream)
       (pprint-exit-if-list-exhausted)
@@ -54,7 +54,7 @@
          (defmethod get-slots append ((obj ,name))
            ,(tostring (prf "Returns a flat list of the slots that belong to a ~(~A~) and their values." name))
            (with-slots ,slot-names obj
-             (list ,@(mappendeach n slot-names `(',n ,n)))))
+             (list ,@(mapeach n slot-names ``(,',n ,,n)))))
 
          ,(when printer-name
            `(defmethod print-object ((obj ,name) stream)
