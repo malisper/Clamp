@@ -13,7 +13,7 @@
 
 (defmethod print-object ((tem template) stream)
   "Print the template by printing all of the slots and their values."
-  (pprint-logical-block (stream (flat (redup (get-slots tem) :key #'car)))
+  (pprint-logical-block (stream (mappend #'idfn (redup (get-slots tem) :key #'car)))
     (print-unreadable-object (tem stream :type t)
       (pprint-indent :current 0 stream)
       (pprint-exit-if-list-exhausted)
