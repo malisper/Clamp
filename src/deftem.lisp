@@ -7,20 +7,19 @@
 (defclass template () ()
   (:documentation "The template base class."))
 
-(defgeneric print-slots (obj stream)
-  (:documentation "Print all of the values of the slots of an object.")
-  (:method-combination progn :most-specific-last)
-  (:method :around (obj stream)
-    (pprint-logical-block (stream nil)
-      (pprint-indent :current 0 stream)
-      ;; The arguments need to be passed explicitly since stream is
-      ;; rebound due to pprint-logical-block.
-      (call-next-method obj stream))))
+(defgeneric get-slots (obj)
+  (:documentation "Returns all of the slots of the template OBJ.")
+  (:method-combination append :most-specific-last))
 
 (defmethod print-object ((tem template) stream)
   "Print the template by printing all of the slots and their values."
-  (print-unreadable-object (tem stream :type t)
-    (print-slots tem stream))
+  (pprint-logical-block (stream (get-slots tem))
+    (print-unreadable-object (tem stream :type t)
+      (pprint-indent :current 0 stream)
+      (pprint-exit-if-list-exhausted)
+      (format stream ":~A ~S" (pprint-pop) (pprint-pop))
+      (loop (pprint-exit-if-list-exhausted)
+         (format stream " ~_:~A ~S" (pprint-pop) (pprint-pop)))))
   tem)
 
 (mac deftem (name-and-options &rest slots)
@@ -52,14 +51,10 @@
 		 (declare (ignore ,@slot-names))
 		 (apply #'make-instance ',name ,args))))
 
-         (defmethod print-slots progn ((obj ,name) stream)
-           ,(tostring (prf "Print the values of the slots that belong to a ~(~A~)." name))
+         (defmethod get-slots append ((obj ,name))
+           ,(tostring (prf "Returns a flat list of the slots that belong to a ~(~A~) and their values." name))
            (with-slots ,slot-names obj
-             ;; Print a space to begin with if there are superclasses
-             ;; who will print their slots before this.
-             (format stream "~:[~; ~_~]~{:~A ~S~^ ~_~}"
-                     ',direct-superclasses
-                     (list ,@(mappendeach n slot-names `(',n ,n))))))
+             (list ,@(mappendeach n slot-names `(',n ,n)))))
 
          ,(when printer-name
            `(defmethod print-object ((obj ,name) stream)
