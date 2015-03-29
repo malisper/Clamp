@@ -77,9 +77,10 @@
 
 (def in-iterate (sym)
   "Is there a symbol with the same name as SYM in the iterate
-   package. If so, return it."
-  (mvb (iter-sym accessibility) (find-symbol (symbol-name sym) :iter)
-    (and (is accessibility :external) iter-sym)))
+   package? If so, return it."
+  (unless (is (symbol-package sym) (find-package :iter))
+    (mvb (iter-sym accessibility) (find-symbol (symbol-name sym) :iter)
+      (and (is accessibility :external) iter-sym))))
 
 (def iter-symbol-macrolet-binding (sym)
   "Generates the symbol-macrolet binding for replacing SYM with
