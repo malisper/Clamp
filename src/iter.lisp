@@ -2,14 +2,6 @@
 
 (in-package :clamp)
 
-(mac rec (withses &body body)
-  "Bind the WITHSES and execute BODY. Using 'recur' allows a
-   recursive 'jump' to the top of the body with the new bindings
-   passed into recur. This is very similar to loop in clojure,
-   but this allows multiple recursive calls."
-  (let w (pair withses)
-    `(call (rfn recur ,(map #'car w) ,@body) ,@(map #'cadr w))))
-
 (mac repeat (n &body body)
   "Excutes BODY N times."
   `(loop repeat ,n do (do ,@body)))
@@ -73,3 +65,36 @@
   "Executes BODY, iterating from 0 to (len seq) (exclusive)."
   `(up ,var 0 (len ,seq)
      ,@body))
+
+;;;; The following is a version of iterate that works within
+;;;; Clamp. Iterate works only with symbols that are defined within
+;;;; the iter package. That is meant to allow for shadowing of the
+;;;; symbols in iterate, but that leads to a problem with clamp for
+;;;; unintentional shadowing. This version works by searching for all
+;;;; symbols with the same name as a symbol in the iterate package and
+;;;; swaps them. This a bit hacky, but it is the only thing I could
+;;;; think of.
+
+(def in-iterate (sym)
+  "Is there a symbol with the same name as SYM in the iterate
+   package. If so, return it."
+  (mvb (iter-sym accessibility) (find-symbol (symbol-name sym) :iter)
+    (and (is accessibility :external) iter-sym)))
+
+(def iter-symbol-macrolet-binding (sym)
+  "Generates the symbol-macrolet binding for replacing SYM with
+   the iterate version."
+  `(,sym ,(in-iterate sym)))
+
+(def iter-macrolet-binding (sym)
+  "Generates the macrolet binding for replacing SYM with the iterate
+   version."
+  `(,sym (&rest args)
+     `(,',(in-iterate sym) ,@args)))
+
+(mac iter (&rest forms)
+  "Clamp's version of the iterate macro."
+  (let syms (redup (keep (andf #'symbolp #'in-iterate) (flat forms)))
+    `(macrolet ,(map #'iter-macrolet-binding syms)
+       (symbol-macrolet ,(map #'iter-symbol-macrolet-binding syms)
+	 (iter:iter ,@forms)))))

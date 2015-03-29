@@ -4,16 +4,17 @@
   :description "Common Lisp with Arc Macros and Procedures"
   :version "0.3"
   :author "malisper"
+  :depends-on ("iterate")
   :in-order-to ((test-op (test-op :clamp-tests)))
   :components ((:module "src"
                 :components ((:file "package")
                              (:file "defalias" :depends-on ("package"))
                              (:file "aliases"  :depends-on ("defalias"))
-                             (:file "fns"      :depends-on ("aliases"))
                              (:file "base"     :depends-on ("aliases"))
                              (:file "read"     :depends-on ("aliases"))
                              (:file "hof"      :depends-on ("aliases" "base"))
                              (:file "binding"  :depends-on ("hof"))
+			     (:file "fns"      :depends-on ("aliases" "base" "binding"))
                              (:file "print"    :depends-on ("aliases" "base" "binding" "hof"))
                              (:file "time"     :depends-on ("aliases" "print"))
                              (:file "macros"   :depends-on ("binding" "print"))
@@ -21,9 +22,9 @@
                              (:file "setforms" :depends-on ("binding" "macros"))
                              (:file "memoize"  :depends-on ("setforms"))
                              (:file "strings"  :depends-on ("misc"))
-                             (:file "iter"     :depends-on ("hof" "macros"))
-                             (:file "list"     :depends-on ("aliases" "macros" "iter" "base"))
-                             (:file "conditionals" :depends-on ("macros" "list" "iter"))
+                             (:file "iter"     :depends-on ("hof" "macros" "fnops"))
+                             (:file "list"     :depends-on ("aliases" "macros" "fns" "base"))
+                             (:file "conditionals" :depends-on ("macros" "list" "fns"))
                              (:file "misc"     :depends-on ("macros" "conditionals" "iter" "list" "hof" "fnops"))
                              (:file "sort"     :depends-on ("binding" "list" "iter"))
                              (:file "io"       :depends-on ("iter" "read"))

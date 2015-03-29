@@ -48,11 +48,11 @@
    :w/uniq :mkstr :symb :check-len :once-only
 
    ;; From iter.
-   :rec :recur :repeat :upto :up :downfrom :down :while :until
-   :each :on :index :whilet :whiler :forlen
+   :repeat :upto :up :downfrom :down :while :until :each :on :index
+   :whilet :whiler :forlen :iter
 
    ;; From fns.
-   :rfn :afn :self
+   :rec :recur :rfn :afn :self
 
    ;; From misc.
    :ado :accum :summing :multiple :check :acheck :in :cart :rand-elt
