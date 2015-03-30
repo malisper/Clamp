@@ -72,8 +72,15 @@
 ;;;; symbols in iterate, but that leads to a problem with clamp for
 ;;;; unintentional shadowing. This version works by searching for all
 ;;;; symbols with the same name as a symbol in the iterate package and
-;;;; swaps them. This a bit hacky, but it is the only thing I could
-;;;; think of.
+;;;; swaps them. This is really hacky, but it is the only thing I
+;;;; could think of.
+
+;;;; Originally I was using macrolet and symbol-macrolet, but that was
+;;;; actually worse than this is. With sublis, only a symbol in the
+;;;; lexical space can be replaced. With with the macrolets, symbols
+;;;; could be replaced, even if they were put there by a macro. This
+;;;; would lead to problems with let, since it expands into with,
+;;;; which shares a name with a symbol in iterate.
 
 (def in-iterate (sym)
   "Is there a symbol with the same name as SYM in the iterate
@@ -82,20 +89,8 @@
     (mvb (iter-sym accessibility) (find-symbol (symbol-name sym) :iter)
       (and (is accessibility :external) iter-sym))))
 
-(def iter-symbol-macrolet-binding (sym)
-  "Generates the symbol-macrolet binding for replacing SYM with
-   the iterate version."
-  `(,sym ,(in-iterate sym)))
-
-(def iter-macrolet-binding (sym)
-  "Generates the macrolet binding for replacing SYM with the iterate
-   version."
-  `(,sym (&rest args)
-     `(,',(in-iterate sym) ,@args)))
-
 (mac iter (&rest forms)
   "Clamp's version of the iterate macro."
   (let syms (redup (keep (andf #'symbolp #'in-iterate) (flat forms)))
-    `(macrolet ,(map #'iter-macrolet-binding syms)
-       (symbol-macrolet ,(map #'iter-symbol-macrolet-binding syms)
-	 (iter:iter ,@forms)))))
+    `(iter:iter ,@(sublis (map [cons _ (in-iterate _)] syms)
+                          forms))))
