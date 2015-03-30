@@ -49,7 +49,7 @@
 
    ;; From iter.
    :repeat :upto :up :downfrom :down :while :until :each :on :index
-   :whilet :whiler :forlen :iter
+   :whilet :whiler :forlen
 
    ;; From fns.
    :rec :recur :rfn :afn :self
