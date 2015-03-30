@@ -4,7 +4,6 @@
   :description "Common Lisp with Arc Macros and Procedures"
   :version "0.3"
   :author "malisper"
-  :depends-on ("iterate")
   :in-order-to ((test-op (test-op :clamp-tests)))
   :components ((:module "src"
                 :components ((:file "package")
