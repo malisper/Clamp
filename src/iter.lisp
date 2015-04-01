@@ -4,7 +4,9 @@
 
 (mac repeat (n &body body)
   "Excutes BODY N times."
-  `(loop repeat ,n do (do ,@body)))
+  (if (no body) ; If this is part of iterate.
+      `(iter:repeat ,n)
+      `(loop repeat ,n do (do ,@body))))
 
 (mac up (var a b &body body)
   "Evaluates BODY iterating from A up to B exclusive."
@@ -26,11 +28,15 @@
 
 (mac while (test &body body)
   "Repeatedly evaluates BODY while TEST returns true."
-  `(loop while ,test do (do ,@body)))
+  (if (no body)
+      `(iter:while ,test)
+      `(loop while ,test do (do ,@body))))
 
 (mac until (test &body body)
   "Repeatedly evaluates BODY until TEST returns true."
-  `(loop until ,test do (do ,@body)))
+  (if (no body)
+      `(iter:until ,test)
+      `(loop until ,test do (do ,@body))))
 
 (mac each (var seq &body body)
  "Evaluates BODY while iterating across SEQ binding each element to

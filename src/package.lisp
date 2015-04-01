@@ -2,10 +2,10 @@
 
 (defpackage :clamp
   (:nicknames :clamp)
-  (:use :common-lisp)
+  (:use :common-lisp :iterate)
   (:shadow :do :map :if :case := :ccase :ecase :typecase :rem :let
            :find :count :sort :++ :read :read-line :get :set
-           :last)
+           :last :summing :with :repeat :while :until :in)
   (:export
    ;; From defalias.
    :defalias
@@ -49,7 +49,7 @@
 
    ;; From iter.
    :repeat :upto :up :downfrom :down :while :until :each :on :index
-   :whilet :whiler :forlen
+   :whilet :whiler :forlen :iter
 
    ;; From fns.
    :rec :recur :rfn :afn :self

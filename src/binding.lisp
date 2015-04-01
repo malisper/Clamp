@@ -2,13 +2,15 @@
 
 (in-package :clamp)
 
-(mac with (parms &body body)
+(mac with (&whole whole parms &body body)
   "Equivalent to cl:let, but does not require parens around each
    individual binding. This also allows for destructuring."
-  (let* ((pparms (pair parms))
-	 (pats (map #'car  pparms))
-	 (vals (map #'cadr pparms)))
-    `(destructuring-bind ,pats (list ,@vals) ,@body)))
+  (if (is (car body) '=) ; If this with is within an iterate.
+      `(iter:with ,@(cdr whole))
+      (let* ((pparms (pair parms))
+             (pats (map #'car  pparms))
+             (vals (map #'cadr pparms)))
+        `(destructuring-bind ,pats (list ,@vals) ,@body))))
 
 (mac let (var val &body body)
   "Equivalent to with, except binds only one variable."
