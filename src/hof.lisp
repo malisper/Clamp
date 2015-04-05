@@ -73,12 +73,12 @@
    a destructuring list."
   `(loop for ,var in ,xs append (do ,@body)))
 
-(def positions (test seq)
+(def positions (f seq &key (test #'iso) (key #'idfn))
   "Returns a list of all of the positions of elements in SEQ that
    pass TEST."
   ;; The macros 'accum' and 'on' are not defined yet.
-  (loop with f = (testify test)
+  (loop with fn = (testify f test)
         for x in (coerce seq 'list)
         for i from 0
-        if (call f x)
+        if (call fn (call key x))
           collect i))
