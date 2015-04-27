@@ -66,7 +66,7 @@
       `(iter:in ,x ,@choices)
       (w/uniq val
 	`(let ,val ,x
-	      (or ,@(map (fn (c) `(is ,val ,c)) choices)))))))
+	      (or ,@(map (fn (c) `(is ,val ,c)) choices))))))
 
 (mac cart (f xs ys)
   "Applies F to a variation of the cartesian product of XS and YS.
