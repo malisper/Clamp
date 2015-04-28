@@ -22,19 +22,14 @@
 
 (defun make-fn (new old &optional doc)
   "Generates the code for making NEW and OLD the same procedure."
-  (cl:let ((args (gensym "ARGS")))
-    `(progn
-       (eval-when (:compile-toplevel :load-toplevel :execute)
-         (setf (symbol-function ',new)
-               (symbol-function ',old)
-               (documentation ',new 'function)
-               ,(or doc `(documentation ',old 'function))))
-       ;; Define a compiler macro which expands into old.
-       (define-compiler-macro ,new (&rest args)
-         `(,',old ,@args)))))
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (setf (symbol-function ',new)
+           (symbol-function ',old)
+           (documentation ',new 'function)
+           ,(or doc `(documentation ',old 'function)))))
 
 (defun make-special-macro (new old)
-  "Generates the code to create a macro NEW which expands into a use 
+  "Generates the code to create a macro NEW which expands into a use
    of the special form OLD."
   (cl:let ((rest (gensym "REST")))
     `(defmacro ,new (&rest ,rest)
@@ -52,4 +47,3 @@
         (:else
          (error "Don't know what to do for object ~A of type ~A"
                 old (type-of old)))))
-
