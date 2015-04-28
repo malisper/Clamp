@@ -60,9 +60,13 @@
 (mac in (x &rest choices)
   "Returns t if X is one of the results of evaluating every CHOICE
    (lazily)."
-  (w/uniq val
-    `(let ,val ,x
-       (or ,@(map (fn (c) `(is ,val ,c)) choices)))))
+  (if (single choices)
+      ;; If there is a single choice, this is most likely part of an
+      ;; iterate clause.
+      `(iter:in ,x ,@choices)
+      (w/uniq val
+	`(let ,val ,x
+	      (or ,@(map (fn (c) `(is ,val ,c)) choices))))))
 
 (mac cart (f xs ys)
   "Applies F to a variation of the cartesian product of XS and YS.

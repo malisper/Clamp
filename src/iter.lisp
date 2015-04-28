@@ -58,7 +58,7 @@
 	 do (do ,@body)))
 
 (mac whiler (var expr endval &body body)
-  "Executes BODY until the result of expr passes the testified 
+  "Executes BODY until the result of expr passes the testified
    version of ENDVAL. The value of EXPR is bound to VAR on each
    iteration."
   (w/uniq gtest
