@@ -1,6 +1,7 @@
 ;;;; Utilities for writing macros.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (mac w/uniq (names &body body)
   "Binds every symbol in NAMES to a uniq symbol. Then executes BODY."

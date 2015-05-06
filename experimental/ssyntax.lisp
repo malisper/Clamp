@@ -1,6 +1,7 @@
 ;;;; This is an experimental implementation of ssyntax.
 
-(in-package :clamp-experimental)
+(in-package :experimental)
+(use-syntax :clamp)
 
 ;;;; By surrounding code with the w/ssyntax macro, ssyntax is
 ;;;; transformed into the corresponding code. To implement your own
@@ -53,11 +54,11 @@
   "A list of fns used to test for ssyntax.")
 
 (defparameter ssyntax-sym-macs* (table)
-  "A table of fns used to transform ssyntax sym-macs into regular 
+  "A table of fns used to transform ssyntax sym-macs into regular
    syntax.")
 
 (defparameter ssyntax-macros* (table)
-  "A table of fns used to transform ssyntax macros into regular 
+  "A table of fns used to transform ssyntax macros into regular
    syntax.")
 
 (defun ssyntax (sym)
@@ -77,7 +78,7 @@
          ssyntax-tests*))
 
 (defmacro defssyntax-sym-mac (&whole form name args &body body)
-  "Defines how to get the symbol-macrolet binding for the NAME kind 
+  "Defines how to get the symbol-macrolet binding for the NAME kind
    of ssyntax."
   (check-len name form args 2 :str errstr*)
   `(= (gethash ',name ssyntax-sym-macs*)

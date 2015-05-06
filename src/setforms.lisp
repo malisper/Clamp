@@ -1,4 +1,6 @@
 (in-package :clamp)
+(use-syntax :clamp)
+
 
 (def setforms (exp &optional env)
   "Given an expression for a place, returns three values. The first

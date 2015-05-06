@@ -1,4 +1,5 @@
 (in-package :clamp)
+(use-syntax :clamp)
 
 (defvar savers* (table) "A table containing the save functions.")
 

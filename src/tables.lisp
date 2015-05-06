@@ -1,6 +1,7 @@
 ;;;; These are utilities for working with (hash) tables.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def keys (tab)
   "Returns all of the keys of the table TAB."

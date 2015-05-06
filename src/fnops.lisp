@@ -1,13 +1,14 @@
 ;;;; These are utilities for working with procedures.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def compose (&rest fns)
-  "Composes procedures. For example 
+  "Composes procedures. For example
 
-   (compose #'1+ #'length) 
+   (compose #'1+ #'length)
 
-   will return a procedure which returns one plus the length of a 
+   will return a procedure which returns one plus the length of a
    list."
   (if fns
       (with (fn1 (last fns)
@@ -20,15 +21,15 @@
 
 (def fif (&rest funs)
   "Takes in procedures, every two of which belong to a pair where the
-   first is a predicate, and the second is the consequent procedure 
-   (if there are an odd number of procedures, the last one can be 
-   thought of as an 'else' procedure). This returns a procedure which 
-   will apply every test in sequence and if a test returns non-nil, 
-   apply the corresponding consequent procedure. If none of the 
+   first is a predicate, and the second is the consequent procedure
+   (if there are an odd number of procedures, the last one can be
+   thought of as an 'else' procedure). This returns a procedure which
+   will apply every test in sequence and if a test returns non-nil,
+   apply the corresponding consequent procedure. If none of the
    predicates return non-nil, the procedure is equivalent to the
-   identity procedure. As an example 
+   identity procedure. As an example
 
-   (fif #'odd #'1+ #'1-) 
+   (fif #'odd #'1+ #'1-)
 
    will return a procedure which will increment odd numbers and
    decrement all other numbers."
@@ -44,11 +45,11 @@
 (def andf (f &rest fns)
   "Returns a procedure which lazily applies each function in sequence
    and returns whatever the last procedure would return if all of the
-   other procedures return non-nil. For example 
+   other procedures return non-nil. For example
 
-   (andf #'integerp #'even #'1+) 
+   (andf #'integerp #'even #'1+)
 
-   will return a procedure which increments even integers, and 
+   will return a procedure which increments even integers, and
    returns nil for anything else."
   (if (null fns)
       f
@@ -61,7 +62,7 @@
    and returns the result of the first procedure that returns a
    non-nil value. For example
 
-   (orf #'odd #'zero) 
+   (orf #'odd #'zero)
 
    will return a procedure which tests for an odd number or zero."
   (if (null fns)
@@ -74,13 +75,13 @@
   "Curries F from the left with the other arguments. For example
 
    (curry #'reduce #'+)
-   
+
    returns a procedure which will sum a sequence."
   (fn (&rest args2) (apply f (append args1 args2))))
 
 (def rcurry (f &rest args1)
   "Curries F from the right with the other arguments. For example
-   
+
    (rcurry #'map (range 1 100))
 
    returns a procedure which will call its argument on all of the

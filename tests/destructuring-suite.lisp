@@ -1,4 +1,5 @@
 (in-package :experimental-tests)
+(use-syntax :clamp)
 
 (defsuite destructuring (clamp-experimental))
 

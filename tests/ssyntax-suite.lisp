@@ -1,4 +1,5 @@
 (in-package :experimental-tests)
+(use-syntax :clamp)
 
 (deftest notf (clamp-experimental)
   (w/ssyntax

@@ -1,6 +1,7 @@
 ;;;; Utilities for generating statistics for code.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def codelines (file)
   "Counts the number of non-blank, non-comment lines in a file."

@@ -1,6 +1,7 @@
 ;;;; These are utilities for binding variables.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (mac with (&whole whole parms &body body)
   "Equivalent to cl:let, but does not require parens around each

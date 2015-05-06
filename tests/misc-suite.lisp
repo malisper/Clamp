@@ -1,4 +1,5 @@
 (in-package :clamp-tests)
+(use-syntax :clamp)
 
 (defsuite misc (clamp))
 

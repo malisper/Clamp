@@ -1,10 +1,11 @@
 ;;;; These are utilities that make it easier to read input.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def readb (&key (from *standard-input*) (eof nil eof-p))
-  "Reads a byte from FROM. If this reaches the end of the file, 
-   it signals error if EOF was not supplied. If EOF was supplied, 
+  "Reads a byte from FROM. If this reaches the end of the file,
+   it signals error if EOF was not supplied. If EOF was supplied,
    returns EOF."
   (read-byte from (no eof-p) eof))
 

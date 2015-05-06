@@ -1,6 +1,7 @@
 ;;;; Utilities for printing.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def pr (&rest args)
   "Prints all of its arguments to *standard-output* in a human

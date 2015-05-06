@@ -3,6 +3,7 @@
 ;;;; default to nil.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (defclass template () ()
   (:documentation "The template base class."))

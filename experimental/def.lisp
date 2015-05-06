@@ -1,4 +1,5 @@
 (in-package :experimental)
+(use-syntax :clamp)
 
 (defmacro defexperimental (new old)
   "Defines a definition special form, NEW, which is the same as the

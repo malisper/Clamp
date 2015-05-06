@@ -1,6 +1,7 @@
 ;;;; The definitions for different ssyntax.
 
-(in-package :clamp-experimental)
+(in-package :experimental)
+(use-syntax :clamp)
 
 (defssyntax-test notf (sym name)
   (declare (ignore sym))

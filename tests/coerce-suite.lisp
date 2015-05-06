@@ -1,4 +1,5 @@
 (in-package :clamp-experimental-tests)
+(use-syntax :clamp)
 
 (deftest table->list (clamp-experimental)
   ;; The results need to be sorted. Otherwise the order of the elements is undefined.

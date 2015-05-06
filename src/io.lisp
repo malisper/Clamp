@@ -1,15 +1,16 @@
 ;;;; These are several utilities for performing i/o.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (mac w/infile (var file &body body)
-  "Binds VAR to the input stream created from FILE and will 
+  "Binds VAR to the input stream created from FILE and will
    automatically close it when leaving the w/infile."
   `(w/file (,var ,file :direction :input) ,@body))
 
 (mac w/outfile (var file &body body)
-  "Binds VAR to the output stream created from FILE and will 
-   automatically close it when leaving w/outfile. 
+  "Binds VAR to the output stream created from FILE and will
+   automatically close it when leaving w/outfile.
    WARNING: This will delete the old file if it already exists."
   `(w/file (,var ,file :direction :output :if-exists :supersede) ,@body))
 

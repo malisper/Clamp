@@ -1,4 +1,5 @@
 (in-package :experimental)
+(use-syntax :clamp)
 
 ;; The macro w/lisp1 works by defining every symbol within the body to
 ;; expand into itself surrounded by a call to function. The symbol

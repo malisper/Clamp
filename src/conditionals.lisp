@@ -1,9 +1,10 @@
 ;;;; These are utilities for conditional branching.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (mac iflet (var &body branches)
-  "Same as clamp:if but if a predicate is true, the value of predicate 
+  "Same as clamp:if but if a predicate is true, the value of predicate
    is bound to VAR in the corresponding branch."
   (if (no branches)
         nil
@@ -37,7 +38,7 @@
   `(whenlet it ,expr ,@body))
 
 (mac aand (&rest args)
-  "Equivalent to and, but binds the value of the previous expr to 
+  "Equivalent to and, but binds the value of the previous expr to
    'it'."
   (if (no args)
         t
@@ -92,7 +93,7 @@
   `(iflet2 it ,@clauses))
 
 (mac aand2 (&rest exps)
-  "Equivalent to and, but binds the value of the previous expr to 
+  "Equivalent to and, but binds the value of the previous expr to
    'it' and this considers a non-nil second return value to be true."
   (if (no exps)
         t
@@ -107,7 +108,7 @@
                     (aand2 ,@(cdr exps))))))))
 
 (mac case (keyform &rest clauses)
-  "Equivalent to cl:case except there are no parens around each 
+  "Equivalent to cl:case except there are no parens around each
    clause."
   `(cl:case ,keyform ,@(group clauses)))
 

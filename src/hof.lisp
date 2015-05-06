@@ -1,6 +1,7 @@
 ;;;; Higher order funtions.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def mapv (f seq &rest seqs)
   "Map a procedure over the given sequences and return a vector

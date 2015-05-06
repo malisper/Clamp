@@ -1,4 +1,5 @@
 (in-package :clamp)
+(use-syntax :clamp)
 
 (defparameter seconds-per-minute* 60 "The number of seconds per minute.")
 (defparameter minutes-per-hour* 60 "The number of minutes per hour.")

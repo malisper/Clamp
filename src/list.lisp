@@ -1,6 +1,7 @@
 ;;;; These are utilities for working with lists.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def mklist (x)
   "If X is a list, return it. Otherwise return a list containing X."
@@ -21,7 +22,7 @@
        (not (dotted x))))
 
 (def range (a b &optional (by 1))
-  "Returns a list of numbers from A to B (inclusive) in steps of BY. 
+  "Returns a list of numbers from A to B (inclusive) in steps of BY.
    The argument BY has to be a positive integer."
   ;; The loop macro generates code that is more efficent than what
   ;; should be written by hand.
@@ -50,7 +51,7 @@
   (values (cut seq 0 n) (cut seq n)))
 
 (def group (xs &key (by 2) (with #'list))
-  "Groups every BY elements of the given list using the procedure 
+  "Groups every BY elements of the given list using the procedure
    WITH."
   (if (no xs)
       '()

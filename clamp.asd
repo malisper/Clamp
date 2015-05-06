@@ -4,13 +4,14 @@
   :description "Common Lisp with Arc Macros and Procedures"
   :version "0.3"
   :author "malisper"
-  :depends-on ("iterate")
+  :depends-on ("iterate" "cl-syntax")
   :in-order-to ((test-op (test-op :clamp-tests)))
   :components ((:module "src"
                 :components ((:file "package")
                              (:file "defalias" :depends-on ("package"))
                              (:file "aliases"  :depends-on ("defalias"))
-                             (:file "base"     :depends-on ("aliases"))
+                             (:file "syntax"   :depends-on ("package"))
+                             (:file "base"     :depends-on ("aliases" "syntax"))
                              (:file "read"     :depends-on ("aliases"))
                              (:file "hof"      :depends-on ("aliases" "base"))
                              (:file "binding"  :depends-on ("hof"))

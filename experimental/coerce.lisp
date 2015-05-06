@@ -1,6 +1,7 @@
 ;;;; This is an experimental implementation of customizable coercion.
 
 (in-package :experimental)
+(use-syntax :clamp)
 
 (defgeneric coerce (obj to)
   (:documentation "Coerces OBJ to type TO."))

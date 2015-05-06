@@ -1,4 +1,5 @@
 (in-package :experimental-tests)
+(use-syntax :clamp)
 
 (deftest lisp1 (clamp-experimental)
   (assert-equal '((1 4) (2 5) (3 6))

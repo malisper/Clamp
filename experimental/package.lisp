@@ -2,10 +2,11 @@
   (:nicknames :experimental)
   (:use :clamp)
   (:shadow :coerce :def :fn :mac :defmemo)
+  (:import-from :syntax :use-syntax)
   (:export
    ;; From ssyntax.
    :w/ssyntax :defssyntax-test :defssyntax-macro :defssyntax-sym-mac
-   
+
    ;; From destructuring.
    :fn :! :?
 

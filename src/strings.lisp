@@ -5,6 +5,7 @@
 ;;;; of the Arc utilities for string searching.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (def newstring (length &optional char)
   "Creates a newstring of length LENGTH of the character CHAR."

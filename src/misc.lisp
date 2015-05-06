@@ -1,6 +1,7 @@
 ;;;; Utilities which do not belong in any other file.
 
 (in-package :clamp)
+(use-syntax :clamp)
 
 (mac ado (&body body)
   "Evaluates each expression with the symbol 'it' bound to the result

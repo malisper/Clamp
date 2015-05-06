@@ -1,4 +1,5 @@
 (in-package :clamp-tests)
+(use-syntax :clamp)
 
 (defsuite sort (clamp))
 
@@ -43,4 +44,3 @@
   (assert-eql 3 (med #'< '(5 3 6 2 1 4)))
   (assert-equalp "def" (med #'string< '("def" "ghi" "abc")))
   (assert-equal '(1) (med #'< '((1 2 3) () (1) (1 2)) #'len)))
-
