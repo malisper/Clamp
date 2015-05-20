@@ -31,4 +31,4 @@
 
 (defmethod perform ((op test-op) (c (eql (find-system :clamp-tests))))
   (let ((*package* (find-package :clamp-tests)))
-    (print (funcall (intern "RUN-SUITE" "CLAMP-TESTS") (intern "CLAMP" "CLAMP-TESTS")))))
+    (print (symbol-call :clamp-tests :run-suite (intern* :clamp :clamp-tests)))))
