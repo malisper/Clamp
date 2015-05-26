@@ -6,7 +6,7 @@
 (defgeneric coerce (obj to)
   (:documentation "Coerces OBJ to type TO."))
 
-(defmethod coerce (obj to)
+(cl:defmethod coerce (obj to)
   "Default to cl:coerce."
   (cl:coerce obj to))
 
@@ -14,7 +14,7 @@
   "Defines a coercer from type FROM to type TO. ARGS is a list of
    arguments needed for the coercion, so far only one argument is
    supported."
-  `(defmethod coerce ((,(car args) ,from) (,(uniq) (eql ',to)))
+  `(cl:defmethod coerce ((,(car args) ,from) (,(uniq) (eql ',to)))
      ,@body))
 
 (defcoerce hash-table list (tab)

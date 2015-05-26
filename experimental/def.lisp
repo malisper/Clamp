@@ -17,3 +17,7 @@
 (defexperimental def clamp:def)
 (defexperimental defmemo clamp:defmemo)
 (defexperimental mac clamp:mac)
+
+(mac defmethod (name args &body body)
+  "Version of defmethod that allows for ssyntax."
+  `(w/ssyntax (cl:defmethod ,name ,args ,@body)))
