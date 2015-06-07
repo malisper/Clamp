@@ -3,7 +3,7 @@
   (:import-from :syntax :use-syntax)
   (:nicknames :experimental-tests)
   (:shadowing-import-from :clamp-experimental
-     :def :defmemo :mac :fn :coerce))
+     :def :defmemo :defmethod :mac :fn :coerce))
 
 (in-package :clamp-experimental-tests)
 
