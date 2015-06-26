@@ -158,7 +158,7 @@
 	      size (reduce #'* rest))
 	(assert (< index rows) (index)
 		"Index ~A out of bounds for array with dimension size ~A" index rows)
-	(make-array size
+	(make-array rest
 		    :displaced-to a
 		    :displaced-index-offset (* index size)))))
 
