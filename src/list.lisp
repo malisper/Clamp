@@ -127,6 +127,11 @@
   "Returns a list of the cdrs of each list within a given sequence."
   (map #'cdr seq))
 
+(def linearlize (arr)
+  "Return a vector that has the same elements as a possibly
+   multidimensional array."
+  (make-array (array-total-size arr) :displaced-to arr))
+
 (defgeneric get (obj arg)
   (:documentation "Returns whatever is associated with ARG in OBJ."))
 
