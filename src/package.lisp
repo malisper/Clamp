@@ -43,7 +43,7 @@
    ;; From list.
    :mklist :dotted :proper :range :firstn :last :flat :len< :len>
    :n-of :drain :split :group :caris :carif :consif :conswhen :cars
-   :cdrs :get :trav :intersperse
+   :cdrs :get :trav :intersperse :linearalize
 
    ;; From macros.
    :w/uniq :mkstr :symb :check-len :once-only
