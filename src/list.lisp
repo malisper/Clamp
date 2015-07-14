@@ -167,6 +167,16 @@
 		    :displaced-to a
 		    :displaced-index-offset (* index size)))))
 
+(defmethod get ((arr array) (list list))
+  "It is convient to consider indexing a list into an arraying being
+   the same as just considering each element of the list as a different
+   dimension."
+  (apply #'aref arr list))
+
+(defmethod (setf get) (val (arr array) (list list))
+  "Sets the value when using an list to access into a array."
+  (= (apply #'aref arr list) val))
+
 (defmethod get (obj x)
   "Calls X on OBJECT."
   (call x obj))
