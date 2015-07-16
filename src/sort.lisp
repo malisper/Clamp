@@ -29,13 +29,21 @@
    sorted using the procedure F."
   (firstn n (sort f seq key)))
 
-(def nsort (comparer sequence &optional (key #'identity))
+(def nsort (comparer sequence &optional (key #'idfn))
   "Destructively sorts SEQUENCE using COMPARER."
   (cl:sort sequence comparer :key key))
 
-(def sort (comparer sequence &optional (key #'identity))
+(def sort (comparer sequence &optional (key #'idfn))
   "Non-destructively sorts SEQUENCE using COMPARER."
   (nsort comparer (copy-seq sequence) key))
+
+(def nssort (comparer sequence &optional (key #'idfn))
+  "Destructively and stabily sort SEQUENCE using COMPARER."
+  (cl:stable-sort sequence comparer :key key))
+
+(def ssort (comparer sequence &optional (key #'idfn))
+  "Non-destructively and stabily sort SEQUENCE using COMPARER."
+  (nssort comparer sequence key))
 
 (def med (fn seq &optional key)
   "Returns the median of a sequence. The median is the middle element
