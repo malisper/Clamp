@@ -19,12 +19,12 @@
   "Does this list have one and only one element?"
   (and (consp xs) (no (cdr xs))))
 
-(def pair (xs &optional (f #'list))
+(def pair (xs)
   "Applies F to every two elements of xs and collects the results."
   (cond ((no xs) '())
-        ((single xs) (list (funcall f (car xs))))
-        (:else (cons (call f (car xs) (cadr xs))
-                     (pair (cddr xs) f)))))
+        ((single xs) (list (list (car xs))))
+        (:else (cons (list (car xs) (cadr xs))
+                     (pair (cddr xs))))))
 
 (mac if (&rest clauses)
   "Equivalent to cond, but does not require parens parens around each

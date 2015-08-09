@@ -4,8 +4,12 @@
 (defsuite list (clamp))
 
 (deftest mklist (list)
-  (assert-equal '(5) (mklist 5))
-  (assert-equal '(1 2 3) (mklist '(1 2 3))))
+  (assert-true (check-it (generator (or (integer) (list (integer))))
+                         [listp (mklist _)]))
+  (assert-true (check-it (generator (or (integer) (list (integer))))
+                         [let result (mklist _)
+                           (or (is result _)
+                               (is (car result) _))])))
 
 (deftest dotted (list)
   (assert-false (dotted '()))
@@ -18,8 +22,14 @@
   (assert-true  (proper '(1 2 3))))
 
 (deftest range (list)
-  (assert-equal '(1 2 3 4 5) (range 1 5))
-  (assert-equal '(5) (range 5 5))
+  (assert-true (check-it (generator (list (integer 0) :length 2))
+                         (lambda (x)
+                           (let (a b) x
+                             (is (length (range a b)) (inc (abs (- a b))))))))
+  (assert-true (check-it (generator (tuple (integer 0) (integer 0) (integer 1)))
+                         (lambda (x)
+                           (let (a b c) x
+                             (is (length (range a b c)) (inc (floor (abs (- a b)) c)))))))
   (assert-equal '(5 4) (range 5 4))
   (assert-equal '(2 4 6 8 10) (range 2 10 2))
   (assert-equal '(1 3 5 7 9) (range 1 10 2))

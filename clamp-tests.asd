@@ -2,7 +2,7 @@
 
 (defsystem "clamp-tests"
   :description "tests for clamp"
-  :depends-on ("clunit" "clamp" "clamp-experimental")
+  :depends-on ("clunit" "check-it" "clamp" "clamp-experimental")
   :serial t
   :components ((:module "tests"
                 :components ((:file "clamp-suite")
