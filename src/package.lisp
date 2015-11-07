@@ -17,6 +17,7 @@
    :w/file :swap :writec :notf :macex :macex1 :letter :alphadig
    :upcase :all :maptable :inc :dec :call :probe-file :bound :digit
    :err :lastcons :doc :seconds :inst :readstring1 :negative :positive
+   :after
 
    ;; From base.
    :_ :single :if :fn
