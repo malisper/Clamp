@@ -5,7 +5,7 @@
   (:use :common-lisp :iterate)
   (:shadow :do :map :if :case := :ccase :ecase :typecase :rem :let
            :find :count :sort :++ :read :read-line :get :set
-           :last :summing :with :repeat :while :until :in)
+           :last :summing :with :repeat :while :until :in :string)
   (:import-from :syntax :define-package-syntax :use-syntax)
   (:export
    ;; From defalias.

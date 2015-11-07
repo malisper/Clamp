@@ -7,6 +7,9 @@
 (in-package :clamp)
 (use-syntax :clamp)
 
+(defalias string mkstr)
+(deftype string () 'cl:string)
+
 (def newstring (length &optional char)
   "Creates a newstring of length LENGTH of the character CHAR."
   ;; The value nil can't be passed as the initial-element.
