@@ -47,3 +47,11 @@
 (mac wipe (&rest args)
   "Sets every one of its arguments to nil."
   `(do ,@(map (fn (a) `(= ,a nil)) args)))
+
+(mac pull (test place)
+  "Removes all of the elements in PLACE that satisfy test and stores
+   that value back into PLACE."
+  (w/uniq g
+    (mvb (binds val setter) (setforms place)
+      `(withs ,(join (list g test) binds)
+         (,setter (rem ,g ,val))))))
