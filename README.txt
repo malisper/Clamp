@@ -32,10 +32,30 @@ works a little differently. It only exports the new symbols it
 defines. In order to use both :clamp and :clamp-experimental, you will
 have to use both and then handle the conflicts.
 
+In both packages, a lot of code has been taken from both the original Arc and
+Anarki.
+
+To install Clamp you'll need a Common Lisp implementation. Here's one way on
+Linux using SBCL and the Quicklisp package manager:
+
+  $ sudo apt-get install sbcl  # other Common Lisp implementations might work as well
+  $ wget https://beta.quicklisp.org/quicklisp.lisp  # following instructions at https://quicklisp.org
+  $ sbcl --load quicklisp.lisp
+  * (quicklisp-quickstart:install)
+  * (ql:add-to-init-file)
+  * (quit)
+
+(These instructions were tested on Ubuntu 14.04 with sbcl 1.1.14.)
+
+Now add the Clamp git repository to ~/quicklisp/local-projects. Then you can
+run Arc code from any directory by starting a session of sbcl like this:
+
+  $ sbcl
+  * (ql:quickload :clamp)
+  * (in-package :clamp)
+  * (use-syntax :clamp)
+  * (map [+ _ 1] '(1 2 3))  ; example showing off Arc-specific syntax
+  (2 3 4)
+
 If you want to execute the tests, you need the clunit testing
-framework which is available through Quicklisp.
-
-A lot of code has been taken from both the original Arc and Anarki.
-
-If you need help loading the ASDF system, read this:
-http://common-lisp.net/project/asdf/asdf/Quick-start-summary.html#Quick-start-summary
+framework which is also available through Quicklisp.
