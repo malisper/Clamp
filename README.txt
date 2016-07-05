@@ -35,8 +35,8 @@ have to use both and then handle the conflicts.
 In both packages, a lot of code has been taken from both the original Arc and
 Anarki.
 
-To install Clamp you'll need a Common Lisp implementation. Here's one way on
-Linux using SBCL and the Quicklisp package manager:
+To install Clamp you'll need a Common Lisp implementation. One way is to
+install SBCL and the Quicklisp package manager on Linux:
 
   $ sudo apt-get install sbcl  # other Common Lisp implementations might work as well
   $ wget https://beta.quicklisp.org/quicklisp.lisp  # following instructions at https://quicklisp.org
@@ -48,12 +48,26 @@ Linux using SBCL and the Quicklisp package manager:
 (These instructions were tested on Ubuntu 14.04 with sbcl 1.1.14.)
 
 Now add the Clamp git repository to ~/quicklisp/local-projects. Then you can
-run Arc code from any directory by starting a session of sbcl like this:
+start up clamp in two ways:
 
-  $ sbcl
-  * (ql:quickload :clamp)
-  * (in-package :clamp)
-  * (use-syntax :clamp)
+  a) Run the 'clamp' script in the repo:
+
+    $ clamp
+    * (map [+ _ 1] '(1 2 3))
+
+  This requires either that you be in ~/quicklisp/local-projects/Clamp, or that
+  you copy the 'clamp' script somewhere in your PATH.
+
+  b) If you want to run from any directory and don't want to mess with the PATH,
+  you'll need to type in a few commands into sbcl:
+
+    $ sbcl
+    * (ql:quickload :clamp)
+    * (in-package :clamp)
+    * (use-syntax :clamp)
+
+Either way, you should now be ready to go:
+
   * (map [+ _ 1] '(1 2 3))  ; example showing off Arc-specific syntax
   (2 3 4)
 
