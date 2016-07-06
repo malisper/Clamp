@@ -1,0 +1,18 @@
+#!/bin/bash
+# Start Clamp with a single command.
+#
+# Currently works only on Linux with SBCL+Quicklisp.
+# Requires the Clamp repo to be at ~/quicklisp/local-projects/Clamp.
+
+if [ ! -d ~/quicklisp/local-projects/Clamp ]
+then
+  echo "Clamp repo not found. Please install Quicklisp and make sure you clone Clamp at ~/quicklisp/local-projects/Clamp"
+  exit 1
+fi
+
+if which rlwrap >&/dev/null
+then
+  RLWRAP='rlwrap --complete-filenames --quote-character "\"" --remember --break-chars "[]()!:~\"" -C clamp'
+fi
+
+$RLWRAP sbcl --sysinit ~/quicklisp/local-projects/Clamp/sbclinit

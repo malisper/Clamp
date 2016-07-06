@@ -1,0 +1,7 @@
+;; startup file for SBCL to load Clamp. Use it like this:
+;;   $ sbcl --sysinit sbclinit
+
+(load "~/quicklisp/setup.lisp")
+(ql:quickload :clamp)
+(in-package :clamp)
+(use-syntax :clamp)
