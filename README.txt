@@ -71,5 +71,8 @@ Either way, you should now be ready to go:
   * (map [+ _ 1] '(1 2 3))  ; example showing off Arc-specific syntax
   (2 3 4)
 
-If you want to execute the tests, you need the clunit testing
-framework which is also available through Quicklisp.
+Finally, to run Clamp's unit tests:
+
+  * (ql:quickload :clamp-tests)
+  * (in-package :clamp-tests)
+  * (run-suite 'clamp)
